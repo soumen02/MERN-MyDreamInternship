@@ -42,4 +42,4 @@
 
 ## Prototypes
 
-[Figma Prototype]([/guides/content/editing-an-existing-page](https://www.figma.com/proto/msHvJzstZxK4PLGPgSBU1Y/Draft1?node-id=1%3A2&scaling=scale-down&page-id=0%3A1&starting-point-node-id=1%3A2&show-proto-sidebar=1))
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FmsHvJzstZxK4PLGPgSBU1Y%2FDraft1%3Fpage-id%3D0%253A1%26node-id%3D1%253A2%26viewport%3D408%252C561%252C0.08%26scaling%3Dscale-down%26starting-point-node-id%3D1%253A2%26show-proto-sidebar%3D1" allowfullscreen></iframe>
