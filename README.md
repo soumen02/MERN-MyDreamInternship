@@ -14,11 +14,11 @@ It is a platform for students to find internships at FAANG companies, create app
 * dashboard for tracking applications with appropriate deadlines and statuses
 
 ### Meet the Team
-Zulfkhar Maukeuy
-Zaeem Shahzad
-Soumen Mohanty
-Majid Ibrahim
-Abraiz Azhar
+[Zulfkhar Maukeuy](https://github.com/zulfkhar00)
+[Zaeem Shahzad](https://github.com/ms12297)
+[Soumen Mohanty](https://github.com/soumen02)
+[Majid Ibrahim](https://github.com/Majid778)
+[Abraiz Azhar](https://github.com/Abraiz01)
 
 ### Project History
 This project was proposed by Zulfkhar Maukey and all of the team members didn't know how and where to find companies and roles to apply for. The way how each of the members were doing consisted of tracking applications in different platforms like Google Docs, Notion and etc.
