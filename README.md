@@ -14,8 +14,9 @@ We are building a super app for students to find internships at their dream comp
 * An up-to-date catalog of open internships
 * A simplified user interface to search and filter for open roles by date, company or position
 * An overview of the companies offering the internships important information like benefits
-* dashboard for tracking applications with appropriate deadlines and statuses
-* centralized management for all past, current and upcoming applications 
+* Dashboard for tracking applications with appropriate deadlines and statuses
+* Centralized management for all past, current and upcoming applications 
+* A User Profile section which will act like a CV or resume
 
 ### Meet the Team!
 
