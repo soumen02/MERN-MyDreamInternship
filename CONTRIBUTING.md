@@ -48,8 +48,28 @@ We use Agile to run through sprints and curate new objectives based on what is d
 * We aim to achieve an MVP within 4 sprints.
 
 # Daily Standups
-* Standups will occur at 9:15 pm every two days, and will be occur more frequent if needed.
-* Meetings will be conducted through Zoom.
+* Standups will occur on the following days, and will be occur more frequent if needed:
+  * 10/06/2022
+  * 10/09/2022
+  * 10/12/2022
+  * 10/15/2022
+  * 10/18/2022
+  * 10/21/2022
+  * 10/24/2022
+  * 10/27/2022
+  * 10/30/2022
+  * 11/02/2022
+  * 11/05/2022
+  * 11/08/2022
+  * 11/11/2022
+  * 11/14/2022
+  * 11/17/2022
+  * 11/20/2022
+  * 11/23/2022
+  * 11/26/2022
+  * 11/29/2022
+  * Later dates will be discussed later
+* Meetings will be conducted through Zoom (about 15 mins).
 * All members are expected to attend punctually, and may be excused only by early notice (12h in advanced).
 * Members will not cover for unexcused absence.
 * Up to 3 late arrivals are acceptable (max 30 minutes late).
