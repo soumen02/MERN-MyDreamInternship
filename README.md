@@ -19,3 +19,8 @@ Zaeem Shahzad
 Soumen Mohanty
 Majid Ibrahim
 Abraiz Azhar
+
+### Project History
+This project was proposed by Zulfkhar Maukey and all of the team members didn't know how and where to find companies and roles to apply for. The way how each of the members were doing consisted of tracking applications in different platforms like Google Docs, Notion and etc.
+
+Please contribute [here](https://github.com/agiledev-students-fall2022/final-project-team-my-dream-internship/blob/master/CONTRIBUTING.md).
