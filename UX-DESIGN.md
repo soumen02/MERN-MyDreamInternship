@@ -69,10 +69,19 @@
 
 <br>
 
+* Saved / In-Progress / Completed applications will be color coded:
+
 ![Applications](https://user-images.githubusercontent.com/38569809/194263437-c0abf80a-3e3c-4462-bcf4-9daccce0f6c3.png)
+
+* Applications will include a swipe-to-delete feature:
+
 ![All Applications](https://user-images.githubusercontent.com/38569809/194263434-9c63e55b-df44-4370-9c01-7ce0f4593e3d.png)
+
+* Deadline circles will be color-coded based on how close the deadline is:
+
 ![Deadlines](https://user-images.githubusercontent.com/38569809/194263439-f9631884-7c17-4472-b625-7a2cf3977295.png)
 ![New Application](https://user-images.githubusercontent.com/38569809/194263441-8ab80add-969e-47f9-9ea4-6d59fb3ab793.png)
+
 
 <br>
 
