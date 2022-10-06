@@ -33,7 +33,7 @@ This project was proposed by Zulfkhar, who had once struggled with finding inter
 
 ### Interim Roles
 
-Product Owner: [Soumen Mohanty](https://github.com/soumen02)
-Scrum Master: [Majid Ibrahim](https://github.com/Majid778)
+- Product Owner: [Soumen Mohanty](https://github.com/soumen02)
+- Scrum Master: [Majid Ibrahim](https://github.com/Majid778)
 
 All team members are developers on this project in every sprint. The roles of Product Owner and Scrum Master are assigned to different team members weekly to ensure each member has had experience in both roles at least once. 
