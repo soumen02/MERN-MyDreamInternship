@@ -62,5 +62,5 @@ We use Agile to run through sprints and curate new objectives based on what is d
 * Typechecker: Flow
 * Write self documenting code. Use descriptive variable and function names. Avoid unnecessary name shortening.
 * Don't leave dead/commented out code behind. If you see such code, delete it.
-* When writing TODOs, write in the format: TODO: [<github_username>] [date] Comment
+* When writing TODOs, write in the format: ```TODO: [<github_username>] [date] Comment```
 * Write automated tests to cover critical integration points and functionality
