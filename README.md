@@ -30,3 +30,10 @@ We are building a super app for students to find internships at their dream comp
 This project was proposed by Zulfkhar, who had once struggled with finding internships. The other team members could relate with this difficulty and were excited to take up the challenge. Its the end of keeping track of your career on google docs, notes and sticky notes. 
 
 **Please find the project contribution guidelines [here](https://github.com/agiledev-students-fall2022/final-project-team-my-dream-internship/blob/master/CONTRIBUTING.md).**
+
+### Interim Roles
+
+Product Owner: [Soumen Mohanty](https://github.com/soumen02)
+Scrum Master: [Majid Ibrahim](https://github.com/Majid778)
+
+All team members are developers on this project in every sprint. The roles of Product Owner and Scrum Master are assigned to different team members weekly to ensure each member has had experience in both roles at least once. 
