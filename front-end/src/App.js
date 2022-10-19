@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Internships from './components/Internships';
 
 function Copyright() {
   return (
@@ -27,6 +28,7 @@ const theme = createTheme();
 
 export default function App() {
   return (
+    // <Internships/>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="relative">
