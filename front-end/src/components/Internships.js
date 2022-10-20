@@ -1,60 +1,120 @@
-import * as React from 'react';
-import { Container } from '@mui/system';
-import { Avatar, Card, CardHeader, Grid, Typography, IconButton, CssBaseline, AppBar, Toolbar } from '@mui/material';
-import {ArrowForward, ArrowBack} from "@material-ui/icons";
-import useStyles from './InternshipsStyles'
+import { useState, useEffect } from "react";
+import { Container } from "@mui/system";
+import {
+  Avatar,
+  Card,
+  CardHeader,
+  Typography,
+  IconButton,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  CircularProgress,
+  Grid,
+  CardActionArea,
+} from "@mui/material";
+import { ArrowForward, ArrowBack } from "@material-ui/icons";
+import useStyles from "./InternshipsStyles";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Internships() {
-    const classes = useStyles();
-    return (
-        <>
-        <CssBaseline/>
-        <AppBar position="relative">
-            <Toolbar>
-                <IconButton>
-                    <ArrowBack/>
-                </IconButton>
-                <Typography variant='h4'>Internships</Typography>
-            </Toolbar>
-        </AppBar>
-        <main>
-            <div>
-                <Container maxWidth="md" className={classes.cardGrid}>
-                    <Grid xs={12} sm={6} md={4}>
-                        <InternshipCell/>
-                    </Grid>
-                </Container>
-            </div>
-        </main>
-        </>
-    );
+  const classes = useStyles();
+  const [loaded, setLoaded] = useState(false);
+  const [internships, setInternships] = useState([]);
+
+  const fetchInternships = () => {
+    // setMessages([])
+    // setLoaded(false)
+    axios
+      .get("https://my.api.mockaroo.com/internships?key=59e053a0")
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const internships = response.data;
+        setInternships(internships);
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
+  // set up loading data from api when the component first loads
+  useEffect(() => {
+    // fetch messages this once
+    fetchInternships();
+  }, []);
+  console.log(internships[0]);
+
+  return (
+    <>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <Link to="/">
+            <IconButton>
+              <ArrowBack />
+            </IconButton>
+          </Link>
+          <Typography variant="h4">Internships</Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        <div>
+          {!loaded && <CenteredLoader />}
+          <Container maxWidth="md" className={classes.cardGrid}>
+            {internships.map((internship) => (
+              <InternshipCell internship={internship} key={internship.id} />
+            ))}
+          </Container>
+        </div>
+      </main>
+    </>
+  );
 }
 
-function InternshipCell() {
-    const classes = useStyles();
-    const internships = Array(10).fill({
-        'logo': 'https://source.unsplash.com/random',
-        'title': 'Software Engineer',
-        'companyName': 'Google'
-    });
+function InternshipCell({ internship }) {
+  const classes = useStyles();
 
-    return internships.map((internship) => (
-        <Card className={classes.card}>
-            <CardHeader
-                avatar={
-                    <Avatar>
-                    :)
-                    </Avatar>
-                }
-                action={
-                    <IconButton>
-                        <ArrowForward />
-                    </IconButton>
-                }
-                title={internship.title}
-                subheader={internship.companyName}
-            />
-        </Card>
-    )
-    );
+  return (
+    <Card className={classes.card}>
+      <CardActionArea disableRipple>
+        <CardHeader
+          avatar={<Avatar src={internship.logo} />}
+          action={
+            <Link
+              to={internship.id.toString()}
+              state={{ selectedInternship: internship }}
+            >
+              <IconButton>
+                <ArrowForward />
+              </IconButton>
+            </Link>
+          }
+          title={internship.positionTitle}
+          subheader={internship.companyName}
+        />
+      </CardActionArea>
+    </Card>
+  );
+}
+
+function CenteredLoader() {
+  return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item xs={3}>
+        <CircularProgress size={100} />
+      </Grid>
+    </Grid>
+  );
 }
