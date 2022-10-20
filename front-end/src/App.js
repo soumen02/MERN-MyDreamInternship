@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import InternshipDetailed from './components/InternshipDetailed';
 import Internships from './components/Internships';
+import Companies from './components/Companies';
+import CompaniesDetailed from './components/CompaniesDetailed';
 
 export default function App() {
   return (
@@ -11,6 +13,10 @@ export default function App() {
       <Route path='/internships'>
         <Route index element={<Internships/>} />
         <Route path=':id' element={<InternshipDetailed/>} />
+      </Route>
+      <Route path='/Companies'>
+        <Route index element={<Companies/>} />
+        <Route path=':id' element={<CompaniesDetailed/>} />
       </Route>
     </Routes>
   );
