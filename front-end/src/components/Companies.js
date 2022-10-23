@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Container, Stack } from "@mui/system";
+import { Link } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -20,6 +21,8 @@ import { ArrowBack } from "@material-ui/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./CompaniesStyles";
 import logo from './amazon.png';
+import {Home} from "@material-ui/icons";
+
 
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -28,10 +31,16 @@ export default function Companies() {
     return(
         <>
             <AppBar position="relative">
-                <Toolbar>
+                <Toolbar >
+                <Link to="/" style={{ flexDirection: 'row-reverse' }}>
+                    <IconButton >
+                        <Home />
+                    </IconButton>
+                </Link>
                 <Typography variant="h6" color="inherit" noWrap>
                     MyDreamInternship
                 </Typography>
+               
                 </Toolbar>
             </AppBar>
             <main>
@@ -40,7 +49,7 @@ export default function Companies() {
                         <Typography variant= "h2" align="center" color="textPrimary" gutterBottom paddingTop="20px" paddingBottom="20px">
                             Companies
                         </Typography>
-                        <Grid container spacing={2} justify="center">
+                        <Grid container columnSpacing={12} rowSpacing={2} justify="center">
                             {card.map(()=>(
                                 <Grid item xs={12} xm={6} xl={4}>
                                     <Card className={classes.card}>
