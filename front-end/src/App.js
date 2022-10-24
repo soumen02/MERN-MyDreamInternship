@@ -5,6 +5,7 @@ import InternshipDetailed from './components/InternshipDetailed';
 import Internships from './components/Internships';
 import Companies from './components/Companies';
 import CompaniesDetailed from './components/CompaniesDetailed';
+import Profile from './components/Profile';
 
 export default function App() {
   return (
@@ -14,9 +15,12 @@ export default function App() {
         <Route index element={<Internships/>} />
         <Route path=':id' element={<InternshipDetailed/>} />
       </Route>
-      <Route path='/Companies'>
+      <Route path='/companies'>
         <Route index element={<Companies/>} />
         <Route path=':id' element={<CompaniesDetailed/>} />
+      </Route>
+      <Route path='/profile'>
+        <Route index element={<Profile/>} />
       </Route>
     </Routes>
   );
