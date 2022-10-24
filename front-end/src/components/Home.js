@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Router, useLocation, useNavigate } from "react-router-dom";
+
 
 function Copyright() {
   return (
@@ -25,7 +27,8 @@ function Copyright() {
 
 export default function Home() {
   const theme = createTheme();
-  
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -55,9 +58,7 @@ export default function Home() {
               Heading
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
+              Score your dream Internsip!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -65,8 +66,8 @@ export default function Home() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button variant="contained" onClick={() => navigate("/sign-up")}>Join Us</Button>
+              <Button variant="outlined" onClick={() => navigate("/log-in")}>Sign In</Button>
             </Stack>
           </Container>
         </Box>
