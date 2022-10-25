@@ -1,22 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Profile.css";
-import { Container } from "@mui/system";
 import {
-    Avatar,
     Card,
-    CardHeader,
     Typography,
     IconButton,
     CssBaseline,
     AppBar,
     Toolbar,
-    CircularProgress,
-    Grid,
-    CardActionArea,
   } from "@mui/material";
-  import { ArrowForward, ArrowBack } from "@material-ui/icons";
+  import { ArrowBack } from "@material-ui/icons";
   import Footer from "./Footer";
+  import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function Profile() {
     return (
@@ -106,6 +101,13 @@ export default function Profile() {
                         and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
                     <div className = "info" id = "more"><h4>Read more</h4></div>
                     <div className = "info" id = "seeall"><h4>See all</h4></div>
+                </Card>
+
+                <Card raised= {true} className = "contBox" id = "accSet">
+                    <div className = "titleEdit">
+                        <div className = "title" id = "acc">Account Settings</div>
+                        <Link to="/settings" className = "icon" id = "settIcon"><SettingsIcon fontSize = "large"/></Link>
+                    </div>
                 </Card>
 
                 <div id = "endpage"></div>
