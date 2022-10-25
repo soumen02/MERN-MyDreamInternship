@@ -16,6 +16,7 @@ import {
     CardActionArea,
   } from "@mui/material";
   import { ArrowForward, ArrowBack } from "@material-ui/icons";
+  import Footer from "./Footer";
 
 export default function Profile() {
     return (
@@ -110,6 +111,7 @@ export default function Profile() {
                 <div id = "endpage"></div>
 
             </div>
+            <Footer />
         </div>
     );
 }
