@@ -119,6 +119,21 @@ h4 {
 
 #endpage{
     margin-bottom: 10%;
+    margin-top: 13%;
+}
+
+#accSet{
+    padding-bottom: 2%;
+}
+
+#acc{
+    font-size: 20px;
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+
+#settIcon{
+    opacity: 1;
 }
 
 
