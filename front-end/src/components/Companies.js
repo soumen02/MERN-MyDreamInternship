@@ -3,6 +3,7 @@ import { Container, Stack } from "@mui/system";
 import { Link } from "react-router-dom";
 import {
   Box,
+  CardActionArea,
   Typography,
   IconButton,
   CssBaseline,
@@ -22,6 +23,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./CompaniesStyles";
 import logo from './amazon.png';
 import {Home} from "@material-ui/icons";
+import Footer from "./Footer";
 
 
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -53,6 +55,7 @@ export default function Companies() {
                             {card.map(()=>(
                                 <Grid item xs={12} xm={6} xl={4}>
                                     <Card className={classes.card}>
+                                        <CardActionArea disableRipple>
                                         <Grid container spacing={2}>
                                             <Grid item xs={3} paddingLeft = "20px">
                                                 {/* <CardMedia //className={classes.CardMedia} 
@@ -61,9 +64,11 @@ export default function Companies() {
                                                 <img src ={logo} alt = "Logo"  title="Logo" height="100px" width="100px" ></img>
                                             </Grid>
                                             <Grid item xs={5}>
-                                                <Typography variant="h4" align="left" gutterBottom  paddingTop="30px">
-                                                    <b>Amazon</b>
-                                                </Typography>
+                                                <Link style={{textDecoration: 'none'}} to="/companiesdetailed">
+                                                    <Typography variant="h4" align="left" gutterBottom  paddingTop="30px">
+                                                        <b>Amazon</b>
+                                                    </Typography>
+                                                </Link>
                                             </Grid>
                                             <Grid item xs={4} marginTop ="25px" paddingRight="15px">
                                                 <ToggleButton value="bold" aria-label="bold" >
@@ -78,12 +83,14 @@ export default function Companies() {
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in felis pellentesque ante condimentum eleifend vitae lacinia turpis. Mauris imperdiet neque id pellentesque tempor. Ut tempor consectetur nibh a malesuada leifend vitae lacinia turpis. Mauris imperdiet neque id pellentesque tempor. Ut tempor consectetur nibh a malesuada.
                                             </Typography>
                                         </CardContent>
+                                        </CardActionArea>
                                     </Card>
                                 </Grid>
                             ))}
                         </Grid>
                     </Container>
                 </div>
+            <Footer />
             </main>
         </>
 

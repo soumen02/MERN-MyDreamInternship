@@ -16,8 +16,29 @@ export default function App() {
       </Route>
       <Route path='/Companies'>
         <Route index element={<Companies/>} />
-        <Route path=':id' element={<CompaniesDetailed/>} />
+        {/* <Route path=':id' element={<CompaniesDetailed/>} /> */}
       </Route>
+
+      <Route path='/companiesdetailed'>
+        <Route index element={<CompaniesDetailed/>} />
+        {/* <Route path=':id' element={<CompaniesDetailed/>} /> */}
+      </Route>
+      <Route path='/profile'>
+        <Route index element={<Profile/>} />
+      </Route>
+
+      <Route path='/settings'>
+        <Route index element={<Settings/>} />
+      </Route>
+
+      <Route path='/log-in'>
+        <Route index element={<LogIn/>} />
+      </Route>
+      <Route path='/sign-up'>
+        <Route index element={<SignUp/>} />
+      </Route>
+
+
     </Routes>
   );
 }
