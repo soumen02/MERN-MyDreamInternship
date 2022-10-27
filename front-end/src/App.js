@@ -7,7 +7,11 @@ import Internships from './components/Internships';
 import Companies from './components/Companies';
 import CompaniesDetailed from './components/CompaniesDetailed';
 import Settings from './components/Settings';
-
+import AllApps from './components/AllApps';
+import Saved from './components/AllApps';
+import Deadlines from './components/Deadlines';
+import Applications from './components/Applications';
+import AddApp from './components/AddApp';
 import Profile from './components/Profile';
 
 import SignUp from './components/SignUp';
@@ -35,6 +39,22 @@ export default function App() {
         <Route index element={<Profile/>} />
       </Route>
 
+      <Route path='/all'>
+        <Route index element={<AllApps/>} />
+      </Route>
+      <Route path='/saved'>
+        <Route index element={<Saved/>} />
+      </Route>
+      <Route path='/deadlines'>
+        <Route index element={<Deadlines/>} />
+      </Route>
+
+      <Route path='/applications'>
+        <Route index element={<Applications/>} />
+      </Route>
+      <Route path='/add-app'>
+        <Route index element={<AddApp/>} />
+      </Route>
       <Route path='/settings'>
         <Route index element={<Settings/>} />
       </Route>
