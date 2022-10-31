@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.info{
+    margin-top: 0;
+    margin-left: 0;
+    padding-top: 1%;
+    font-size: 15px;
+}
+
+.field{
+    padding-top: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 0;
+}
+
+.oneBox{
+    margin-top: 0;
+    margin-bottom: 3%;
+}
+
+#seeButton{
+    color: #145ca4;
+    margin-bottom: 3%;
+}

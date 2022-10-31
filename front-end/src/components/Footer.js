@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import "./Footer.css";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AppsIcon from '@mui/icons-material/Apps';
@@ -11,11 +11,11 @@ import {Card} from "@mui/material";
 export default function Footer() {
     return (
         <Card raised = {true} className = "footer">
-           <Link to="/" className = "icon"><HomeIcon fontSize = "large"/></Link>
-           <Link to="/internships" className = "icon"><WorkIcon fontSize = "large"/></Link>
-           <Link to="/companies" className = "icon"><ApartmentIcon fontSize = "large"/></Link>
-           <Link to="/companies" className = "icon"><AppsIcon fontSize = "large"/></Link>
-           <Link to="/profile" className = "icon"><AccountBoxIcon fontSize = "large"/></Link>
+           <NavLink end activeClassName='active' to="/" className = "icon"><HomeIcon fontSize = "large"/></NavLink>
+           <NavLink activeClassName='active' to="/internships" className = "icon"><WorkIcon fontSize = "large"/></NavLink>
+           <NavLink activeClassName='active' to="/companies" className = "icon"><ApartmentIcon fontSize = "large"/></NavLink>
+           <NavLink activeClassName='active' to="/companies" className = "icon"><AppsIcon fontSize = "large"/></NavLink>
+           <NavLink activeClassName='active' to="/profile" className = "icon"><AccountBoxIcon fontSize = "large"/></NavLink>
         </Card>
     );
 }

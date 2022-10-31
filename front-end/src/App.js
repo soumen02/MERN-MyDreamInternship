@@ -13,7 +13,7 @@ import Deadlines from './components/Deadlines';
 import Applications from './components/Applications';
 import AddApp from './components/AddApp';
 import Profile from './components/Profile';
-
+import More from './components/SeeAll';
 import SignUp from './components/SignUp';
 
 
@@ -57,6 +57,11 @@ export default function App() {
       </Route>
       <Route path='/settings'>
         <Route index element={<Settings/>} />
+      </Route>
+
+      <Route path='/more'> 
+      {/* TESTING */}
+        <Route index element={<More/>} />
       </Route>
 
       <Route path='/log-in'>

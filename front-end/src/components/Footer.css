@@ -22,6 +22,8 @@
     opacity: 0.4;
 }
 
-.icon:hover{
+.active{
+    padding-top: 1%;
+    color: #1976d2;
     opacity: 1;
 }
