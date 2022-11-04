@@ -2,21 +2,12 @@ import React from 'react';
 import "./SeeAll.css";
 import ReadMoreText from './ReadMore'; 
 
-export default function SeeAll({items}) {
+export default function SeeAll({items, state}) {
     const [divAll, setDivAll] = React.useState(false);
     const handleClick = () => {
         setDivAll(!divAll);
-        //hide();
     };
 
-    // let button = document.getElementById("seeButton");
-    // const hide = () => {
-    //     if (divAll) {
-    //         button.style.display = "none";
-    //     } else {
-    //         button.style.display = "block";
-    //     }
-    // };
     const itemObjs = items.map(item => (
         <div className = "oneBox">
             <div className = "info"><h4>{item.title}</h4>{item.org}<br></br>{item.date}</div>
@@ -28,10 +19,16 @@ export default function SeeAll({items}) {
         </div>
     ));
 
+    if (state === false && divAll === false) {
+        handleClick();
+    }
+
     return (
         <div> 
-            {itemObjs.slice(0, divAll ? itemObjs.length : 1)}                
-            <div onClick = {handleClick} className = "info" id = "seeButton"><h4>See {divAll ? "less" : "all"}</h4></div>
+            {itemObjs.slice(0, divAll ? itemObjs.length : 1)}
+            {state ? //if state is true, show the button (important to differentiate between Profile and Edit pages)
+            <div onClick = {handleClick} className = "info" id = "seeButton"><h4>See {divAll ? "less" : "all"}</h4></div> 
+            : null}
         </div>
     );
 }
