@@ -17,6 +17,7 @@ import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Footer from "./Footer";
 
 export default function Internships() {
   const classes = useStyles();
@@ -72,6 +73,7 @@ export default function Internships() {
           </Container>
         </div>
       </main>
+      <Footer/>
     </>
   );
 }
