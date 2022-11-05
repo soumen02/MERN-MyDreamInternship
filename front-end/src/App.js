@@ -15,11 +15,25 @@ import AddApp from './components/AddApp';
 import Profile from './components/Profile';
 import Edit from './components/Edit';
 import SignUp from './components/SignUp';
-
+import AboutUs from './components/AboutUs';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 export default function App() {
   return (
     <Routes>
+      <Route path='/log-in'>
+        <Route index element={<LogIn/>} />
+      </Route>
+      <Route path='/sign-up'>
+        <Route index element={<SignUp/>} />
+      </Route>
+
+      <Route path='/about-us'>
+      <Route index element={<AboutUs/>} />
+      </Route>
+      <Route path='/privacy-policy'>
+      <Route index element={<PrivacyPolicy/>} />
+      </Route>
       <Route path='/' element={<Home/>} />
       <Route path='/internships'>
         <Route index element={<Internships/>} />
@@ -63,13 +77,6 @@ export default function App() {
       {/* TESTING */}
         <Route path='work' element={<Edit view={true}/>} />
         <Route path='proj' element={<Edit view={false}/>} />
-      </Route>
-
-      <Route path='/log-in'>
-        <Route index element={<LogIn/>} />
-      </Route>
-      <Route path='/sign-up'>
-        <Route index element={<SignUp/>} />
       </Route>
 
 
