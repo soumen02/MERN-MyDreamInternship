@@ -2,6 +2,7 @@ const express = require("express"); // CommonJS import style!
 const app = express(); // instantiate an Express object
 const cheerio = require("cheerio");
 const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 
 async function scrape(url) {
@@ -33,11 +34,13 @@ async function scrape(url) {
           .each((posIdx, posElem) => {
             if (posElem.type === "text") {
               companyData["positions"].push({
+                id: uuidv4(),
                 title: $(posElem).text(),
                 url: companyData["defaultPositionUrl"],
               });
             } else if (posElem.type === "tag" && posElem.name === "a") {
               companyData["positions"].push({
+                id: uuidv4(),
                 title: $(posElem).text(),
                 url: posElem.attribs["href"],
               });
@@ -55,6 +58,25 @@ async function scrape(url) {
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   res.send(companiesToPositions);
+});
+
+app.get("/get_internships", async (req, res) => {
+  let companiesToPositions = await scrape(mystery);
+  let internships = [];
+  companiesToPositions.map((company) => {
+    company.positions.map((position) => {
+      let internship = {
+        id: position.id,
+        companyName: company.companyName,
+        positionName: position.title,
+        url: position.url,
+        locations: company.locations,
+      };
+      internships.push(internship);
+    });
+  });
+
+  res.send(internships);
 });
 
 module.exports = app;
