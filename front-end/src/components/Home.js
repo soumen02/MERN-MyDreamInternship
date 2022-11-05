@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
-import Footer from './Footer';
 
 export default function Home() {
   const theme = createTheme();
@@ -58,7 +57,6 @@ export default function Home() {
           </Container>
         </Box>
       </main>
-      <Footer/>
     </ThemeProvider>
   );
 }

@@ -15,6 +15,7 @@ import AddApp from './components/AddApp';
 import Profile from './components/Profile';
 import Edit from './components/Edit';
 import SignUp from './components/SignUp';
+import Dashboard from './components/Dashboard';
 import AboutUs from './components/AboutUs';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
@@ -77,6 +78,17 @@ export default function App() {
       {/* TESTING */}
         <Route path='work' element={<Edit view={true}/>} />
         <Route path='proj' element={<Edit view={false}/>} />
+      </Route>
+
+      <Route path='/log-in'>
+        <Route index element={<LogIn/>} />
+      </Route>
+      <Route path='/sign-up'>
+        <Route index element={<SignUp/>} />
+      </Route>
+
+      <Route path='/dash'>
+        <Route index element={<Dashboard/>} />
       </Route>
 
 
