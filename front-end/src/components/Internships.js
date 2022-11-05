@@ -17,6 +17,7 @@ import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Footer from "./Footer";
 
 export default function Internships() {
   const classes = useStyles();
@@ -27,7 +28,7 @@ export default function Internships() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .get("https://my.api.mockaroo.com/internships?key=59e053a0")
+      .get("http://localhost:5002/get_internships")
       .then((response) => {
         // axios bundles up all response data in response.data property
         const internships = response.data;
@@ -47,7 +48,6 @@ export default function Internships() {
     // fetch messages this once
     fetchInternships();
   }, []);
-  console.log(internships[0]);
 
   return (
     <>
@@ -72,6 +72,7 @@ export default function Internships() {
           </Container>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
@@ -83,7 +84,7 @@ function InternshipCell({ internship }) {
     <Card className={classes.card}>
       <CardActionArea disableRipple>
         <CardHeader
-          avatar={<Avatar src={internship.logo} />}
+          avatar={<Avatar src={"https://source.unsplash.com/random/"} />}
           action={
             <Link
               to={internship.id.toString()}
@@ -94,7 +95,7 @@ function InternshipCell({ internship }) {
               </IconButton>
             </Link>
           }
-          title={internship.positionTitle}
+          title={internship.positionName}
           subheader={internship.companyName}
         />
       </CardActionArea>
