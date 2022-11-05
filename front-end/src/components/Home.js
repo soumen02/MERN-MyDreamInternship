@@ -7,23 +7,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Router, useLocation, useNavigate } from "react-router-dom";
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useNavigate } from "react-router-dom";
+import Footer from './Footer';
 
 export default function Home() {
   const theme = createTheme();
@@ -72,9 +58,7 @@ export default function Home() {
           </Container>
         </Box>
       </main>
-      {/* Footer */}
-      
-      {/* End footer */}
+      <Footer/>
     </ThemeProvider>
   );
 }

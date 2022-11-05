@@ -13,7 +13,7 @@ import Deadlines from './components/Deadlines';
 import Applications from './components/Applications';
 import AddApp from './components/AddApp';
 import Profile from './components/Profile';
-import More from './components/SeeAll';
+import Edit from './components/Edit';
 import SignUp from './components/SignUp';
 import AboutUs from './components/AboutUs';
 import PrivacyPolicy from './components/PrivacyPolicy';
@@ -73,9 +73,10 @@ export default function App() {
         <Route index element={<Settings/>} />
       </Route>
 
-      <Route path='/more'> 
+      <Route path='/edit'> 
       {/* TESTING */}
-        <Route index element={<More/>} />
+        <Route path='work' element={<Edit view={true}/>} />
+        <Route path='proj' element={<Edit view={false}/>} />
       </Route>
 
 
