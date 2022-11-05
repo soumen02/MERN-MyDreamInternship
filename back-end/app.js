@@ -55,6 +55,11 @@ async function scrape(url) {
   return companiesWithPositions;
 }
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   res.send(companiesToPositions);
@@ -75,7 +80,7 @@ app.get("/get_internships", async (req, res) => {
       internships.push(internship);
     });
   });
-
+  // console.log(companiesToPositions);
   res.send(internships);
 });
 

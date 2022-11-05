@@ -38,33 +38,30 @@ export default function InternshipDetailed() {
                   Position title:
                 </Typography>
                 <Typography variant="h10">
-                  {selectedInternship.positionTitle}
+                  {selectedInternship.positionName}
                 </Typography>
               </Stack>
               <Stack direction="row" className={classes.horizontalStack}>
                 <Typography variant="h10" className={classes.dataLabel}>
                   Deadline:
                 </Typography>
-                <Typography variant="h10">
-                  {selectedInternship.deadline}
-                </Typography>
+                <Typography variant="h10">Not yet</Typography>
               </Stack>
               <Stack direction="row" className={classes.horizontalStack}>
                 <Typography variant="h10" className={classes.dataLabel}>
                   Posted time:
                 </Typography>
-                <Typography variant="h10">
-                  {selectedInternship.postedTime}
-                </Typography>
+                <Typography variant="h10">Not yet</Typography>
               </Stack>
               <Stack direction="row" className={classes.horizontalStack}>
                 <Typography variant="h10" className={classes.dataLabel}>
                   Requirements:
                 </Typography>
                 <Stack direction="column" spacing={0.3}>
-                  {selectedInternship.requirements.map((requirement) => (
+                  Not yet
+                  {/* {selectedInternship.requirements.map((requirement) => (
                     <Typography variant="h10">{requirement}</Typography>
-                  ))}
+                  ))} */}
                 </Stack>
               </Stack>
               <Stack direction="row" className={classes.horizontalStack}>
@@ -72,7 +69,7 @@ export default function InternshipDetailed() {
                   Location:
                 </Typography>
                 <Typography variant="h10">
-                  {selectedInternship.location}
+                  {selectedInternship.locations}
                 </Typography>
               </Stack>
             </Stack>
@@ -80,7 +77,7 @@ export default function InternshipDetailed() {
               <Button
                 variant="contained"
                 size="medium"
-                href={selectedInternship.applicationUrl}
+                href={selectedInternship.url}
               >
                 Apply
               </Button>
