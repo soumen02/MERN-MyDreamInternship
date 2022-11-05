@@ -11,10 +11,10 @@ import {Card} from "@mui/material";
 export default function Footer() {
     return (
         <Card raised = {true} className = "footer">
-           <NavLink end activeClassName='active' to="/" className = "icon"><HomeIcon fontSize = "large"/></NavLink>
+           <NavLink end activeClassName='active' to="/dash" className = "icon"><HomeIcon fontSize = "large"/></NavLink>
            <NavLink activeClassName='active' to="/internships" className = "icon"><WorkIcon fontSize = "large"/></NavLink>
            <NavLink activeClassName='active' to="/companies" className = "icon"><ApartmentIcon fontSize = "large"/></NavLink>
-           <NavLink activeClassName='active' to="/companies" className = "icon"><AppsIcon fontSize = "large"/></NavLink>
+           <NavLink activeClassName='active' to="/applications" className = "icon"><AppsIcon fontSize = "large"/></NavLink>
            <NavLink activeClassName='active' to="/profile" className = "icon"><AccountBoxIcon fontSize = "large"/></NavLink>
         </Card>
     );

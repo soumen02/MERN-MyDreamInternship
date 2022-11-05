@@ -41,7 +41,7 @@ export default function LogIn() {
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
-        navigate('/internships');
+        navigate('/dash');
         // event.preventDefault();
         // const data = new FormData(event.currentTarget);
         // // eslint-disable-next-line no-console

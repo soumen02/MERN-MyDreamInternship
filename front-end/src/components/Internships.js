@@ -54,7 +54,7 @@ export default function Internships() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Link to="/">
+          <Link to="/dash">
             <IconButton>
               <ArrowBack />
             </IconButton>

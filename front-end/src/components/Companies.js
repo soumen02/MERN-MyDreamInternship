@@ -34,7 +34,8 @@ export default function Companies() {
         <>
             <AppBar position="relative">
                 <Toolbar >
-                <Link to="/" style={{ flexDirection: 'row-reverse' }}>
+
+                <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
                     <IconButton >
                         <Home />
                     </IconButton>

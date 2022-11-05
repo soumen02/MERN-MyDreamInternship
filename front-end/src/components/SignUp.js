@@ -37,7 +37,7 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
-        navigate('/internships');
+        navigate('/dash');
 
         // event.preventDefault();
         // const data = new FormData(event.currentTarget);
