@@ -15,6 +15,7 @@ import AddApp from './components/AddApp';
 import Profile from './components/Profile';
 import Edit from './components/Edit';
 import SignUp from './components/SignUp';
+import Dashboard from './components/Dashboard';
 
 
 export default function App() {
@@ -70,6 +71,10 @@ export default function App() {
       </Route>
       <Route path='/sign-up'>
         <Route index element={<SignUp/>} />
+      </Route>
+
+      <Route path='/dash'>
+        <Route index element={<Dashboard/>} />
       </Route>
 
 
