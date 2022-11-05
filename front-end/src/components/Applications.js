@@ -19,6 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Footer from "./Footer"
 
 export default function Applications() {
   const classes = useStyles();
@@ -213,6 +214,7 @@ export default function Applications() {
         />
       </CardActionArea>
     </Card>
+    <Footer/>
     </>
   );
 }

@@ -35,7 +35,7 @@ export default function Profile() {
             <CssBaseline />
             <AppBar position="relative">
                 <Toolbar>
-                <Link to="/">
+                <Link to="/dash">
                     <IconButton>
                     <ArrowBack />
                     </IconButton>

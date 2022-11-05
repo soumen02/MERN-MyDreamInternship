@@ -28,42 +28,37 @@ import Footer from "./Footer";
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Companies() {
-  const classes = useStyles();
-  return (
-    <>
-      <AppBar position="relative">
-        <Toolbar>
-          <Link to="/" style={{ flexDirection: "row-reverse" }}>
-            <IconButton>
-              <Home />
-            </IconButton>
-          </Link>
-          <Typography variant="h6" color="inherit" noWrap>
-            MyDreamInternship
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        <div>
-          <Container>
-            <Typography
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-              paddingTop="20px"
-              paddingBottom="20px"
-            >
-              Companies
-            </Typography>
-            <Grid container columnSpacing={12} rowSpacing={2} justify="center">
-              {card.map(() => (
-                <Grid item xs={12} xm={6} xl={4}>
-                  <Card className={classes.card}>
-                    <CardActionArea disableRipple>
-                      <Grid container spacing={2}>
-                        <Grid item xs={3} paddingLeft="20px">
-                          {/* <CardMedia //className={classes.CardMedia} 
+    const classes = useStyles();
+    return(
+        <>
+            <AppBar position="relative">
+                <Toolbar >
+
+                <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
+                    <IconButton >
+                        <Home />
+                    </IconButton>
+                </Link>
+                <Typography variant="h6" color="inherit" noWrap>
+                    MyDreamInternship
+                </Typography>
+               
+                </Toolbar>
+            </AppBar>
+            <main>
+                <div>
+                    <Container >
+                        <Typography variant= "h2" align="center" color="textPrimary" gutterBottom paddingTop="20px" paddingBottom="20px">
+                            Companies
+                        </Typography>
+                        <Grid container columnSpacing={12} rowSpacing={2} justify="center">
+                            {card.map(()=>(
+                                <Grid item xs={12} xm={6} xl={4}>
+                                    <Card className={classes.card}>
+                                        <CardActionArea disableRipple>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={3} paddingLeft = "20px">
+                                                {/* <CardMedia //className={classes.CardMedia} 
                                                     image = "./amazon.png" alt = "Logo"  title="Logo"                                   
                                                 /> */}
                           <img
