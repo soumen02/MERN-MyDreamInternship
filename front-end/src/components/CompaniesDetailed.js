@@ -256,7 +256,7 @@ export default function CompaniesDetailed() {
                 <Card className={classes.card}>
                   <CardActionArea disableRipple>
                     <CardHeader
-                      avatar={<Avatar src={logo} />}
+                      avatar={<Avatar src='amazon.png' />}
                       action={
                         <Link to="/internships/1">
                           <IconButton>

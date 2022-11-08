@@ -23,7 +23,6 @@ import {
 //import useStyles from "./CompaniesDetailedStyles";
 // import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./CompaniesStyles";
-import logo from "./amazon.png";
 import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
 
