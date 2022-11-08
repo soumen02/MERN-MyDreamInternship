@@ -42,13 +42,13 @@ export default function App() {
       </Route>
       <Route path="/companies">
         <Route index element={<Companies />} />
-        {/* <Route path=':id' element={<CompaniesDetailed/>} /> */}
+        <Route path=':id' element={<CompaniesDetailed/>} />
       </Route>
-
+{/* 
       <Route path="/companiesdetailed">
         <Route index element={<CompaniesDetailed />} />
-        {/* <Route path=':id' element={<CompaniesDetailed/>} /> */}
-      </Route>
+        { <Route path=':id' element={<CompaniesDetailed/>} /> }
+      </Route> */}
 
       <Route path="/profile">
         <Route index element={<Profile />} />
