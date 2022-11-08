@@ -30,6 +30,29 @@ const proj = [
 ];
 
 export default function Profile() {
+
+    const [companies, setCompanies] = useState([]);
+
+    const fetchData = () => {
+        // setMessages([])
+        // setLoaded(false)
+        axios
+            .get("http://localhost:5002/get_profile")
+            .then((response) => {
+            // axios bundles up all response data in response.data property
+            const companies = response.data;
+            setCompanies(companies);
+            })
+            .catch((err) => {
+            // catching error
+            })
+            .finally(() => {
+            // the response has been received, so remove the loading icon
+            setLoaded(true);
+        });
+    };
+
+
     return (
         <div id = "content">
             <CssBaseline />
