@@ -63,6 +63,16 @@ app.use((req, res, next) => {
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   res.send(companiesToPositions);
+  let companies = [];
+  companiesToPositions.map((company) => {
+      let companyobj = {
+        companyName: company.companyName,
+        url: company.url,
+        locations: company.locations,
+      };
+      companies.push(companyobj);
+    });
+  res.send(companies);
 });
 
 app.get("/get_internships", async (req, res) => {

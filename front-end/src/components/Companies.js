@@ -23,7 +23,6 @@ import {
 //import useStyles from "./CompaniesDetailedStyles";
 // import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./CompaniesStyles";
-import logo from "./amazon.png";
 import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
 
@@ -106,7 +105,7 @@ export default function Companies() {
                         image = "./amazon.png" alt = "Logo"  title="Logo"                                   
                     /> */}
                 <img
-                  src={logo}
+                  src="amazon.png"
                   alt="Logo"
                   title="Logo"
                   height="100px"
