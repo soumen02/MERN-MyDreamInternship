@@ -20,7 +20,6 @@ import {
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import useStyles from "./CompaniesDetailedStyles";
 // import { useLocation, useNavigate } from "react-router-dom";
-import logo from "./amazon.png";
 // import {Home} from "@material-ui/icons";
 import Footer from "./Footer";
 // import SettingsIcon from '@mui/icons-material/Settings';
@@ -257,7 +256,7 @@ export default function CompaniesDetailed() {
                 <Card className={classes.card}>
                   <CardActionArea disableRipple>
                     <CardHeader
-                      avatar={<Avatar src={logo} />}
+                      avatar={<Avatar src='amazon.png' />}
                       action={
                         <Link to="/internships/1">
                           <IconButton>
