@@ -105,7 +105,7 @@ export default function Companies() {
                         image = "./amazon.png" alt = "Logo"  title="Logo"                                   
                     /> */}
                 <img
-                  src={logo}
+                  src="amazon.png"
                   alt="Logo"
                   title="Logo"
                   height="100px"

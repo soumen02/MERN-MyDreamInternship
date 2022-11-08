@@ -64,12 +64,12 @@ app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   let companies = [];
   companiesToPositions.map((company) => {
-      let company = {
+      let companyobj = {
         companyName: company.companyName,
-        url: position.url,
+        url: company.url,
         locations: company.locations,
       };
-      companies.push(company);
+      companies.push(companyobj);
     });
   res.send(companies);
 });

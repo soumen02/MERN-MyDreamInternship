@@ -20,7 +20,7 @@ import {
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import useStyles from "./CompaniesDetailedStyles";
  import { useLocation, useNavigate } from "react-router-dom";
-import logo from "./amazon.png";
+// import logo from "./amazon.png";
 // import {Home} from "@material-ui/icons";
 import Footer from "./Footer";
 // import SettingsIcon from '@mui/icons-material/Settings';
