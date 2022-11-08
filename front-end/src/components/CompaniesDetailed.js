@@ -19,13 +19,16 @@ import {
 } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import useStyles from "./CompaniesDetailedStyles";
-// import { useLocation, useNavigate } from "react-router-dom";
+ import { useLocation, useNavigate } from "react-router-dom";
+import logo from "./amazon.png";
 // import {Home} from "@material-ui/icons";
 import Footer from "./Footer";
 // import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function CompaniesDetailed() {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { selectedCompany } = useLocation().state;
   return (
     <>
       <AppBar position="relative">
@@ -50,7 +53,7 @@ export default function CompaniesDetailed() {
             paddingTop="20px"
             paddingBottom="40px"
           >
-            Amazon
+            {selectedCompany.companyName}
           </Typography>
           <Container>
             <Stack spacing={2}>
@@ -61,7 +64,7 @@ export default function CompaniesDetailed() {
                   gutterBottom
                   padding="20px"
                 >
-                  <b>Amazon Overview</b>
+                  <b>{selectedCompany.companyName} Overview</b>
                 </Typography>
                 <div>
                   <Grid
@@ -129,7 +132,7 @@ export default function CompaniesDetailed() {
                           gutterBottom
                           paddingLeft="20px"
                         >
-                          Location:
+                          Locations:
                         </Typography>
                         <Typography
                           variant="h6"
@@ -137,7 +140,7 @@ export default function CompaniesDetailed() {
                           gutterBottom
                           paddingRight="20px"
                         >
-                          New York, NY
+                          {selectedCompany.locations}
                         </Typography>
                       </Stack>
                     </Grid>
@@ -153,15 +156,12 @@ export default function CompaniesDetailed() {
                           gutterBottom
                           paddingLeft="20px"
                         >
-                          Date:
+                          URL:
                         </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
+                        <link
+                        to= {selectedCompany.url}
                         >
-                          6/6/2020
-                        </Typography>
+                        </link>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} xm={6} xl={6}>
