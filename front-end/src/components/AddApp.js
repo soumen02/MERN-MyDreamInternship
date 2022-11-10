@@ -31,7 +31,6 @@ function Copyright(props) {
     );
 }
 
-
 export default function AddApp() {
     const theme = createTheme();
     const navigate = useNavigate();
@@ -92,9 +91,9 @@ export default function AddApp() {
                             margin="normal"
                             required
                             fullWidth
-                            placeholder="hello"
+                            placeholder=""
                             name="deadline"
-                            label="Deadline"
+                            // label="Deadline"
                             type="date"
                             id="deadline"
                         />
