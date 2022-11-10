@@ -1,5 +1,6 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
-import { Container } from "@mui/system";
+import { Container, Stack } from "@mui/system";
 import {
   Avatar,
   Card,
@@ -17,6 +18,19 @@ import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import useStyles from "./InternshipsStyles";
+import { Home } from "@material-ui/icons";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AppsIcon from '@mui/icons-material/Apps';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import WorkIcon from '@mui/icons-material/Work';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import RotateRightIcon from '@mui/icons-material/RotateRight';
+import SendIcon from '@mui/icons-material/Send';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer"
@@ -53,203 +67,81 @@ export default function Applications() {
   console.log(internships[0]);
 
   return (
-    <>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Link to="/">
-            <IconButton>
-              <ArrowBack />
-            </IconButton>
-          </Link>
-          <Typography variant="h4">Applications</Typography>
-          <Grid container justifyContent="flex-end">
-          <Link to="/">
-            <IconButton>
-              <MenuIcon />
-            </IconButton>
-          </Link>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-          action={
-            <Link to="/all">
-          </Link>
-          }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    All
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        15
+
+    <div className = "container">
+        <AppBar position="relative">
+            <Toolbar >
+            <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
+                    <IconButton >
+                        <Home />
+                    </IconButton>
+            </Link>
+            <Typography variant="h6" color="inherit" paddingLeft={1}>
+                MyDreamInternship
+            </Typography>
+            <Grid container justifyContent="flex-end"></Grid>
+            </Toolbar>
+        </AppBar>
+
+            <Typography variant= "h3" align="center" color="textPrimary" gutterBottom paddingTop="20px" paddingBottom="20px">
+                        Applications
                     </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    Saved
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        6
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    In-Progress
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        20
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    Completed
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        5
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    Sent
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        8
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    Accepted
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        1
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Card className={classes.card}>
-      <CardActionArea disableRipple>
-        <CardHeader
-        //   action={
-        //   }
-          title={
-            <Grid container direction="row">
-                <Grid item xs={11}>
-                    Deadlines
-                </Grid>
-                <Grid item xs={1} justifyContent="flex-end">
-                    <Typography>
-                        15
-                    </Typography>
-                </Grid> 
-            </Grid>
-        }
-        />
-      </CardActionArea>
-    </Card>
-    <Footer/>
-    </>
-  );
+        <div className = "cards">
+            <Link to="/all" style={{textDecoration: 'none'}}>
+                <Card raised = {true} className = "tabs">
+                    <AppsIcon fontSize = "medium"/>
+                    <p>All</p>
+                </Card>
+            </Link>
+            
+            <Link to="/saved" style={{textDecoration: 'none'}}>
+                <Card raised = {true} className = "tabs">
+                    <BookmarkIcon fontSize = "medium"/>
+                    <p>Saved</p>
+                </Card>
+            </Link>
+
+            <Link to="/in-progress" style={{textDecoration: 'none'}}>       
+                <Card raised = {true} className = "tabs">
+                    <RotateRightIcon fontSize = "medium"/>
+                    <p>In Progress</p>
+                </Card>
+            </Link>
+
+            <Link to="/completed" style={{textDecoration: 'none'}}>       
+                <Card raised = {true} className = "tabs">
+                    <PlaylistAddCheckIcon fontSize = "medium"/>
+                    <p>Completed</p>
+                </Card>
+            </Link>
+
+            <Link to="/sent" style={{textDecoration: 'none'}}>       
+                <Card raised = {true} className = "tabs">
+                <SendIcon fontSize = "medium"/>
+                    <p>Sent</p>
+                </Card>
+            </Link>
+
+            <Link to="/accepted" style={{textDecoration: 'none'}}>       
+                <Card raised = {true} className = "tabs">
+                <DoneAllIcon fontSize = "medium"/>
+                    <p>Accepted</p>
+                </Card>
+            </Link>
+
+            <Link to="/deadlines" style={{textDecoration: 'none'}}>       
+                <Card raised = {true} className = "tabs">
+                <AccessTimeFilledIcon fontSize = "medium"/>
+                    <p>Deadlines</p>
+                </Card>
+            </Link>
+        </div>
+
+        
+
+    </div>
+);
 }
-
-// function InternshipCell({ internship }) {
-//   const classes = useStyles();
-
-//   return (
-//     <Card className={classes.card}>
-//       <CardActionArea disableRipple>
-//         <CardHeader
-//         //   action={
-//         //     <Link
-//         //       to={internship.id.toString()}
-//         //       state={{ selectedInternship: internship }}
-//         //     >
-//         //     </Link>
-//         //   }
-//           title={
-//             <Grid container direction="row">
-//                 <Grid item xs={10}>
-//                     All
-//                 </Grid>
-//                 <Grid item xs={2} justifyContent="flex-end">
-//                     <Typography>
-//                         15
-//                     </Typography>
-//                 </Grid> 
-//             </Grid>
-//         }
-//         />
-//       </CardActionArea>
-//     </Card>
-//   );
-// }
 
 function CenteredLoader() {
   return (
