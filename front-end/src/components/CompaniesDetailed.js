@@ -14,6 +14,7 @@ import {
   CardActionArea,
   CardHeader,
   CardMedia,
+  CardContent,
   Grid,
   ToggleButton,
 } from "@mui/material";
@@ -24,8 +25,15 @@ import useStyles from "./CompaniesDetailedStyles";
 // import {Home} from "@material-ui/icons";
 import Footer from "./Footer";
 // import SettingsIcon from '@mui/icons-material/Settings';
+import { useTheme } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import ReadMore from "./ReadMore"
+
+const lorum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id"
+
 
 export default function CompaniesDetailed() {
+  const theme = useTheme();
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedCompany } = useLocation().state;
@@ -270,7 +278,22 @@ export default function CompaniesDetailed() {
                   </CardActionArea>
                 </Card>
               </Card>
-              <Card className={classes.card}>
+              <Card>
+                <div>
+                  <Typography
+                    variant="h5"
+                    color="textPrimary"
+                    gutterBottom
+                    paddingTop="20px"
+                    paddingLeft="20px"
+                  >
+                    <b>Reviews</b>
+                  </Typography>
+                </div>
+
+              <ReviewCell/>
+              </Card>
+              {/* <Card className={classes.card}>
                 <div>
                   <Typography
                     variant="h5"
@@ -296,12 +319,49 @@ export default function CompaniesDetailed() {
                   imperdiet neque id pellentesque tempor. Ut tempor consectetur
                   nibh a malesuada.
                 </Typography>
-              </Card>
+              </Card> */}
             </Stack>
           </Container>
         </div>
+        <br></br> <br></br> <br></br>
         <Footer />
       </main>
     </>
   );
+
+  function ReviewCell(){
+    const classes = useStyles();
+    return(
+      <Card  margin="100px" padding="25px">
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={{ xs: 2, sm: 4, md: 4 }}
+          xs={12} xm={6} xl={4}
+        >
+          <Typography variant="h5" component="div" sx={{flexDirection: 'row' }} paddingLeft="25px">
+              Name: Zaeem
+          </Typography>
+          <Divider variant="vertical" />
+          <Typography variant="h5" component="div" sx={{flexDirection: 'row' }}>
+              Position: SWE
+          </Typography>
+          <Divider variant="vertical" />
+          <Typography component="div" variant="h5" sx={{flexDirection: 'row' }}>
+           Review: 5/5★
+          </Typography>
+          <Typography component="div" variant="h5" sx={{flexDirection: 'row' }}>
+           Date: 11/10/2022
+          </Typography>
+        </Stack>
+      
+      <Typography component="div" padding="25px">
+        <ReadMore text = {lorum}/>
+      </Typography>
+      <Divider orientation="row" variant="middle" flexItem />
+    </Card>
+    
+    
+    );
+
+  }
 }
