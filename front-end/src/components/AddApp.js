@@ -1,19 +1,15 @@
 import * as React from 'react';
 // import { Container, Stack } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
-import Avatar from '@mui/material/Avatar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Toolbar from '@mui/material/Toolbar';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import { ArrowBack } from '@material-ui/icons';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 
@@ -34,7 +30,6 @@ function Copyright(props) {
         </Typography>
     );
 }
-
 
 export default function AddApp() {
     const theme = createTheme();
@@ -96,9 +91,9 @@ export default function AddApp() {
                             margin="normal"
                             required
                             fullWidth
-                            placeholder="hello"
+                            placeholder=""
                             name="deadline"
-                            label="Deadline"
+                            // label="Deadline"
                             type="date"
                             id="deadline"
                         />

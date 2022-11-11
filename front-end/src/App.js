@@ -8,7 +8,11 @@ import Companies from "./components/Companies";
 import CompaniesDetailed from "./components/CompaniesDetailed";
 import Settings from "./components/Settings";
 import AllApps from "./components/AllApps";
-import Saved from "./components/AllApps";
+import Saved from "./components/Saved";
+import InProgress from "./components/InProgress";
+import Completed from "./components/Completed";
+import Sent from "./components/Sent";
+import Accepted from "./components/Accepted";
 import Deadlines from "./components/Deadlines";
 import Applications from "./components/Applications";
 import AddApp from "./components/AddApp";
@@ -60,16 +64,28 @@ export default function App() {
       <Route path="/saved">
         <Route index element={<Saved />} />
       </Route>
+      <Route path="/in-progress">
+        <Route index element={<InProgress />} />
+      </Route>
+      <Route path="/completed">
+        <Route index element={<Completed />} />
+      </Route>
+      <Route path="/sent">
+        <Route index element={<Sent />} />
+      </Route>
+      <Route path="/accepted">
+        <Route index element={<Accepted />} />
+      </Route>
       <Route path="/deadlines">
         <Route index element={<Deadlines />} />
       </Route>
-
       <Route path="/applications">
         <Route index element={<Applications />} />
       </Route>
       <Route path="/add-app">
         <Route index element={<AddApp />} />
       </Route>
+
       <Route path="/settings">
         <Route index element={<Settings />} />
       </Route>
