@@ -30,6 +30,7 @@ const proj = [
 ];
 
 export default function Profile() {
+    
     return (
         <div id = "content">
             <CssBaseline />
@@ -90,7 +91,7 @@ export default function Profile() {
                         <div className = "title">Work Experience</div>
                         <Link to = "/edit/work" className = "edit">Edit</Link>
                     </div>
-                    <SeeAll items={workExp} state = {true}/>
+                    <SeeAll items={workExp} state = {true} edit={false}/>
                 </Card>
                     
                 <Card raised= {true} className = "contBox">
@@ -98,7 +99,7 @@ export default function Profile() {
                         <div className = "title">Projects</div>
                         <Link to = "/edit/proj" className = "edit">Edit</Link>
                     </div>
-                    <SeeAll items={proj} state = {true}/>
+                    <SeeAll items={proj} state = {true} edit={false}/>
                 </Card>
 
                 <Card raised= {true} className = "contBox" id = "accSet">
