@@ -62,6 +62,7 @@ app.use((req, res, next) => {
 
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
+  res.send(companiesToPositions);
   let companies = [];
   companiesToPositions.map((company) => {
       let companyobj = {
