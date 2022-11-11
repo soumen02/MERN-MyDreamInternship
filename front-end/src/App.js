@@ -22,6 +22,11 @@ import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import AboutUs from "./components/AboutUs";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
+// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import ReviewPage from "./components/ReviewPage";
 
 export default function App() {
   return (
@@ -85,7 +90,9 @@ export default function App() {
       <Route path="/add-app">
         <Route index element={<AddApp />} />
       </Route>
-
+      <Route path="/ReviewPage">
+        <Route index element={<ReviewPage />} />
+      </Route>
       <Route path="/settings">
         <Route index element={<Settings />} />
       </Route>

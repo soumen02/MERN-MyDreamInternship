@@ -12,6 +12,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 // import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -34,9 +41,14 @@ function Copyright(props) {
 export default function AddApp() {
     const theme = createTheme();
     const navigate = useNavigate();
+    const [age, setStatus] = React.useState('');
 
     const handleSubmit = (event) => {
         navigate('/all');
+    };
+
+    const handleChange = (event) => {
+      setStatus(event.target.value);
     };
 
     return (
@@ -97,24 +109,24 @@ export default function AddApp() {
                             type="date"
                             id="deadline"
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
+                        <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={age}
                             label="Status"
-                            type="password"
-                            id="status"
-                        />
-                        <label>
-                        <select>
-                            <option value="saved">Saved</option>
-                            <option value="inprogress">In-Progress</option>
-                            <option value="completed">Completed</option>
-                            <option value="sent">Sent</option>
-                            <option value="accepted">Accepted</option>
-                            </select>
-                        </label>
+                            onChange={handleChange}
+                            >
+                            <MenuItem value={10}>Saved</MenuItem>
+                            <MenuItem value={20}>In-Progress</MenuItem>
+                            <MenuItem value={30}>Completed</MenuItem>
+                            <MenuItem value={40}>Sent</MenuItem>
+                            <MenuItem value={50}>Accepted</MenuItem>
+                            </Select>
+                        </FormControl>
+                        </Box>
                         <Button
                             type="submit"
                             fullWidth
