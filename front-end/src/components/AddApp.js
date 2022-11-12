@@ -41,14 +41,14 @@ function Copyright(props) {
 export default function AddApp() {
     const theme = createTheme();
     const navigate = useNavigate();
-    const [age, setAge] = React.useState('');
+    const [age, setStatus] = React.useState('');
 
     const handleSubmit = (event) => {
         navigate('/all');
     };
 
     const handleChange = (event) => {
-      setAge(event.target.value);
+      setStatus(event.target.value);
     };
 
     return (
@@ -122,8 +122,8 @@ export default function AddApp() {
                             <MenuItem value={10}>Saved</MenuItem>
                             <MenuItem value={20}>In-Progress</MenuItem>
                             <MenuItem value={30}>Completed</MenuItem>
-                            <MenuItem value={10}>Sent</MenuItem>
-                            <MenuItem value={20}>Accepted</MenuItem>
+                            <MenuItem value={40}>Sent</MenuItem>
+                            <MenuItem value={50}>Accepted</MenuItem>
                             </Select>
                         </FormControl>
                         </Box>
