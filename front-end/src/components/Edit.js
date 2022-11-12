@@ -63,13 +63,41 @@ export default function Edit({view}) {
     
     const handleWorkExp = () => {
         // setWorkExp(workExp.push({ title: 'Title', org: 'Organization/Project', date:'Date', text: "Description" }));
-        setWorkExp(workExp => [...workExp, { title: 'Title', org: 'Organization', date:'Date', text: "Description" }]);
-        // axios.post("http://localhost:5002/add_expArr", {workExp: workExp, proj: proj});
+        // setWorkExp(workExp => [...workExp, { title: 'Title', org: 'Organization', date:'Date', text: "Description" }]);
+        let entry = { title: 'Title', org: 'Organization', date:'Date', text: "Description" };
+        axios
+            .post('http://localhost:5002/get_work', {
+                entry
+            },
+            )
+            .then((response) => {
+                setWorkExp(workExp => [...workExp, response.data]);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                
+            });
     };
 
     const handleProj = () => {
         // setWorkExp(workExp.push({ title: 'Title', org: 'Organization/Project', date:'Date', text: "Description" }));
-        setProj(proj => [...proj, { title: 'Title', org: 'Project', date:'Date', text: "Description" }]);
+        let entry = { title: 'Title', org: 'Project', date:'Date', text: "Description" };
+        axios
+            .post('http://localhost:5002/get_proj', {
+                entry
+            },
+            )
+            .then((response) => {
+                setProj(proj => [...proj, response.data]);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                
+            });
     };
 
     const handleClick = () => {
