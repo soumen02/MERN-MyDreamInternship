@@ -10,6 +10,11 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import { ArrowBack } from '@material-ui/icons';
 import CssBaseline from '@mui/material/CssBaseline';
+import axios from "axios";
+axios.defaults.headers.common = {
+    "Content-Type": "application/json"
+  }
+import qs from 'qs';
 
 // import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -41,14 +46,39 @@ export default function LogIn() {
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
-        navigate('/dash');
-        // event.preventDefault();
-        // const data = new FormData(event.currentTarget);
-        // // eslint-disable-next-line no-console
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const sendusername = data.get('email');
+        const sendpassword = data.get('password');
+
+        const params = qs.stringify({
+            username: sendusername,
+            password: sendpassword
+        })
+        console.log(params);
+
+        axios
+            .post('http://localhost:5002/get_login', {
+                params
+            },
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+            )
+            .then((response) => {
+                let retdata = response.data;
+                console.log(retdata);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                // if (retdata.status == "success"){
+                //     navigate('/dash');
+                // }
+            });
     };
 
     return (
