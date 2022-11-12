@@ -5,11 +5,11 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 var cors = require('cors');
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
-
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json();
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-
 
 async function scrape(url) {
   let companiesWithPositions = [];
@@ -62,10 +62,13 @@ async function scrape(url) {
 }
 app.use(cors())
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
   next();
 });
+
 
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
@@ -104,8 +107,19 @@ app.get("/get_internships", async (req, res) => {
 app.post("/post_review", async (req, res) => {
   console.log(req.body);
   
-  // console.log(companiesToPositions);
-  res.send(req.body);
+
+});
+
+
+app.post("/get_login", jsonParser, (req, res) => {
+  
+  
+  if (req.body.params.password == "password") {
+    res.send("success");
+  }
+  else {
+    res.send("failure");
+  }
 });
 
 module.exports = app;
