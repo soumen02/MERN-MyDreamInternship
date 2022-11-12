@@ -123,10 +123,24 @@ app.get("/get_expArr", async(req, res) => {
 });
 
 
+app.post("/get_work", jsonParser, async(req, res) => {
+  workExp.push(req.body.entry);
+  res.send(req.body.entry);
+});
+
+app.post("/get_proj", jsonParser, async(req, res) => {
+  proj.push(req.body.entry);
+  res.send(req.body.entry);
+});
+
+
+app.post("/get_proj", jsonParser, async(req, res) => {
+  console.log(req.body.proj);
+});
+
 app.post("/post_review", async (req, res) => {
   console.log(req.body);
 });
-
 
 app.post("/get_login", jsonParser, (req, res) => {
   if (req.body.params.password == "password") {
