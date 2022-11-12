@@ -1,7 +1,7 @@
 import * as React from 'react';
  import { Stack } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,6 +17,7 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 function Copyright(props) {
     return (
@@ -35,10 +36,24 @@ function Copyright(props) {
 export default function ReviewPage() {
     const theme = createTheme();
     const navigate = useNavigate();
+    const [formData1, setformData1] = useState("");
+    const [formData2, setformData2] = useState("");
 
-    const handleSubmit = (event) => {
-        navigate('/all');
+    function handleSubmit(event) {
+        event.preventDefault();
+        axios.post("http://localhost:5002/post_review", { review: formData1, rating : formData2 }).then((res) => {
+        console.log(res);
+        });
+    }
+
+    const handleChange1 = (event) => {
+        setformData1(event.target.value);
     };
+
+    const handleChange2 = (event) => {
+        setformData2(event.target.value);
+    };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,7 +80,7 @@ export default function ReviewPage() {
                         alignItems: 'center',
                     }}
                 >
-                    <Box component="form" onSubmit={handleSubmit}>
+                    <Box component="form">
                         <Typography variant="h5" component="div" sx={{flexDirection: 'row' }}>
                             Name: Zaeem
                         </Typography>
@@ -79,6 +94,7 @@ export default function ReviewPage() {
                         <form id="form">
 
                         <TextField
+                            onChange={handleChange1}
                             id="outlined-multiline-static"
                             rows={4}
                             multiline
@@ -98,7 +114,7 @@ export default function ReviewPage() {
                         
                         <Typography variant="h6" component="div">
                         <label marginTop="5px">
-                            <select>
+                            <select onChange={handleChange2}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -109,6 +125,7 @@ export default function ReviewPage() {
                         </Typography>
                         </Stack>
                         <Button
+                            onClick = {handleSubmit}
                             type="submit"
                             fullWidth
                             variant="contained"
