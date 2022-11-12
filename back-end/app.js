@@ -3,7 +3,7 @@ const app = express(); // instantiate an Express object
 const cheerio = require("cheerio");
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
-var cors = require('cors');
+// var cors = require('cors');
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json();
@@ -60,7 +60,7 @@ async function scrape(url) {
   }
   return companiesWithPositions;
 }
-app.use(cors())
+// app.use(cors())
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Credentials", "true");

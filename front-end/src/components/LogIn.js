@@ -65,7 +65,7 @@ export default function LogIn() {
                     navigate('/dash');
                 }
                 else{
-                    alert("Incorrect username or password");
+                    alert("Password is \"password\"");
                 }
             })
             .catch((err) => {
