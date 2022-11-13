@@ -29,8 +29,10 @@ export default function Profile() {
         .then((response) => {
             // axios bundles up all response data in response.data property
             let array1 = response.data[0];
+            // console.log(array1);
             let array2 = response.data[1];
             setWorkExp(array1);
+            // console.log(workExp);
             setProj(array2);
         })
         .catch((err) => {

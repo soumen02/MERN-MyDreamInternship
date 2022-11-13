@@ -9,6 +9,8 @@
     "@mui/lab": "^5.0.0-alpha.107",
     "@mui/material": "^5.10.13",
     "@mui/x-date-pickers": "^5.0.8",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "mdbreact": "^5.2.0",

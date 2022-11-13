@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+//var reviews = require('./reviews.json')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -105,6 +106,7 @@ app.use((req, res, next) => {
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   // res.send(companiesToPositions);
+  // res.send(companiesToPositions);
   let companies = [];
   for (i = 0; i < companiesToPositions.length; i++) {
     let company = companiesToPositions[i];
@@ -147,6 +149,32 @@ app.get("/get_internships", async (req, res) => {
 
   res.send(internships);
 });
+
+////////// OBJECTS FOR TESTING
+
+let Reviews = [
+  {
+    user: "Majid",
+    review: "Good experience",
+    rating: "4",
+    date: "1/1/2001",
+    position: "SWE",
+  },
+  {
+    user: "Zaeem",
+    review: "bad.",
+    rating: "1",
+    date: "2/2/2002",
+    position: "Data Analyst",
+  },
+  {
+    user: "Soumen",
+    review: "mid",
+    rating: "3",
+    date: "3/3/2003",
+    position: "Janitor",
+  },
+];
 
 let workExp = [
   {
@@ -201,9 +229,18 @@ let proj = [
   },
 ];
 
+//////////////////////
+
 app.get("/get_expArr", async (req, res) => {
   let exp3 = [workExp, proj];
   res.send(exp3);
+});
+
+app.get("/get_reviews", jsonParser, async (req, res) => {
+  // https://my.api.mockaroo.com/reviews.json?key=69437d10
+  //const reviews = await axios.get("https://my.api.mockaroo.com/reviews.json?key=69437d10");
+  res.send(Reviews);
+  // console.log(Reviews);
 });
 
 app.post("/get_work", jsonParser, async (req, res) => {
@@ -221,7 +258,10 @@ app.post("/get_proj", jsonParser, async (req, res) => {
 });
 
 app.post("/post_review", async (req, res) => {
-  console.log(req.body);
+  const Reviewdata = [];
+  Reviewdata.push(req.body);
+  res.send({Reviewdata});
+  console.log({Reviewdata});
 });
 
 app.post("/get_login", jsonParser, (req, res) => {

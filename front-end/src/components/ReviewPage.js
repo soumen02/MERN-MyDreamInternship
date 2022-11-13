@@ -17,6 +17,7 @@ import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { getDate } from 'date-fns';
 
 
 function Copyright(props) {
@@ -40,8 +41,10 @@ export default function ReviewPage() {
     const [formData2, setformData2] = useState("");
 
     function handleSubmit(event) {
+        var d = new Date();
+
         event.preventDefault();
-        axios.post("http://localhost:5002/post_review", { review: formData1, rating : formData2 }).then((res) => {
+        axios.post("http://localhost:5002/post_review", { review: formData1, rating : formData2, date: d}).then((res) => {
         console.log(res);
         });
     }
@@ -120,6 +123,7 @@ export default function ReviewPage() {
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
+                                <default value="1"></default>
                             </select>                
                         </label>  /5★
                         </Typography>
@@ -140,13 +144,4 @@ export default function ReviewPage() {
             </Container>
         </ThemeProvider>
     )
-    const postreview = () => {
-    const form = document.getElementById("form");
-    form.addEventListener('submit',function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        console.log(...formData);
-        axios.post("https://httpbin.org/post", formData);
-    })
-    };
 }

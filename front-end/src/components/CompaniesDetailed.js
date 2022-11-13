@@ -20,23 +20,56 @@ import {
 } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import useStyles from "./CompaniesDetailedStyles";
- import { useLocation, useNavigate } from "react-router-dom";
-// import logo from "./amazon.png";
-// import {Home} from "@material-ui/icons";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Footer from "./Footer";
 // import SettingsIcon from '@mui/icons-material/Settings';
-import { useTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
-import ReadMore from "./ReadMore"
+import { useTheme } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
+import ReadMore from "./ReadMore";
 
-const lorum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id"
-
+const lorum =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id";
 
 export default function CompaniesDetailed() {
   const theme = useTheme();
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedCompany } = useLocation().state;
+  const [loaded, setLoaded] = useState(false);
+  const [reviews, setReviews] = useState([]);
+
+  const fetchReviews = () => {
+    // setMessages([])
+    // setLoaded(false)
+    axios
+      .get("http://localhost:5002/get_reviews")
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const r = response.data;
+
+        console.log(r);
+        setReviews(r);
+        // setReviews(r);
+        console.log(reviews);
+
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
+  // set up loading data from api when the component first loads
+  useEffect(() => {
+    // fetch messages this once
+    fetchReviews();
+  }, []);
+
   return (
     <>
       <AppBar position="relative">
@@ -105,29 +138,7 @@ export default function CompaniesDetailed() {
                         </Typography>
                       </Stack>
                     </Grid>
-                    <Grid item xs={12} xm={5} xl={5} paddingLeft="50px">
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Date:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                        >
-                          6/6/2020
-                        </Typography>
-                      </Stack>
-                    </Grid>
+
                     <Grid item xs={12} xm={6} xl={6}>
                       <Stack
                         direction="row"
@@ -150,26 +161,6 @@ export default function CompaniesDetailed() {
                         >
                           {selectedCompany.locations}
                         </Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} xm={5} xl={5} paddingLeft="50px">
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          URL:
-                        </Typography>
-                        <link
-                        to= {selectedCompany.url}
-                        >
-                        </link>
                       </Stack>
                     </Grid>
                     <Grid item xs={12} xm={6} xl={6}>
@@ -196,29 +187,6 @@ export default function CompaniesDetailed() {
                         </Typography>
                       </Stack>
                     </Grid>
-                    <Grid item xs={12} xm={5} xl={5} paddingLeft="50px">
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Revenue:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                        >
-                          10B$
-                        </Typography>
-                      </Stack>
-                    </Grid>
                   </Grid>
                 </div>
               </Card>
@@ -234,20 +202,7 @@ export default function CompaniesDetailed() {
                     <b>Company Description</b>
                   </Typography>
                 </div>
-                <Typography padding="20px">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  in felis pellentesque ante condimentum eleifend vitae lacinia
-                  turpis. Mauris imperdiet neque id pellentesque tempor. Ut
-                  tempor consectetur nibh a malesuada leifend vitae lacinia
-                  turpis. Mauris imperdiet neque id pellentesque tempor. Ut
-                  tempor consectetur nibh a malesuada. Lorem ipsum dolor sit
-                  amet, consectetur adipiscing elit. Donec in felis pellentesque
-                  ante condimentum eleifend vitae lacinia turpis. Mauris
-                  imperdiet neque id pellentesque tempor. Ut tempor consectetur
-                  nibh a malesuada leifend vitae lacinia turpis. Mauris
-                  imperdiet neque id pellentesque tempor. Ut tempor consectetur
-                  nibh a malesuada.
-                </Typography>
+                <Typography padding="20px">{selectedCompany.description}</Typography>
               </Card>
               <Card className={classes.card}>
                 <div>
@@ -264,7 +219,7 @@ export default function CompaniesDetailed() {
                 <Card className={classes.card}>
                   <CardActionArea disableRipple>
                     <CardHeader
-                      avatar={<Avatar src='amazon.png' />}
+                      avatar={<Avatar src="amazon.png" />}
                       action={
                         <Link to="/internships/1">
                           <IconButton>
@@ -290,36 +245,14 @@ export default function CompaniesDetailed() {
                     <b>Reviews</b>
                   </Typography>
                 </div>
-
-              <ReviewCell/>
+                {reviews.map((a) => (
+                  // conreZsole.log(a)
+                  <ReviewCell review={a} key={a.user} />
+                ))}
+                {/* {reviews.map(([a]) => (
+                  <ReviewCell review = {[a]}/>
+                ))} */}
               </Card>
-              {/* <Card className={classes.card}>
-                <div>
-                  <Typography
-                    variant="h5"
-                    color="textPrimary"
-                    gutterBottom
-                    paddingTop="20px"
-                    paddingLeft="20px"
-                  >
-                    <b>Reviews</b>
-                  </Typography>
-                </div>
-                <Typography padding="20px">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  in felis pellentesque ante condimentum eleifend vitae lacinia
-                  turpis. Mauris imperdiet neque id pellentesque tempor. Ut
-                  tempor consectetur nibh a malesuada leifend vitae lacinia
-                  turpis. Mauris imperdiet neque id pellentesque tempor. Ut
-                  tempor consectetur nibh a malesuada. Lorem ipsum dolor sit
-                  amet, consectetur adipiscing elit. Donec in felis pellentesque
-                  ante condimentum eleifend vitae lacinia turpis. Mauris
-                  imperdiet neque id pellentesque tempor. Ut tempor consectetur
-                  nibh a malesuada leifend vitae lacinia turpis. Mauris
-                  imperdiet neque id pellentesque tempor. Ut tempor consectetur
-                  nibh a malesuada.
-                </Typography>
-              </Card> */}
             </Stack>
           </Container>
         </div>
@@ -329,39 +262,60 @@ export default function CompaniesDetailed() {
     </>
   );
 
-  function ReviewCell(){
+  function ReviewCell(review) {
+    console.log(review);
     const classes = useStyles();
-    return(
-      <Card  margin="100px" padding="25px">
+    return (
+      <Card margin="100px" padding="25px">
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
+        paddingTop="15px"
+          direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 2, sm: 4, md: 4 }}
-          xs={12} xm={6} xl={4}
+          xs={12}
+          xm={6}
+          xl={4}
         >
-          <Typography variant="h5" component="div" sx={{flexDirection: 'row' }} paddingLeft="25px">
-              Name: Zaeem
+          <Typography
+            component="div"
+            sx={{ flexDirection: "row" }}
+            paddingLeft="25px"
+          >
+            Name: {review.review.user}
           </Typography>
           <Divider variant="vertical" />
-          <Typography variant="h5" component="div" sx={{flexDirection: 'row' }}>
-              Position: SWE
+          <Typography
+            component="div"
+            sx={{ flexDirection: "row" }}
+          >
+            Position: {review.review.position}
           </Typography>
           <Divider variant="vertical" />
-          <Typography component="div" variant="h5" sx={{flexDirection: 'row' }}>
-           Review: 5/5★
+          <Typography
+            component="div"
+            sx={{ flexDirection: "row" }}
+          >
+            Rating: {review.review.rating}/5★
           </Typography>
-          <Typography component="div" variant="h5" sx={{flexDirection: 'row' }}>
-           Date: 11/10/2022
+          <Typography
+            component="div"
+            sx={{ flexDirection: "row" }}
+          >
+            Date: {review.review.date}
           </Typography>
         </Stack>
-      
-      <Typography component="div" padding="25px">
-        <ReadMore text = {lorum}/>
-      </Typography>
-      <Divider orientation="row" variant="middle" flexItem />
-    </Card>
-    
-    
+        <Typography component="div" paddingLeft="25px" paddingTop="10px" paddingBottom="10px">
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 2, sm: 4, md: 4 }}
+          xs={12}
+          xm={6}
+          xl={4}
+        >
+          Review:&nbsp;<ReadMore text={review.review.review} />
+        </Stack>
+        </Typography>
+        <Divider orientation="row" variant="middle" flexItem />
+      </Card>
     );
-
   }
 }
