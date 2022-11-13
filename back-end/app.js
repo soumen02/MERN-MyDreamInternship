@@ -5,11 +5,11 @@ const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
 // var cors = require('cors');
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 async function scrape(url) {
   let companiesWithPositions = [];
@@ -60,81 +60,163 @@ async function scrape(url) {
   }
   return companiesWithPositions;
 }
+
+async function fetchDescriptionAndLogo(companyName) {
+  companyName = companyName.replaceAll(" ", "+");
+  url =
+    "https://api.simplify.jobs/v2/company/?page=0&size=27&value=" + companyName;
+  const { data } = await axios.get(url);
+  let res = {};
+
+  if (
+    "items" in data &&
+    data.items.length > 0 &&
+    "description" in data.items[0] &&
+    data.items[0].description !== null
+  ) {
+    res["description"] = data.items[0].description;
+  } else {
+    res["description"] = "";
+  }
+
+  if (
+    "items" in data &&
+    data.items.length > 0 &&
+    "logo" in data.items[0] &&
+    data.items[0].logo !== null
+  ) {
+    res["logo"] = data.items[0].logo;
+  } else {
+    res["logo"] = "";
+  }
+
+  return res;
+}
+
 // app.use(cors())
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   next();
 });
 
-
 app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
-  res.send(companiesToPositions);
+  // res.send(companiesToPositions);
   let companies = [];
-  companiesToPositions.map((company) => {
-      let companyobj = {
-        companyName: company.companyName,
-        url: company.url,
-        locations: company.locations,
-      };
-      companies.push(companyobj);
-    });
+  for (i = 0; i < companiesToPositions.length; i++) {
+    let company = companiesToPositions[i];
+    const { description, logo } = await fetchDescriptionAndLogo(
+      company.companyName
+    );
+    let companyobj = {
+      companyName: company.companyName,
+      url: company.url,
+      locations: company.locations,
+      description: description,
+      logo: logo,
+    };
+    companies.push(companyobj);
+  }
+
   res.send(companies);
 });
 
 app.get("/get_internships", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   let internships = [];
-  companiesToPositions.map((company) => {
+  for (i = 0; i < companiesToPositions.length; i++) {
+    let company = companiesToPositions[i];
+    const { description, logo } = await fetchDescriptionAndLogo(
+      company.companyName
+    );
     company.positions.map((position) => {
       let internship = {
         id: position.id,
         companyName: company.companyName,
+        companyLogo: logo,
         positionName: position.title,
         url: position.url,
         locations: company.locations,
       };
       internships.push(internship);
     });
-  });
-  // console.log(companiesToPositions);
+  }
+
   res.send(internships);
 });
 
 let workExp = [
-  { title: 'Research Assistant', org: 'New York University', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Research Assistant', org: 'New York University', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Research Assistant', org: 'New York University', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Research Assistant', org: 'New York University', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }
+  {
+    title: "Research Assistant",
+    org: "New York University",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Research Assistant",
+    org: "New York University",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Research Assistant",
+    org: "New York University",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Research Assistant",
+    org: "New York University",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
 ];
 let proj = [
-  { title: 'Hello World', org: 'Python', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Hello World', org: 'Python', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Hello World', org: 'Python', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-  { title: 'Hello World', org: 'Python', date:'Aug 2021 - Dec 2021', text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }
+  {
+    title: "Hello World",
+    org: "Python",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Hello World",
+    org: "Python",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Hello World",
+    org: "Python",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: "Hello World",
+    org: "Python",
+    date: "Aug 2021 - Dec 2021",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
 ];
 
-app.get("/get_expArr", async(req, res) => {
-  let exp3 = [workExp, proj]
+app.get("/get_expArr", async (req, res) => {
+  let exp3 = [workExp, proj];
   res.send(exp3);
 });
 
-
-app.post("/get_work", jsonParser, async(req, res) => {
+app.post("/get_work", jsonParser, async (req, res) => {
   workExp.push(req.body.entry);
   res.send(req.body.entry);
 });
 
-app.post("/get_proj", jsonParser, async(req, res) => {
+app.post("/get_proj", jsonParser, async (req, res) => {
   proj.push(req.body.entry);
   res.send(req.body.entry);
 });
 
-
-app.post("/get_proj", jsonParser, async(req, res) => {
+app.post("/get_proj", jsonParser, async (req, res) => {
   console.log(req.body.proj);
 });
 
@@ -145,8 +227,7 @@ app.post("/post_review", async (req, res) => {
 app.post("/get_login", jsonParser, (req, res) => {
   if (req.body.params.password == "password") {
     res.send("success");
-  }
-  else {
+  } else {
     res.send("failure");
   }
 });
