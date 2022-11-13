@@ -84,7 +84,15 @@ function InternshipCell({ internship }) {
     <Card className={classes.card}>
       <CardActionArea disableRipple>
         <CardHeader
-          avatar={<Avatar src={"https://source.unsplash.com/random/"} />}
+          avatar={
+            <Avatar
+              src={
+                internship.companyLogo !== ""
+                  ? internship.companyLogo
+                  : "https://source.unsplash.com/random/"
+              }
+            />
+          }
           action={
             <Link
               to={internship.id.toString()}
