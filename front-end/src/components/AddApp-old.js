@@ -1,28 +1,20 @@
 import * as React from 'react';
-// import { Container, Stack } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Toolbar from '@mui/material/Toolbar';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import { ArrowBack } from '@material-ui/icons';
 import CssBaseline from '@mui/material/CssBaseline';
-import axios from "axios";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-// import qs from 'qs';
 
-// import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -40,54 +32,17 @@ function Copyright(props) {
     );
 }
 
-
-export default function LogIn() {
+export default function AddApp() {
     const theme = createTheme();
     const navigate = useNavigate();
     const [status, setStatus] = React.useState('');
 
-
-    const handleChange = (event) => {
-        setStatus(event.target.value);
-        // console.log(status)
+    const handleSubmit = (event) => {
+        // navigate('/all');
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const company_name = data.get('company');
-        const position = data.get('position');
-        const deadline = data.get('deadline');
-        // const status = 
-
-        const params = {
-            "company_name": company_name,
-            "position": position,
-            "deadline": deadline,
-            "status": status
-        }
-        console.log(params);
-
-        // axios
-        //     .post('http://localhost:5002/get_login', {
-        //         params
-        //     },
-        //     )
-        //     .then((response) => {
-        //         let retdata = response.data;
-        //         if (retdata == "success"){
-        //             navigate('/dash');
-        //         }
-        //         else{
-        //             alert("Password is \"password\"");
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     })
-        //     .finally(() => {
-                
-        //     });
+    const handleChange = (event) => {
+      setStatus(event.target.value);
     };
 
     return (
@@ -116,7 +71,6 @@ export default function LogIn() {
                     }}
                 >
                     <AddCircleIcon sx={{ m: 1}}>
-                        {/* <LockOutlinedIcon /> */}
                     </AddCircleIcon>
                     <Typography component="h1" variant="h5">
                         Add New
@@ -129,7 +83,6 @@ export default function LogIn() {
                             id="company"
                             label="Company Name"
                             name="company"
-                            autoComplete="company"
                             autoFocus
                         />
                         <TextField
@@ -144,6 +97,7 @@ export default function LogIn() {
                             margin="normal"
                             required
                             fullWidth
+                            placeholder=""
                             name="deadline"
                             // label="Deadline"
                             type="date"
@@ -151,22 +105,22 @@ export default function LogIn() {
                         />
                         <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
-                            <InputLabel id="status">Status</InputLabel>
+                            <InputLabel id="status-select">Status</InputLabel>
                             <Select
                             labelId="select-label"
-                            id="status"
+                            id="select-status"
                             value={status}
                             label="Status"
                             onChange={handleChange}
                             >
-                            <MenuItem value={"saved"}>Saved</MenuItem>
-                            <MenuItem value={"in-progress"}>In-Progress</MenuItem>
-                            <MenuItem value={"completed"}>Completed</MenuItem>
-                            <MenuItem value={"sent"}>Sent</MenuItem>
-                            <MenuItem value={"accepted"}>Accepted</MenuItem>
+                            <MenuItem value={10}>Saved</MenuItem>
+                            <MenuItem value={20}>In-Progress</MenuItem>
+                            <MenuItem value={30}>Completed</MenuItem>
+                            <MenuItem value={40}>Sent</MenuItem>
+                            <MenuItem value={50}>Accepted</MenuItem>
                             </Select>
                         </FormControl>
-                        </Box>                      
+                        </Box>
                         <Button
                             type="submit"
                             fullWidth
