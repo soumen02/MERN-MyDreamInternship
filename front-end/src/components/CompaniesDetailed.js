@@ -246,12 +246,8 @@ export default function CompaniesDetailed() {
                   </Typography>
                 </div>
                 {reviews.map((a) => (
-                  // conreZsole.log(a)
                   <ReviewCell review={a} key={a.user} />
                 ))}
-                {/* {reviews.map(([a]) => (
-                  <ReviewCell review = {[a]}/>
-                ))} */}
               </Card>
             </Stack>
           </Container>

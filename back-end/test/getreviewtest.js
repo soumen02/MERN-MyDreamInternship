@@ -7,17 +7,17 @@ const server = require("../app");
 chai.should();
 chai.use(chaiHttp);
 
-describe("TEST API- ReviewPage", () => {
-  it("It should fetch all the review details submitted by the user", function (done) {
+describe("TEST API- get_reviews", () => {
+  it("It should fetch all the review data", function (done) {
     chai
       .request(server)
-      .post("/post_reviews")
-      .end((err, req) => {
+      .get("/get_reviews")
+      .end((err, res) => {
         // res.should.have.status(200);
         // console.log(req.body)
         // console.log(err)
-        req.body.should.be.a("object");
-        assert.equal(typeof req.body, "object");
+        res.body.should.be.a("array");
+        assert.equal(typeof res.body, "object");
         done();
       });
   });

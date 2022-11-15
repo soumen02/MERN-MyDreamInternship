@@ -15,15 +15,14 @@ describe("TEST API- profilePage", () => {
       chai
         .request(server)
         .get("/get_internships")
-      .end((err, res) => {
+        .end((err, res) => {
           res.body.should.be.a("array");
         });
     });
   });
 });
 
-
 // it('assertion success', async () => {
 //     const result = await resolvingPromise;
-//     expect(result).to.equal('promise resolved'); 
+//     expect(result).to.equal('promise resolved');
 //   });

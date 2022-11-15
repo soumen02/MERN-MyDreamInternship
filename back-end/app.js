@@ -198,7 +198,7 @@ app.get("/get_expArr", async(req, res) => {
 app.get("/get_reviews", jsonParser, async (req, res) => {
   // https://my.api.mockaroo.com/reviews.json?key=69437d10
   //const reviews = await axios.get("https://my.api.mockaroo.com/reviews.json?key=69437d10");
-  res.send(Reviews);
+  res.json(Reviews);
   // console.log(Reviews);
 });
 app.post("/get_work", jsonParser, async (req, res) => {
@@ -236,8 +236,8 @@ app.post("/get_editProj", jsonParser, async(req, res) => {
 app.post("/post_review", async (req, res) => {
   const Reviewdata = [];
   Reviewdata.push(req.body);
-  res.send({Reviewdata});
-  console.log({Reviewdata});
+  res.send({ Reviewdata });
+  console.log({ Reviewdata });
 });
 
 app.post("/get_login", jsonParser, (req, res) => {
