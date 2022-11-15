@@ -72,7 +72,6 @@ export default function Edit({view}) {
             )
             .then((response) => {
                 setWorkExp(workExp => [...workExp, response.data]);
-                console.log(response.data.id);
             })
             .catch((err) => {
                 console.log(err);
