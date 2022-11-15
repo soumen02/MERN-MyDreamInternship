@@ -72,6 +72,7 @@ export default function Edit({view}) {
             )
             .then((response) => {
                 setWorkExp(workExp => [...workExp, response.data]);
+                console.log(response.data.id);
             })
             .catch((err) => {
                 console.log(err);
@@ -91,6 +92,7 @@ export default function Edit({view}) {
             )
             .then((response) => {
                 setProj(proj => [...proj, response.data]);
+                console.log(response.data.id);
             })
             .catch((err) => {
                 console.log(err);
@@ -133,9 +135,9 @@ export default function Edit({view}) {
             </AppBar>
             <div className = "editsCont"> 
                 {view ?
-                <SeeAll items = {workExp} state = {false} edit = {true}/>
+                <SeeAll items = {workExp} state = {false} edit = {true} arr = "Work"/>
                 :
-                <SeeAll items = {proj} state = {false} edit = {true}/>
+                <SeeAll items = {proj} state = {false} edit = {true} arr = "Proj"/>
                 }
                 
             </div>

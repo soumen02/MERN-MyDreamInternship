@@ -17,6 +17,15 @@
     margin-bottom: 0;
 }
 
+.oneBoxEdit{
+    margin-bottom: 6%;
+    margin-top: 5%;
+    margin-left: 3%;
+    margin-right: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
 .oneBox{
     margin-top: 0;
     margin-bottom: 3%;
@@ -27,6 +36,7 @@
 
 .overallCont{
     margin-bottom: 10%;
+    margin-top: 6%;
 }
 
 .ic{
@@ -44,4 +54,6 @@
     margin-left: 1%;
     margin-right: 3%;
     margin-top: 6%;
+    padding-left: 4%;
+    padding-right: 3%;
 }
