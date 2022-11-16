@@ -66,28 +66,23 @@ export default function LogIn() {
             "deadline": deadline,
             "status": status
         }
-        console.log(params);
+        // console.log(params);
 
-        // axios
-        //     .post('http://localhost:5002/get_login', {
-        //         params
-        //     },
-        //     )
-        //     .then((response) => {
-        //         let retdata = response.data;
-        //         if (retdata == "success"){
-        //             navigate('/dash');
-        //         }
-        //         else{
-        //             alert("Password is \"password\"");
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     })
-        //     .finally(() => {
+        axios
+            .post('http://localhost:5002/post_applications', {
+                params
+            },
+            )
+            .then((response) => {
+                let appData = response.data;
+                console.log(appData)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
                 
-        //     });
+            });
     };
 
     return (

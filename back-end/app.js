@@ -248,4 +248,11 @@ app.post("/get_login", jsonParser, (req, res) => {
   }
 });
 
+const appData = [];
+app.post("/post_applications", jsonParser, async (req, res) => {
+  appData.push(req.body);
+  res.send({appData});
+  console.log({appData});
+});
+
 module.exports = app;
