@@ -8,7 +8,8 @@ const { v4: uuidv4 } = require("uuid");
 // var cors = require('cors');
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require("body-parser");
-
+const Internship = require("./models/internshipModel");
+const internshipController = require("./controllers/internshipController");
 const jsonParser = bodyParser.json();
 //var reviews = require('./reviews.json')
 
@@ -42,7 +43,10 @@ async function scrape(url) {
         $(positionsElem)
           .contents()
           .each((posIdx, posElem) => {
-            if (posElem.type === "text") {
+            if (
+              posElem.type === "text" &&
+              companyData["defaultPositionUrl"] !== undefined
+            ) {
               companyData["positions"].push({
                 id: uuidv4(),
                 title: $(posElem).text(),
@@ -69,29 +73,34 @@ async function fetchDescriptionAndLogo(companyName) {
   companyName = companyName.replaceAll(" ", "+");
   url =
     "https://api.simplify.jobs/v2/company/?page=0&size=27&value=" + companyName;
-  const { data } = await axios.get(url);
   let res = {};
+  try {
+    const { data } = await axios.get(url);
+    if (
+      "items" in data &&
+      data.items.length > 0 &&
+      "description" in data.items[0] &&
+      data.items[0].description !== null
+    ) {
+      res["description"] = data.items[0].description;
+    } else {
+      res["description"] = "";
+    }
 
-  if (
-    "items" in data &&
-    data.items.length > 0 &&
-    "description" in data.items[0] &&
-    data.items[0].description !== null
-  ) {
-    res["description"] = data.items[0].description;
-  } else {
-    res["description"] = "";
-  }
-
-  if (
-    "items" in data &&
-    data.items.length > 0 &&
-    "logo" in data.items[0] &&
-    data.items[0].logo !== null
-  ) {
-    res["logo"] = data.items[0].logo;
-  } else {
-    res["logo"] = "";
+    if (
+      "items" in data &&
+      data.items.length > 0 &&
+      "logo" in data.items[0] &&
+      data.items[0].logo !== null
+    ) {
+      res["logo"] = data.items[0].logo;
+    } else {
+      res["logo"] = "";
+    }
+  } catch (error) {
+    console.log(
+      `Error fetching company description and logo: ${error.message}`
+    );
   }
 
   return res;
@@ -130,14 +139,18 @@ app.get("/get_companies", async (req, res) => {
 });
 
 app.get("/get_internships", async (req, res) => {
+  const internships = await internshipController.getInternships();
+  res.status(200).send(internships);
+
   let companiesToPositions = await scrape(mystery);
-  let internships = [];
+  let newInternships = [];
   for (i = 0; i < companiesToPositions.length; i++) {
     let company = companiesToPositions[i];
     const { description, logo } = await fetchDescriptionAndLogo(
       company.companyName
     );
-    company.positions.map((position) => {
+
+    await company.positions.map(async (position) => {
       let internship = {
         id: position.id,
         companyName: company.companyName,
@@ -146,11 +159,14 @@ app.get("/get_internships", async (req, res) => {
         url: position.url,
         locations: company.locations,
       };
-      internships.push(internship);
+      const exists = await internshipController.checkIfExists(internship);
+      if (!exists) {
+        newInternships.push(internship);
+      }
     });
   }
-
-  res.send(internships);
+  console.log(newInternships.length);
+  await internshipController.addInternships(newInternships);
 });
 
 ////////// OBJECTS FOR TESTING
