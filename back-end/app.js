@@ -10,6 +10,10 @@ const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require("body-parser");
 const Internship = require("./models/internshipModel");
 const internshipController = require("./controllers/internshipController");
+const {
+  signupUser,
+  loginUser,
+} = require("./controllers/authenticationControler");
 const jsonParser = bodyParser.json();
 //var reviews = require('./reviews.json')
 
@@ -304,13 +308,9 @@ app.post("/post_review", async (req, res) => {
   console.log({ Reviewdata });
 });
 
-app.post("/get_login", jsonParser, (req, res) => {
-  if (req.body.params.password == "password") {
-    res.send("success");
-  } else {
-    res.send("failure");
-  }
-});
+app.post("/login", loginUser);
+
+app.post("/signup", signupUser);
 
 const appData = [];
 app.post("/post_applications", jsonParser, async (req, res) => {
