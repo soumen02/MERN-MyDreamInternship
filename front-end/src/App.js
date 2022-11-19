@@ -22,10 +22,6 @@ import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import AboutUs from "./components/AboutUs";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-// import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import ReviewPage from "./components/ReviewPage";
 
 export default function App() {
@@ -51,9 +47,9 @@ export default function App() {
       </Route>
       <Route path="/companies">
         <Route index element={<Companies />} />
-        <Route path=':id' element={<CompaniesDetailed/>} />
+        <Route path=":id" element={<CompaniesDetailed />} />
       </Route>
-{/* 
+      {/* 
       <Route path="/companiesdetailed">
         <Route index element={<CompaniesDetailed />} />
         { <Route path=':id' element={<CompaniesDetailed/>} /> }
@@ -103,12 +99,6 @@ export default function App() {
         <Route path="proj" element={<Edit view={false} />} />
       </Route>
 
-      <Route path="/log-in">
-        <Route index element={<LogIn />} />
-      </Route>
-      <Route path="/sign-up">
-        <Route index element={<SignUp />} />
-      </Route>
       <Route path="/dash">
         <Route index element={<Dashboard />} />
       </Route>
