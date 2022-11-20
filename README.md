@@ -55,4 +55,9 @@ This project was proposed by Zulfkhar, who had once struggled with finding inter
 - Product Owner: [Abraiz Azhar](https://github.com/Abraiz01)
 - Scrum Master: [Soumen Mohanty](https://github.com/soumen02)
 
+#### Sprint 3 - Week 4
+
+- Product Owner: [Majid Ibrahim](https://github.com/Majid778)
+- Scrum Master: [Abraiz Azhar](https://github.com/Abraiz01)
+
 All team members are developers on this project in every sprint. The roles of Product Owner and Scrum Master are assigned to different team members weekly to ensure each member has had experience in both roles at least once. 
