@@ -7,7 +7,7 @@ async function getInternships() {
 }
 //get internship using id
 async function getCompanyInternship(id) {
-  const internship = await Internship.findById(id)
+  const internship = await Internship.findById(id);
   return internship;
 }
 // check if Internship exists
@@ -37,22 +37,23 @@ async function addInternships(internships) {
         locations,
       });
     } catch (error) {
-      console.log("Error creating new Internship position", error.message);
-      console.log("new Internship details: ", internship);
+      // console.log("Error creating new Internship position", error.message);
+      // console.log("new Internship details: ", internship);
     }
   });
 }
 //input company name and get all internship ids for that company
 async function getInternshipIds(companyName) {
-  const internships = await Internship.find({ companyName:
-    companyName }).sort({ createdAt: -1 });
+  const internships = await Internship.find({ companyName: companyName }).sort({
+    createdAt: -1,
+  });
   const data = [];
   internships.forEach((internship) => {
-    data.push(internship.id);
+    data.push(internship._id);
   });
   // console.log(companyName);
   // console.log(data)
-  return data; 
+  return data;
 }
 
 module.exports = {
@@ -60,5 +61,5 @@ module.exports = {
   checkIfExists,
   addInternships,
   getInternshipIds,
-  getCompanyInternship
+  getCompanyInternship,
 };

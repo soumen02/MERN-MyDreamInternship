@@ -50,7 +50,6 @@ export default function CompaniesDetailed() {
         // axios bundles up all response data in response.data property
         const r = response.data;
         setReviews(r);
-
       })
       .catch((err) => {
         // catching error
@@ -65,18 +64,13 @@ export default function CompaniesDetailed() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .post("http://localhost:5002/get_company_internships",{
-        ids: selectedCompany.companyPositions
+      .post("http://localhost:5002/get_company_internships", {
+        companyPositions: selectedCompany.companyPositions,
       })
       .then((response) => {
-        // axios bundles up all response data in response.data property
         const r = response.data;
-
-        console.log(r);
         setInternships(r);
-        // setReviews(r);
-        console.log(internships);
-
+        console.log(response.data);
       })
       .catch((err) => {
         // catching error
@@ -89,10 +83,8 @@ export default function CompaniesDetailed() {
 
   // set up loading data from api when the component first loads
   useEffect(() => {
-    // fetch messages this once
     fetchInternships();
     fetchReviews();
-    console.log(selectedCompany.companyPositions);
   }, []);
 
   return (
@@ -139,7 +131,6 @@ export default function CompaniesDetailed() {
                     rowSpacing={2}
                     justify="center"
                   >
-                   
                     <Grid item xs={12} xm={6} xl={6}>
                       <Stack
                         direction="row"
@@ -179,7 +170,9 @@ export default function CompaniesDetailed() {
                     <b>Company Description</b>
                   </Typography>
                 </div>
-                <Typography padding="20px">{selectedCompany.description}</Typography>
+                <Typography padding="20px">
+                  {selectedCompany.description}
+                </Typography>
               </Card>
               <Card className={classes.card}>
                 <div>
@@ -193,22 +186,10 @@ export default function CompaniesDetailed() {
                     <b>Internships</b>
                   </Typography>
                 </div>
-                <Card className={classes.card}>
-                  <CardActionArea disableRipple>
-                    <CardHeader
-                      avatar={<Avatar src="amazon.png" />}
-                      action={
-                        <Link to="/internships/1">
-                          <IconButton>
-                            <ArrowForward />
-                          </IconButton>
-                        </Link>
-                      }
-                      title={"Junior Software Developer"}
-                      subheader={"Amazon"}
-                    />
-                  </CardActionArea>
-                </Card>
+
+                {internships.map((a) => (
+                  <InternshipCell internship={a} />
+                ))}
               </Card>
               <Card>
                 <div>
@@ -236,12 +217,11 @@ export default function CompaniesDetailed() {
   );
 
   function ReviewCell(review) {
-    console.log(review);
     const classes = useStyles();
     return (
       <Card margin="100px" padding="25px">
         <Stack
-        paddingTop="15px"
+          paddingTop="15px"
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 2, sm: 4, md: 4 }}
           xs={12}
@@ -256,38 +236,57 @@ export default function CompaniesDetailed() {
             Name: {review.review.user}
           </Typography>
           <Divider variant="vertical" />
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Position: {review.review.position}
           </Typography>
           <Divider variant="vertical" />
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Rating: {review.review.rating}/5★
           </Typography>
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Date: {review.review.date}
           </Typography>
         </Stack>
-        <Typography component="div" paddingLeft="25px" paddingTop="10px" paddingBottom="10px">
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 2, sm: 4, md: 4 }}
-          xs={12}
-          xm={6}
-          xl={4}
+        <Typography
+          component="div"
+          paddingLeft="25px"
+          paddingTop="10px"
+          paddingBottom="10px"
         >
-          Review:&nbsp;<ReadMore text={review.review.review} />
-        </Stack>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 2, sm: 4, md: 4 }}
+            xs={12}
+            xm={6}
+            xl={4}
+          >
+            Review:&nbsp;
+            <ReadMore text={review.review.review} />
+          </Stack>
         </Typography>
         <Divider orientation="row" variant="middle" flexItem />
+      </Card>
+    );
+  }
+
+  function InternshipCell(internship) {
+    const classes = useStyles();
+    return (
+      <Card className={classes.card}>
+        <CardActionArea disableRipple>
+          <CardHeader
+            avatar={<Avatar src={internship.internship.companyLogo} />}
+            action={
+              <Link href={internship.internship.url}>
+                <IconButton>
+                  <ArrowForward />
+                </IconButton>
+              </Link>
+            }
+            title={internship.internship.positionName}
+            subheader={internship.internship.companyName}
+          />
+        </CardActionArea>
       </Card>
     );
   }

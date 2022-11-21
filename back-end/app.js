@@ -121,19 +121,19 @@ app.use((req, res, next) => {
 });
 
 //  app.get("/get_companies", async (req, res) => {
-  // let companiesToPositions = await scrape(mystery);
-  // -  res.send(companiesToPositions);
-  // +  let companies = [];
-  // +  companiesToPositions.map((company) => {
-  // +      let company = {
-  // +        companyName: company.companyName,
-  // +        url: position.url,
-  // +        locations: company.locations,
-  // +      };
-  // +      companies.push(company);
-  // +    });
-  // +  res.send(companies);
-  //  });
+// let companiesToPositions = await scrape(mystery);
+// -  res.send(companiesToPositions);
+// +  let companies = [];
+// +  companiesToPositions.map((company) => {
+// +      let company = {
+// +        companyName: company.companyName,
+// +        url: position.url,
+// +        locations: company.locations,
+// +      };
+// +      companies.push(company);
+// +    });
+// +  res.send(companies);
+//  });
 app.get("/get_companies", async (req, res) => {
   const companies = await companyController.getCompanies();
   // companies.forEach(async (company) => {
@@ -150,7 +150,6 @@ app.get("/get_companies", async (req, res) => {
       company.companyName
     );
 
-    console.log(company.companyName);
     internshipIds = await internshipController.getInternshipIds(
       company.companyName
     );
@@ -167,23 +166,21 @@ app.get("/get_companies", async (req, res) => {
     if (!exists) {
       newCompanies.push(companyobj);
     }
- 
-}
+  }
 
   //console.log(newInternships.length);
   await companyController.addCompanies(newCompanies);
-
 });
 
-
 app.post("/get_company_internships", jsonParser, async (req, res) => {
-  let internships = [];
+  const internships = [];
   console.log(req.body);
-  req.body.forEach(element => {
-    const internship = await internshipController.getCompanyInternship(element);
-    console.log(element);
+  const ids = req.body.companyPositions;
+  for (i = 0; i < ids.length; i++) {
+    console.log(ids[i]);
+    const internship = await internshipController.getCompanyInternship(ids[i]);
     internships.push(internship);
-  });
+  }
   res.send(internships);
 });
 
@@ -365,7 +362,3 @@ app.post("/post_applications", jsonParser, async (req, res) => {
 });
 
 module.exports = app;
-
-
-
-  
