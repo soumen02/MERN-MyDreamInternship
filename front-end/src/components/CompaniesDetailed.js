@@ -45,7 +45,7 @@ export default function CompaniesDetailed() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .get("http://localhost:5002/get_reviews")
+      .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.companyReviews})
       .then((response) => {
         // axios bundles up all response data in response.data property
         const r = response.data;
@@ -233,7 +233,7 @@ export default function CompaniesDetailed() {
             sx={{ flexDirection: "row" }}
             paddingLeft="25px"
           >
-            Name: {review.review.user}
+            Name: {review.review.name}
           </Typography>
           <Divider variant="vertical" />
           <Typography component="div" sx={{ flexDirection: "row" }}>

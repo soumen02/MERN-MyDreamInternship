@@ -6,9 +6,12 @@ const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
   user: {
-    type: mongoos.Schema.Types.ObjectId, ref: 'User',
+    type: String,
     required: true,
-    unique: true,
+  },
+  company: {
+    type: String,
+    required: true,
   },
   review: {
     type: String,
@@ -18,24 +21,31 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  position: {
+    type: String,
+    required: true,
+  },
   date: {
     type: String,
     required: true,
   },
 });
 
-// User static signup method
-userSchema.statics.postreview = async function (
-  review,
-  rating,
-  date
-) {
-  // validation
-  if (!review || !rating || !date)  {
-    throw Error("All fields must be filled");
-  }
+// // User static signup method
+// userSchema.statics.postreview = async function (
+//   review,
+//   rating,
+//   date,
+//   position,
+//   company,
+//   user
+// ) {
+//   // validation
+//   if (!review || !rating || !date || !position || !company || !user)  {
+//     throw Error("All fields must be filled");
+//   }
 
-  return Review;
-};
+//   return Review;
+// };
 
-module.exports = mongoose.model("Review", userSchema);
+module.exports = mongoose.model("Review", reviewSchema);

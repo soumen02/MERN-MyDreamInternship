@@ -11,6 +11,8 @@ const bodyParser = require("body-parser");
 const Internship = require("./models/internshipModel");
 const internshipController = require("./controllers/internshipController");
 const companyController = require("./controllers/companyController");
+const reviewController = require("./controllers/reviewController");
+const userController = require("./controllers/userController");
 const {
   signupUser,
   loginUser,
@@ -306,12 +308,32 @@ app.get("/get_expArr", async (req, res) => {
   let exp3 = [workExp, proj];
   res.send(exp3);
 });
+app.post("/post_review", jsonParser, async (req, res) => {
+  let review = req.body;
+  console.log(review);
+  await reviewController.addReview(review);
+  res.send(review);
+});
+app.post("/get_reviews", jsonParser, async (req, res) => {
+  const reviews = [];
+  console.log(req.body);
+  const ids = req.body.reviewids;
+  for (i = 0; i < ids.length; i++) {
+    console.log(ids[i]);
+    const review = await reviewController.getReview(ids[i]);
+    const user = await userController.getUser(review.user);
+    let reviewObj = {
+      name: user.firstName,
+      review: review.review,
+      rating: review.rating,
+      date: review.date,
+      position: review.position,
+      company : review.company
 
-app.get("/get_reviews", jsonParser, async (req, res) => {
-  // https://my.api.mockaroo.com/reviews.json?key=69437d10
-  //const reviews = await axios.get("https://my.api.mockaroo.com/reviews.json?key=69437d10");
-  res.json(Reviews);
-  // console.log(Reviews);
+    };
+    reviews.push(reviewObj);
+  }
+  res.send(reviews);
 });
 app.post("/get_work", jsonParser, async (req, res) => {
   req.body.entry.id = String(new Date());

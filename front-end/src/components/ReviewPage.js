@@ -49,13 +49,20 @@ export default function ReviewPage() {
     event.preventDefault();
     axios
       .post("http://localhost:5002/post_review", {
+        user: "63787047427beb384c348b28",
         review: formData1,
         rating: formData2,
         date: d,
+        position: "Intern",
+        company: "637bc1d759e19c6549b8b873",
       })
       .then((res) => {
         console.log(res);
-      });
+      })
+      .catch((err) => {
+        console.log(err);
+      }
+      );
   }
 
   const handleChange1 = (event) => {
