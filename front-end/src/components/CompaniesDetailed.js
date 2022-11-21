@@ -39,6 +39,7 @@ export default function CompaniesDetailed() {
   const { selectedCompany } = useLocation().state;
   const [loaded, setLoaded] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [internships, setInternships] = useState([]);
 
   const fetchReviews = () => {
     // setMessages([])
@@ -48,11 +49,33 @@ export default function CompaniesDetailed() {
       .then((response) => {
         // axios bundles up all response data in response.data property
         const r = response.data;
+        setReviews(r);
+
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
+  const fetchInternships = () => {
+    // setMessages([])
+    // setLoaded(false)
+    axios
+      .post("http://localhost:5002/get_company_internships",{
+        ids: selectedCompany.companyPositions
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const r = response.data;
 
         console.log(r);
-        setReviews(r);
+        setInternships(r);
         // setReviews(r);
-        console.log(reviews);
+        console.log(internships);
 
       })
       .catch((err) => {
@@ -67,7 +90,9 @@ export default function CompaniesDetailed() {
   // set up loading data from api when the component first loads
   useEffect(() => {
     // fetch messages this once
+    fetchInternships();
     fetchReviews();
+    console.log(selectedCompany.companyPositions);
   }, []);
 
   return (
@@ -114,31 +139,7 @@ export default function CompaniesDetailed() {
                     rowSpacing={2}
                     justify="center"
                   >
-                    <Grid item xs={12} xm={6} xl={6}>
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Type:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingRight="20px"
-                        >
-                          Tech industry
-                        </Typography>
-                      </Stack>
-                    </Grid>
-
+                   
                     <Grid item xs={12} xm={6} xl={6}>
                       <Stack
                         direction="row"
@@ -160,30 +161,6 @@ export default function CompaniesDetailed() {
                           paddingRight="20px"
                         >
                           {selectedCompany.locations}
-                        </Typography>
-                      </Stack>
-                    </Grid>
-                    <Grid item xs={12} xm={6} xl={6}>
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Employees:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingRight="20px"
-                        >
-                          100000+
                         </Typography>
                       </Stack>
                     </Grid>

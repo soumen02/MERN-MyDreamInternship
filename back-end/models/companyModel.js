@@ -10,11 +10,7 @@ const companySchema = new Schema({
         type: String,
         required: false,
     },
-    companyDescription: {
-        type: String,
-        required: false,
-    },
-    url: {
+    description: {
         type: String,
         required: false,
     },

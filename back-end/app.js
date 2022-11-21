@@ -149,6 +149,7 @@ app.get("/get_companies", async (req, res) => {
     const { description, logo } = await fetchDescriptionAndLogo(
       company.companyName
     );
+
     console.log(company.companyName);
     internshipIds = await internshipController.getInternshipIds(
       company.companyName
@@ -157,7 +158,6 @@ app.get("/get_companies", async (req, res) => {
     let companyobj = {
       companyPositions: internshipIds,
       companyName: company.companyName,
-      url: company.url,
       locations: company.locations,
       description: description,
       logo: logo,
@@ -173,6 +173,18 @@ app.get("/get_companies", async (req, res) => {
   //console.log(newInternships.length);
   await companyController.addCompanies(newCompanies);
 
+});
+
+
+app.post("/get_company_internships", jsonParser, async (req, res) => {
+  let internships = [];
+  console.log(req.body);
+  req.body.forEach(element => {
+    const internship = await internshipController.getCompanyInternship(element);
+    console.log(element);
+    internships.push(internship);
+  });
+  res.send(internships);
 });
 
 app.get("/get_internships", async (req, res) => {
