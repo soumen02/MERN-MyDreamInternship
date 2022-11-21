@@ -10,6 +10,7 @@ const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require("body-parser");
 const Internship = require("./models/internshipModel");
 const internshipController = require("./controllers/internshipController");
+const companyController = require("./controllers/companyController");
 const {
   signupUser,
   loginUser,
@@ -119,27 +120,59 @@ app.use((req, res, next) => {
   next();
 });
 
+//  app.get("/get_companies", async (req, res) => {
+  // let companiesToPositions = await scrape(mystery);
+  // -  res.send(companiesToPositions);
+  // +  let companies = [];
+  // +  companiesToPositions.map((company) => {
+  // +      let company = {
+  // +        companyName: company.companyName,
+  // +        url: position.url,
+  // +        locations: company.locations,
+  // +      };
+  // +      companies.push(company);
+  // +    });
+  // +  res.send(companies);
+  //  });
 app.get("/get_companies", async (req, res) => {
+  const companies = await companyController.getCompanies();
+  // companies.forEach(async (company) => {
+  //   // console.log(company);
+  // });
+  res.status(200).send(companies);
   let companiesToPositions = await scrape(mystery);
-  // res.send(companiesToPositions);
-  // res.send(companiesToPositions);
-  let companies = [];
+  let newCompanies = [];
+  let internshipIds = [];
+
   for (i = 0; i < companiesToPositions.length; i++) {
     let company = companiesToPositions[i];
     const { description, logo } = await fetchDescriptionAndLogo(
       company.companyName
     );
+    console.log(company.companyName);
+    internshipIds = await internshipController.getInternshipIds(
+      company.companyName
+    );
+
     let companyobj = {
+      companyPositions: internshipIds,
       companyName: company.companyName,
       url: company.url,
       locations: company.locations,
       description: description,
       logo: logo,
     };
-    companies.push(companyobj);
-  }
 
-  res.send(companies);
+    const exists = await companyController.checkIfExists(companyobj);
+    if (!exists) {
+      newCompanies.push(companyobj);
+    }
+ 
+}
+
+  //console.log(newInternships.length);
+  await companyController.addCompanies(newCompanies);
+
 });
 
 app.get("/get_internships", async (req, res) => {
@@ -169,7 +202,7 @@ app.get("/get_internships", async (req, res) => {
       }
     });
   }
-  console.log(newInternships.length);
+  // console.log(newInternships.length);
   await internshipController.addInternships(newInternships);
 });
 
@@ -320,3 +353,7 @@ app.post("/post_applications", jsonParser, async (req, res) => {
 });
 
 module.exports = app;
+
+
+
+  

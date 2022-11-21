@@ -38,9 +38,22 @@ async function addInternships(internships) {
     }
   });
 }
+//input company name and get all internship ids for that company
+async function getInternshipIds(companyName) {
+  const internships = await Internship.find({ companyName:
+    companyName }).sort({ createdAt: -1 });
+  const data = [];
+  internships.forEach((internship) => {
+    data.push(internship.id);
+  });
+  // console.log(companyName);
+  // console.log(data)
+  return data; 
+}
 
 module.exports = {
   getInternships,
   checkIfExists,
   addInternships,
+  getInternshipIds
 };
