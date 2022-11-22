@@ -15,6 +15,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SeeAll from './SeeAll';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuthContext } from "../hooks/useAuthContext";
 
 
 export default function Profile() {
@@ -22,10 +23,13 @@ export default function Profile() {
     const [workExp, setWorkExp] = useState([]);
     const [proj, setProj] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const { user } = useAuthContext();
 
     const fetchArrs = () => {
         axios
-        .get("http://localhost:5002/get_expArr")
+        .post("http://localhost:5002/post_expArr", {
+            email: user.email
+        })
         .then((response) => {
             // axios bundles up all response data in response.data property
             let array1 = response.data[0];

@@ -26,7 +26,7 @@ export default function SeeAll({items, state, edit, arr}) {
     return (
         <div> 
             {itemObjs.slice(0, divAll ? itemObjs.length : 1)}
-            {state ? //if state is true, show the button (important to differentiate between Profile and Edit pages)
+            {state && itemObjs.length > 1 ? //if state is true, show the button (important to differentiate between Profile and Edit pages)
             <div onClick = {handleClick} className = "info" id = "seeButton"><h4>See {divAll ? "less" : "all"}</h4></div> 
             : null}
         </div>
