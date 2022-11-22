@@ -24,6 +24,7 @@ export default function Profile() {
     const [proj, setProj] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const { user } = useAuthContext();
+    const [userData, setuserData] = useState({});
 
     const fetchArrs = () => {
         axios
@@ -48,9 +49,29 @@ export default function Profile() {
         });
     };
 
+    const fetchUserData = () => {
+        axios
+        .post("http://localhost:5002/post_userEmail", {
+            email: user.email
+        })
+        .then((response) => {
+            // axios bundles up all response data in response.data property
+            setuserData(response.data)
+        })
+        .catch((err) => {
+            // catching error
+        })
+        .finally(() => {
+            // the response has been received, so remove the loading icon
+            setLoaded(true);
+        });
+    };
+
+
     // set up loading data from api when the component first loads
     useEffect(() => {
         // fetch messages this once
+        fetchUserData();
         fetchArrs();
     }, []);
 
@@ -72,7 +93,7 @@ export default function Profile() {
                 <Card raised = {true} className = "contBox">
                     <img id = "pfp" src="img_avatar.png" alt="pfp" width = "200"/>
                     <div className = "titleEdit">
-                        <div className = "title" id = "name">Muhammad Zaeem Shahzad</div>
+                        <div className = "title" id = "name">{userData.firstName + " " + userData.lastName}</div>
                         <div className = "edit">Edit</div>
                     </div>
                     <div className = "box">Pronouns:<br></br>He/Him</div>

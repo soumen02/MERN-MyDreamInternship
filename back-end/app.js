@@ -253,7 +253,6 @@ app.post("/search_companies", jsonParser, async (req, res) => {
 // ];
 
 app.post("/post_expArr", jsonParser, async (req, res) => {
-  console.log(req.body.email);
   let exp3 = [await expController.expList(req.body.email), await expController.projList(req.body.email)];
   res.send(exp3);
 });
@@ -282,7 +281,9 @@ app.post("/post_edit", jsonParser, async (req, res) => {
   // }
 });
 
-
+app.post("/post_userEmail", jsonParser, async (req, res) => {
+  res.send(await userController.getUserByEmail(req.body.email));
+});
 
 app.post("/post_review", async (req, res) => {
   const Reviewdata = [];
