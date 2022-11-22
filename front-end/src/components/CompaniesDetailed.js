@@ -39,21 +39,38 @@ export default function CompaniesDetailed() {
   const { selectedCompany } = useLocation().state;
   const [loaded, setLoaded] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [internships, setInternships] = useState([]);
 
   const fetchReviews = () => {
     // setMessages([])
     // setLoaded(false)
     axios
-      .get("http://localhost:5002/get_reviews")
+      .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.companyReviews})
       .then((response) => {
         // axios bundles up all response data in response.data property
         const r = response.data;
-
-        console.log(r);
         setReviews(r);
-        // setReviews(r);
-        console.log(reviews);
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
 
+  const fetchInternships = () => {
+    // setMessages([])
+    // setLoaded(false)
+    axios
+      .post("http://localhost:5002/get_company_internships", {
+        companyPositions: selectedCompany.companyPositions,
+      })
+      .then((response) => {
+        const r = response.data;
+        setInternships(r);
+        console.log(response.data);
       })
       .catch((err) => {
         // catching error
@@ -66,7 +83,7 @@ export default function CompaniesDetailed() {
 
   // set up loading data from api when the component first loads
   useEffect(() => {
-    // fetch messages this once
+    fetchInternships();
     fetchReviews();
   }, []);
 
@@ -117,31 +134,6 @@ export default function CompaniesDetailed() {
                     <Grid item xs={12} xm={6} xl={6}>
                       <Stack
                         direction="row"
-                        spacing={2}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Type:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingRight="20px"
-                        >
-                          Tech industry
-                        </Typography>
-                      </Stack>
-                    </Grid>
-
-                    <Grid item xs={12} xm={6} xl={6}>
-                      <Stack
-                        direction="row"
                         spacing={1}
                         className={classes.horizontalStack}
                       >
@@ -163,30 +155,6 @@ export default function CompaniesDetailed() {
                         </Typography>
                       </Stack>
                     </Grid>
-                    <Grid item xs={12} xm={6} xl={6}>
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        className={classes.horizontalStack}
-                      >
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingLeft="20px"
-                        >
-                          Employees:
-                        </Typography>
-                        <Typography
-                          variant="h6"
-                          color="textPrimary"
-                          gutterBottom
-                          paddingRight="20px"
-                        >
-                          100000+
-                        </Typography>
-                      </Stack>
-                    </Grid>
                   </Grid>
                 </div>
               </Card>
@@ -202,7 +170,9 @@ export default function CompaniesDetailed() {
                     <b>Company Description</b>
                   </Typography>
                 </div>
-                <Typography padding="20px">{selectedCompany.description}</Typography>
+                <Typography padding="20px">
+                  {selectedCompany.description}
+                </Typography>
               </Card>
               <Card className={classes.card}>
                 <div>
@@ -216,22 +186,10 @@ export default function CompaniesDetailed() {
                     <b>Internships</b>
                   </Typography>
                 </div>
-                <Card className={classes.card}>
-                  <CardActionArea disableRipple>
-                    <CardHeader
-                      avatar={<Avatar src="amazon.png" />}
-                      action={
-                        <Link to="/internships/1">
-                          <IconButton>
-                            <ArrowForward />
-                          </IconButton>
-                        </Link>
-                      }
-                      title={"Junior Software Developer"}
-                      subheader={"Amazon"}
-                    />
-                  </CardActionArea>
-                </Card>
+
+                {internships.map((a) => (
+                  <InternshipCell internship={a} />
+                ))}
               </Card>
               <Card>
                 <div>
@@ -259,12 +217,11 @@ export default function CompaniesDetailed() {
   );
 
   function ReviewCell(review) {
-    console.log(review);
     const classes = useStyles();
     return (
       <Card margin="100px" padding="25px">
         <Stack
-        paddingTop="15px"
+          paddingTop="15px"
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 2, sm: 4, md: 4 }}
           xs={12}
@@ -276,41 +233,60 @@ export default function CompaniesDetailed() {
             sx={{ flexDirection: "row" }}
             paddingLeft="25px"
           >
-            Name: {review.review.user}
+            Name: {review.review.name}
           </Typography>
           <Divider variant="vertical" />
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Position: {review.review.position}
           </Typography>
           <Divider variant="vertical" />
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Rating: {review.review.rating}/5★
           </Typography>
-          <Typography
-            component="div"
-            sx={{ flexDirection: "row" }}
-          >
+          <Typography component="div" sx={{ flexDirection: "row" }}>
             Date: {review.review.date}
           </Typography>
         </Stack>
-        <Typography component="div" paddingLeft="25px" paddingTop="10px" paddingBottom="10px">
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 2, sm: 4, md: 4 }}
-          xs={12}
-          xm={6}
-          xl={4}
+        <Typography
+          component="div"
+          paddingLeft="25px"
+          paddingTop="10px"
+          paddingBottom="10px"
         >
-          Review:&nbsp;<ReadMore text={review.review.review} />
-        </Stack>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 2, sm: 4, md: 4 }}
+            xs={12}
+            xm={6}
+            xl={4}
+          >
+            Review:&nbsp;
+            <ReadMore text={review.review.review} />
+          </Stack>
         </Typography>
         <Divider orientation="row" variant="middle" flexItem />
+      </Card>
+    );
+  }
+
+  function InternshipCell(internship) {
+    const classes = useStyles();
+    return (
+      <Card className={classes.card}>
+        <CardActionArea disableRipple>
+          <CardHeader
+            avatar={<Avatar src={internship.internship.companyLogo} />}
+            action={
+              <Link href={internship.internship.url}>
+                <IconButton>
+                  <ArrowForward />
+                </IconButton>
+              </Link>
+            }
+            title={internship.internship.positionName}
+            subheader={internship.internship.companyName}
+          />
+        </CardActionArea>
       </Card>
     );
   }
