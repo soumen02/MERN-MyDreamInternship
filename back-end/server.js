@@ -1,8 +1,10 @@
-#!/usr/bin/env node
+// !/usr/bin/env node
 require("dotenv").config();
 const mongoose = require("mongoose");
 const server = require("./app"); // load up the web server
 const port = process.env.PORT; // the port to listen to for incoming requests
+
+// console.log(process.env.MONGO_URI);
 
 // connect to db
 mongoose
