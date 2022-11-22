@@ -18,9 +18,11 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { Link } from "react-router-dom";
 import Footer from "./Footer"
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Applications() {
-
+    const { user } = useAuthContext();
+    console.log(user.email);
   return (
 
     <div className = "container">

@@ -9,8 +9,11 @@ import WorkIcon from "@mui/icons-material/Work";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Dashboard() {
+  const { user } = useAuthContext();
+  console.log(user.email);
   return (
     <div className="container">
       <NavBar />

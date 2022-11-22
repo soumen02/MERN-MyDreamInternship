@@ -293,15 +293,14 @@ app.post("/post_review", async (req, res) => {
 });
 
 
-app.post("/post_review", jsonParser, async (req, res) => {
-  let review = req.body;
-  console.log(review);
-  const newreview = await reviewController.addReview(review);
-  await companyController.updateCompanyReviews(review.company,newreview._id);
-  //updae the review array
-  
-  res.send(review);
-});
+// app.post("/post_review", jsonParser, async (req, res) => {
+//   let review = req.body;
+//   console.log(review);
+//   const newreview = await reviewController.addReview(review);
+//   await companyController.updateCompanyReviews(review.company, newreview._id);
+//   //updae the review array
+//   res.send(review);
+// });
 
 app.post("/get_reviews", jsonParser, async (req, res) => {
   const reviews = [];
