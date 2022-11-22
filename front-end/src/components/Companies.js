@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/system";
 import { Link } from "react-router-dom";
+import SearchBar from "material-ui-search-bar";
 import {
   Avatar,
   CardActionArea,
@@ -12,6 +13,7 @@ import {
   AppBar,
   Toolbar,
   Button,
+  CircularProgress,
   Card,
   CardActions,
   CardContent,
@@ -32,6 +34,9 @@ const lorum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id ";
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+const allcompanies = [];
+
+
 export default function Companies() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +51,38 @@ export default function Companies() {
         // axios bundles up all response data in response.data property
         const companies = response.data;
         setCompanies(companies);
+        allcompanies = companies;
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
+
+  const searchCompanies = (searchTerm) => {
+    if (searchTerm === "") {
+      setCompanies(allcompanies);
+    }
+
+    axios
+      .post("http://localhost:5002/search_companies", {
+        params: {
+          searchTerm: searchTerm,
+        },
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const companies = response.data;
+        if (companies.length > 0) {
+          setCompanies(companies);
+        }
+        else {
+          setCompanies([]);
+        }
       })
       .catch((err) => {
         // catching error
@@ -76,6 +113,9 @@ export default function Companies() {
           </Typography>
         </Toolbar>
       </AppBar>
+
+
+
       <main>
         <div>
           <Container>
@@ -89,11 +129,26 @@ export default function Companies() {
             >
               Companies
             </Typography>
+            <SearchBar
+              placeholder="Search Position"
+              // onChange={() => setCompanies(allcompanies)}
+              onRequestSearch={(e) => searchCompanies(e)}
+              onCancelSearch={() => fetchCompanies()}
+
+              style={{
+                margin: "20px",
+                maxWidth: 800
+              }}
+            />
             <Grid container columnSpacing={12} rowSpacing={2} justify="center">
-              {companies.map((company) => (
-                <CompanyCell company={company} />
-              ))}
-            </Grid>
+              {!loaded && <CenteredLoader />}
+             
+                {
+                  companies.map((company) => (
+                    <CompanyCell company={company} />
+                  ))
+                }
+              </Grid>
           </Container>
         </div>
         <Footer />
@@ -141,7 +196,7 @@ export default function Companies() {
                   to={company.companyName.toString()}
                   state={{ selectedCompany: company }}
                   style={{ textDecoration: "none" }}
-                  // to="/companiesdetailed"
+                // to="/companiesdetailed"
                 >
                   <Typography
                     variant="h4"
@@ -176,4 +231,22 @@ export default function Companies() {
       </Grid>
     );
   }
+}
+
+
+function CenteredLoader() {
+  return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item xs={3}>
+        <CircularProgress size={100} />
+      </Grid>
+    </Grid>
+  );
 }

@@ -56,10 +56,22 @@ async function getInternshipIds(companyName) {
   return data;
 }
 
+
+async function searchInternships(searchTerm) {
+  // partial search for company name in the database
+  const regex = new RegExp(searchTerm, "i");
+  const internships = await Internship.find({
+    positionName: regex,
+  }).sort({ createdAt: -1 });
+
+    return internships;
+  }
+
 module.exports = {
   getInternships,
   checkIfExists,
   addInternships,
   getInternshipIds,
   getCompanyInternship,
+  searchInternships,
 };

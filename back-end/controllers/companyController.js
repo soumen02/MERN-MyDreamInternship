@@ -32,8 +32,19 @@ async function addCompanies(companies) {
     });
 }
 
+async function searchCompanies(searchTerm) {
+    // partial search for company name in the database
+    const regex = new RegExp(searchTerm, "i");
+    const companies = await Company.find({
+        companyName: regex,
+    }).sort({ createdAt: -1 });
+
+      return companies;
+    }
+
 module.exports = {
     getCompanies,
     checkIfExists,
     addCompanies,
+    searchCompanies
 };
