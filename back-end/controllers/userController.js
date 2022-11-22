@@ -5,6 +5,12 @@ async function getUser(id) {
     return user;
 }
 
+async function getUserByEmail(email) {
+    const user = await User.findOne({ email: email })
+    return user;
+}
+
 module.exports = {
     getUser,
+    getUserByEmail
 };
