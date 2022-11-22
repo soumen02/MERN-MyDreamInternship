@@ -26,8 +26,6 @@ export default function Saved() {
   const [internships, setInternships] = useState([]);
 
   const fetchInternships = () => {
-    // setMessages([])
-    // setLoaded(false)
     axios
       .get("https://my.api.mockaroo.com/internships?key=59e053a0")
       .then((response) => {

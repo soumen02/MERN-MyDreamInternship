@@ -44,7 +44,6 @@ export default function Internships() {
       });
   };
 
-
   const searchInternships = (searchTerm) => {
     if (searchTerm === "") {
       fetchInternships();
@@ -57,9 +56,12 @@ export default function Internships() {
         },
       })
       .then((response) => {
-        // axios bundles up all response data in response.data property
-        const internships = response.data;
-        setInternships(internships);
+        {
+          const internships = response.data;
+          // console.log(internships);
+          setInternships(internships);
+        }
+
       })
       .catch((err) => {
         // catching error
@@ -92,15 +94,15 @@ export default function Internships() {
       </AppBar>
 
       <SearchBar
-      placeholder="Search Position"
-      // onChange={() => fetchInternships()}
-      onRequestSearch={(e) => searchInternships(e)}
-      onCancelSearch={() => fetchInternships()}
-      style={{
-        margin: "20px",
-        maxWidth: 800 
-      }}
-    />
+        placeholder="Search Position"
+        // onChange={() => fetchInternships()}
+        onRequestSearch={(e) => searchInternships(e)}
+        onCancelSearch={() => fetchInternships()}
+        style={{
+          margin: "20px",
+          maxWidth: 800
+        }}
+      />
       <main>
         <div>
           {!loaded && <CenteredLoader />}
@@ -118,6 +120,9 @@ export default function Internships() {
 
 function InternshipCell({ internship }) {
   const classes = useStyles();
+
+  // // console.clear();
+  // console.log(internship.positionName);
 
   return (
     <Card className={classes.card}>

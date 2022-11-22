@@ -41,6 +41,7 @@ export default function Companies() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [companies, setCompanies] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
   const fetchCompanies = () => {
     // setMessages([])
@@ -64,6 +65,7 @@ export default function Companies() {
 
 
   const searchCompanies = (searchTerm) => {
+    setLoaded(false);
     if (searchTerm === "") {
       setCompanies(allcompanies);
     }
@@ -82,6 +84,7 @@ export default function Companies() {
         }
         else {
           setCompanies([]);
+
         }
       })
       .catch((err) => {
@@ -129,10 +132,14 @@ export default function Companies() {
             >
               Companies
             </Typography>
+
             <SearchBar
               placeholder="Search Position"
               // onChange={() => setCompanies(allcompanies)}
-              onRequestSearch={(e) => searchCompanies(e)}
+              onRequestSearch={(e) => {
+                setLoaded(false);
+                searchCompanies(e);
+              }}
               onCancelSearch={() => fetchCompanies()}
 
               style={{
@@ -142,13 +149,14 @@ export default function Companies() {
             />
             <Grid container columnSpacing={12} rowSpacing={2} justify="center">
               {!loaded && <CenteredLoader />}
-             
-                {
-                  companies.map((company) => (
-                    <CompanyCell company={company} />
-                  ))
-                }
-              </Grid>
+              {!noResults && loaded && companies.length === 0 && <NoResults />}
+
+              {
+                companies.map((company) => (
+                  <CompanyCell company={company} />
+                ))
+              }
+            </Grid>
           </Container>
         </div>
         <Footer />
@@ -158,7 +166,6 @@ export default function Companies() {
 
   function CompanyCell({ company }) {
     const classes = useStyles();
-
     return (
       <Grid item xs={12} xm={6} xl={4}>
         <Card className={classes.card}>
@@ -206,6 +213,7 @@ export default function Companies() {
         </Card>
       </Grid>
     );
+
   }
 }
 
@@ -224,5 +232,27 @@ function CenteredLoader() {
         <CircularProgress size={100} />
       </Grid>
     </Grid>
+  );
+}
+
+
+function NoResults() {
+  return (
+
+    <div style={{
+      // center it
+      position: "absolute",
+      top: "40%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      // style it
+      padding: "20px",
+      backgroundColor: "white",
+      textAlign: "center"
+    }}>
+      <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+        No Results
+      </Typography>
+    </div>
   );
 }

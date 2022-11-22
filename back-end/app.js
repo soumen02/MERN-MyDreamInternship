@@ -215,7 +215,6 @@ app.post("/search_internships", jsonParser, async (req, res) => {
   res.status(200).send(internships);
 });
 
-
 app.post("/search_companies", jsonParser, async (req, res) => {
   // console.log(`searching ${req.body.params.searchTerm}`);
   const internships = await companyController.searchCompanies(
@@ -226,7 +225,6 @@ app.post("/search_companies", jsonParser, async (req, res) => {
   res.status(200).send(internships);
 });
 
-////////// OBJECTS FOR TESTING
 
 let Reviews = [
   {

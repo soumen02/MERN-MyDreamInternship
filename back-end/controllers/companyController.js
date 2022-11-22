@@ -32,6 +32,7 @@ async function addCompanies(companies) {
         }
     });
 }
+
 //update company reviews
 async function updateCompanyReviews(companyid,reviewid) {
     const company = await Company.findOneAndUpdate({companyid},{$push:{reviewids: reviewid}});
@@ -45,7 +46,7 @@ async function searchCompanies(searchTerm) {
     const companies = await Company.find({
         companyName: regex,
     }).sort({ createdAt: -1 });
-
+    
       return companies;
     }
 
