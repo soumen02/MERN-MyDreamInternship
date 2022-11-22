@@ -109,45 +109,20 @@ export default function Companies() {
         <Card className={classes.card}>
           <CardActionArea disableRipple>
             <Grid container spacing={2}>
-              <Grid item xs={3} paddingLeft="20px">
-                {/* <CardMedia //className={classes.CardMedia} 
-                        image = "./amazon.png" alt = "Logo"  title="Logo"                                   
-                    /> */}
-                <CardHeader
-                  avatar={
-                    <Avatar
-                      src={
-                        company.companyLogo !== ""
-                          ? company.companyLogo
-                          : "https://source.unsplash.com/random/"
-                      }
-                    />
-                  }
-                />
-                {/* <img
-                  src={
-                    company.companyLogo !== ""
-                      ? company.companyLogo
-                      : "https://source.unsplash.com/random/"
-                  }
-                  alt="Logo"
-                  title="Logo"
-                  // height="100px"
-                  // width="100px"
-                ></img> */}
+              <Grid item xs={3} paddingLeft="10px">
+                <CardHeader avatar={<Avatar src={company.logo} />} />
               </Grid>
               <Grid item xs={5}>
                 <Link
                   to={company.companyName.toString()}
                   state={{ selectedCompany: company }}
                   style={{ textDecoration: "none" }}
-                  // to="/companiesdetailed"
                 >
                   <Typography
-                    variant="h4"
+                    variant="h5"
                     align="left"
                     gutterBottom
-                    paddingTop="30px"
+                    paddingTop="10px"
                   >
                     <b>{company.companyName}</b>
                   </Typography>

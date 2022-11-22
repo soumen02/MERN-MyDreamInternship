@@ -278,7 +278,7 @@ export default function CompaniesDetailed() {
             avatar={<Avatar src={internship.internship.companyLogo} />}
             action={
               <Link href={internship.internship.url}>
-                <IconButton>
+                <IconButton href={internship.internship.url} target="_blank">
                   <ArrowForward />
                 </IconButton>
               </Link>
