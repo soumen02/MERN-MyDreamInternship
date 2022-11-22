@@ -36,8 +36,8 @@ export default function EditBox({edit, item, arr}) {
     };
 
     function postEdit() {
-        let entry = {id: item.id, title: titleInput, org: orgInput, date: dateInput, text: textInput};
-        let path = "http://localhost:5002/get_edit" + arr;
+        let entry = {user: item.user, type: item.type, id: item.id, title: titleInput, org: orgInput, date: dateInput, text: textInput};
+        let path = "http://localhost:5002/post_edit";
 
         axios
             .post(path, {
