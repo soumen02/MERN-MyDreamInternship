@@ -206,7 +206,7 @@ app.get("/get_internships", async (req, res) => {
 
 
 app.post("/search_internships", jsonParser, async (req, res) => {
-  console.log(`searching ${req.body.params.searchTerm}`);
+  // console.log(`searching ${req.body.params.searchTerm}`);
   const internships = await internshipController.searchInternships(
     req.body.params.searchTerm
   );
@@ -217,7 +217,7 @@ app.post("/search_internships", jsonParser, async (req, res) => {
 
 
 app.post("/search_companies", jsonParser, async (req, res) => {
-  console.log(`searching ${req.body.params.searchTerm}`);
+  // console.log(`searching ${req.body.params.searchTerm}`);
   const internships = await companyController.searchCompanies(
     req.body.params.searchTerm
   );

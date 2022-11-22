@@ -51,8 +51,7 @@ async function getInternshipIds(companyName) {
   internships.forEach((internship) => {
     data.push(internship._id);
   });
-  // console.log(companyName);
-  // console.log(data)
+  
   return data;
 }
 
