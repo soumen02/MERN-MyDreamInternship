@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/system";
 import { Link } from "react-router-dom";
+import SearchBar from "material-ui-search-bar";
 import {
   Avatar,
   CardActionArea,
@@ -12,6 +13,7 @@ import {
   AppBar,
   Toolbar,
   Button,
+  CircularProgress,
   Card,
   CardActions,
   CardContent,
@@ -32,10 +34,14 @@ const lorum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id ";
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+const allcompanies = [];
+
+
 export default function Companies() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [companies, setCompanies] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
   const fetchCompanies = () => {
     // setMessages([])
@@ -46,6 +52,40 @@ export default function Companies() {
         // axios bundles up all response data in response.data property
         const companies = response.data;
         setCompanies(companies);
+        allcompanies = companies;
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
+
+  const searchCompanies = (searchTerm) => {
+    setLoaded(false);
+    if (searchTerm === "") {
+      setCompanies(allcompanies);
+    }
+
+    axios
+      .post("http://localhost:5002/search_companies", {
+        params: {
+          searchTerm: searchTerm,
+        },
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const companies = response.data;
+        if (companies.length > 0) {
+          setCompanies(companies);
+        }
+        else {
+          setCompanies([]);
+
+        }
       })
       .catch((err) => {
         // catching error
@@ -76,6 +116,9 @@ export default function Companies() {
           </Typography>
         </Toolbar>
       </AppBar>
+
+
+
       <main>
         <div>
           <Container>
@@ -89,10 +132,30 @@ export default function Companies() {
             >
               Companies
             </Typography>
+
+            <SearchBar
+              placeholder="Search Position"
+              // onChange={() => setCompanies(allcompanies)}
+              onRequestSearch={(e) => {
+                setLoaded(false);
+                searchCompanies(e);
+              }}
+              onCancelSearch={() => fetchCompanies()}
+
+              style={{
+                margin: "20px",
+                maxWidth: 800
+              }}
+            />
             <Grid container columnSpacing={12} rowSpacing={2} justify="center">
-              {companies.map((company) => (
-                <CompanyCell company={company} />
-              ))}
+              {!loaded && <CenteredLoader />}
+              {!noResults && loaded && companies.length === 0 && <NoResults />}
+
+              {
+                companies.map((company) => (
+                  <CompanyCell company={company} />
+                ))
+              }
             </Grid>
           </Container>
         </div>
@@ -103,51 +166,26 @@ export default function Companies() {
 
   function CompanyCell({ company }) {
     const classes = useStyles();
-
     return (
       <Grid item xs={12} xm={6} xl={4}>
         <Card className={classes.card}>
           <CardActionArea disableRipple>
             <Grid container spacing={2}>
-              <Grid item xs={3} paddingLeft="20px">
-                {/* <CardMedia //className={classes.CardMedia} 
-                        image = "./amazon.png" alt = "Logo"  title="Logo"                                   
-                    /> */}
-                <CardHeader
-                  avatar={
-                    <Avatar
-                      src={
-                        company.companyLogo !== ""
-                          ? company.companyLogo
-                          : "https://source.unsplash.com/random/"
-                      }
-                    />
-                  }
-                />
-                {/* <img
-                  src={
-                    company.companyLogo !== ""
-                      ? company.companyLogo
-                      : "https://source.unsplash.com/random/"
-                  }
-                  alt="Logo"
-                  title="Logo"
-                  // height="100px"
-                  // width="100px"
-                ></img> */}
+              <Grid item xs={3} paddingLeft="10px">
+                <CardHeader avatar={<Avatar src={company.logo} />} />
               </Grid>
               <Grid item xs={5}>
                 <Link
                   to={company.companyName.toString()}
                   state={{ selectedCompany: company }}
                   style={{ textDecoration: "none" }}
-                  // to="/companiesdetailed"
+                // to="/companiesdetailed"
                 >
                   <Typography
-                    variant="h4"
+                    variant="h5"
                     align="left"
                     gutterBottom
-                    paddingTop="30px"
+                    paddingTop="10px"
                   >
                     <b>{company.companyName}</b>
                   </Typography>
@@ -175,5 +213,46 @@ export default function Companies() {
         </Card>
       </Grid>
     );
+
   }
+}
+
+
+function CenteredLoader() {
+  return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item xs={3}>
+        <CircularProgress size={100} />
+      </Grid>
+    </Grid>
+  );
+}
+
+
+function NoResults() {
+  return (
+
+    <div style={{
+      // center it
+      position: "absolute",
+      top: "40%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      // style it
+      padding: "20px",
+      backgroundColor: "white",
+      textAlign: "center"
+    }}>
+      <Typography variant="h5" align="left" color="textPrimary" gutterBottom>
+        No Results
+      </Typography>
+    </div>
+  );
 }

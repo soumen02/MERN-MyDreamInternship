@@ -22,6 +22,10 @@ const companySchema = new Schema({
         type: Array,
         required: false,
     },
+    reviewids: {
+        type: Array,
+        required: false,
+    },
 }); 
 
 module.exports = mongoose.model("Company", companySchema);

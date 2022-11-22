@@ -18,6 +18,7 @@ import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
+import SearchBar from "material-ui-search-bar";
 
 export default function Internships() {
   const classes = useStyles();
@@ -43,11 +44,40 @@ export default function Internships() {
       });
   };
 
+  const searchInternships = (searchTerm) => {
+    if (searchTerm === "") {
+      fetchInternships();
+    }
+
+    axios
+      .post("http://localhost:5002/search_internships", {
+        params: {
+          searchTerm: searchTerm,
+        },
+      })
+      .then((response) => {
+        {
+          const internships = response.data;
+          // console.log(internships);
+          setInternships(internships);
+        }
+
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
   // set up loading data from api when the component first loads
   useEffect(() => {
     // fetch messages this once
     fetchInternships();
   }, []);
+
 
   return (
     <>
@@ -62,6 +92,17 @@ export default function Internships() {
           <Typography variant="h4">Internships</Typography>
         </Toolbar>
       </AppBar>
+
+      <SearchBar
+        placeholder="Search Position"
+        // onChange={() => fetchInternships()}
+        onRequestSearch={(e) => searchInternships(e)}
+        onCancelSearch={() => fetchInternships()}
+        style={{
+          margin: "20px",
+          maxWidth: 800
+        }}
+      />
       <main>
         <div>
           {!loaded && <CenteredLoader />}
@@ -79,6 +120,9 @@ export default function Internships() {
 
 function InternshipCell({ internship }) {
   const classes = useStyles();
+
+  // // console.clear();
+  // console.log(internship.positionName);
 
   return (
     <Card className={classes.card}>

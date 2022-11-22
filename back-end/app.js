@@ -124,20 +124,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//  app.get("/get_companies", async (req, res) => {
-// let companiesToPositions = await scrape(mystery);
-// -  res.send(companiesToPositions);
-// +  let companies = [];
-// +  companiesToPositions.map((company) => {
-// +      let company = {
-// +        companyName: company.companyName,
-// +        url: position.url,
-// +        locations: company.locations,
-// +      };
-// +      companies.push(company);
-// +    });
-// +  res.send(companies);
-//  });
+
 app.get("/get_companies", async (req, res) => {
   const companies = await companyController.getCompanies();
   // companies.forEach(async (company) => {
@@ -147,6 +134,7 @@ app.get("/get_companies", async (req, res) => {
   let companiesToPositions = await scrape(mystery);
   let newCompanies = [];
   let internshipIds = [];
+  let reviewids = [];
 
   for (i = 0; i < companiesToPositions.length; i++) {
     let company = companiesToPositions[i];
@@ -164,6 +152,7 @@ app.get("/get_companies", async (req, res) => {
       locations: company.locations,
       description: description,
       logo: logo,
+      reviewids: reviewids,
     };
 
     const exists = await companyController.checkIfExists(companyobj);
@@ -178,10 +167,8 @@ app.get("/get_companies", async (req, res) => {
 
 app.post("/get_company_internships", jsonParser, async (req, res) => {
   const internships = [];
-  console.log(req.body);
   const ids = req.body.companyPositions;
   for (i = 0; i < ids.length; i++) {
-    console.log(ids[i]);
     const internship = await internshipController.getCompanyInternship(ids[i]);
     internships.push(internship);
   }
@@ -219,7 +206,27 @@ app.get("/get_internships", async (req, res) => {
   await internshipController.addInternships(newInternships);
 });
 
-////////// OBJECTS FOR TESTING
+
+app.post("/search_internships", jsonParser, async (req, res) => {
+  // console.log(`searching ${req.body.params.searchTerm}`);
+  const internships = await internshipController.searchInternships(
+    req.body.params.searchTerm
+  );
+
+  // console.log(internships);
+  res.status(200).send(internships);
+});
+
+app.post("/search_companies", jsonParser, async (req, res) => {
+  // console.log(`searching ${req.body.params.searchTerm}`);
+  const internships = await companyController.searchCompanies(
+    req.body.params.searchTerm
+  );
+
+  // console.log(internships);
+  res.status(200).send(internships);
+});
+
 
 // let Reviews = [
 //   {
@@ -288,29 +295,34 @@ app.post("/post_review", async (req, res) => {
 app.post("/post_review", jsonParser, async (req, res) => {
   let review = req.body;
   console.log(review);
-  await reviewController.addReview(review);
+  const newreview = await reviewController.addReview(review);
+  await companyController.updateCompanyReviews(review.company,newreview._id);
+  //updae the review array
+  
   res.send(review);
 });
 
 app.post("/get_reviews", jsonParser, async (req, res) => {
   const reviews = [];
-  console.log(req.body);
-  const ids = req.body.reviewids;
-  for (i = 0; i < ids.length; i++) {
-    console.log(ids[i]);
-    const review = await reviewController.getReview(ids[i]);
-    const user = await userController.getUser(review.user);
-    let reviewObj = {
-      name: user.firstName,
-      review: review.review,
-      rating: review.rating,
-      date: review.date,
-      position: review.position,
-      company : review.company
+  const Reviewids = req.body.reviewids;
+  console.log(Reviewids);
 
-    };
-    reviews.push(reviewObj);
-  }
+for(let i=0;i<Reviewids.length;i++){
+      const review = await reviewController.getReview(Reviewids[i]);
+      const user = await userController.getUser(review.user);
+      let reviewObj = {
+        name: user.firstName,
+        review: review.review,
+        rating: review.rating,
+        date: review.date,
+        position: review.position,
+        company : review.company
+
+      };
+      reviews.push(reviewObj);
+    }
+
+  console.log(reviews);
   res.send(reviews);
 });
 

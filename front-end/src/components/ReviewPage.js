@@ -54,7 +54,7 @@ export default function ReviewPage() {
         rating: formData2,
         date: d,
         position: "Intern",
-        company: "637bc1d759e19c6549b8b873",
+        company: "637c3ea4e3cb2c93a96e7a26",
       })
       .then((res) => {
         console.log(res);
