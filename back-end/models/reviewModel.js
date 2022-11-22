@@ -28,7 +28,7 @@ const reviewSchema = new Schema({
   date: {
     type: String,
     required: true,
-  },
+  }
 });
 
 // // User static signup method

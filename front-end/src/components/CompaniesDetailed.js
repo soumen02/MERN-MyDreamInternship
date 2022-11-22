@@ -45,7 +45,7 @@ export default function CompaniesDetailed() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.companyReviews})
+      .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.reviewids})
       .then((response) => {
         // axios bundles up all response data in response.data property
         const r = response.data;

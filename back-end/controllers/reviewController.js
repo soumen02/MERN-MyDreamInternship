@@ -17,6 +17,8 @@ async function addReview(Data) {
       position,
       date,
     });
+    console.log(newReview);
+    return newReview;
   } catch (error) {
     console.log("Error creating new review", error.message);
     console.log("new review details: ", review);
