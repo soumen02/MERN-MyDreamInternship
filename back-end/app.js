@@ -122,20 +122,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//  app.get("/get_companies", async (req, res) => {
-// let companiesToPositions = await scrape(mystery);
-// -  res.send(companiesToPositions);
-// +  let companies = [];
-// +  companiesToPositions.map((company) => {
-// +      let company = {
-// +        companyName: company.companyName,
-// +        url: position.url,
-// +        locations: company.locations,
-// +      };
-// +      companies.push(company);
-// +    });
-// +  res.send(companies);
-//  });
+
 app.get("/get_companies", async (req, res) => {
   const companies = await companyController.getCompanies();
   // companies.forEach(async (company) => {
@@ -215,6 +202,28 @@ app.get("/get_internships", async (req, res) => {
   }
   // console.log(newInternships.length);
   await internshipController.addInternships(newInternships);
+});
+
+
+app.post("/search_internships", jsonParser, async (req, res) => {
+  // console.log(`searching ${req.body.params.searchTerm}`);
+  const internships = await internshipController.searchInternships(
+    req.body.params.searchTerm
+  );
+
+  // console.log(internships);
+  res.status(200).send(internships);
+});
+
+
+app.post("/search_companies", jsonParser, async (req, res) => {
+  // console.log(`searching ${req.body.params.searchTerm}`);
+  const internships = await companyController.searchCompanies(
+    req.body.params.searchTerm
+  );
+
+  // console.log(internships);
+  res.status(200).send(internships);
 });
 
 ////////// OBJECTS FOR TESTING
