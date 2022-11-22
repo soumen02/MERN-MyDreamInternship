@@ -19,11 +19,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import SearchBar from "material-ui-search-bar";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Internships() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [internships, setInternships] = useState([]);
+  const { user } = useAuthContext();
 
   const fetchInternships = () => {
     // setMessages([])
@@ -76,6 +78,7 @@ export default function Internships() {
   useEffect(() => {
     // fetch messages this once
     fetchInternships();
+    console.log(user.email);
   }, []);
 
 

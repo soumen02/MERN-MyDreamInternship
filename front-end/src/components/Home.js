@@ -36,7 +36,7 @@ export default function Home() {
             color="text.primary"
             paragraph
           >
-            Score your dream Internsip
+            Score your dream Internship
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button variant="contained" onClick={() => navigate("/sign-up")}>

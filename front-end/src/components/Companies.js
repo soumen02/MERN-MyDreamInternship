@@ -29,6 +29,7 @@ import useStyles from "./CompaniesStyles";
 import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
 import ReadMore from "./ReadMore";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const lorum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id ";
@@ -42,6 +43,7 @@ export default function Companies() {
   const [loaded, setLoaded] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [noResults, setNoResults] = useState(false);
+  const { user } = useAuthContext();
 
   const fetchCompanies = () => {
     // setMessages([])
@@ -100,6 +102,7 @@ export default function Companies() {
   useEffect(() => {
     // fetch messages this once
     fetchCompanies();
+    console.log(user.email);
   }, []);
 
   return (
