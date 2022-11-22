@@ -51,10 +51,20 @@ async function getInternshipIds(companyName) {
   internships.forEach((internship) => {
     data.push(internship._id);
   });
-  // console.log(companyName);
-  // console.log(data)
+  
   return data;
 }
+
+
+async function searchInternships(searchTerm) {
+  // partial search for company name in the database
+  const regex = new RegExp(searchTerm, "i");
+  const internships = await Internship.find({
+    positionName: regex,
+  }).sort({ createdAt: -1 });
+
+    return internships;
+  }
 
 module.exports = {
   getInternships,
@@ -62,4 +72,5 @@ module.exports = {
   addInternships,
   getInternshipIds,
   getCompanyInternship,
+  searchInternships,
 };
