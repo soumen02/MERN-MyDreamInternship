@@ -20,7 +20,7 @@
     "json2csv": "^5.0.7",
     "jsonwebtoken": "^8.5.1",
     "mocha": "*",
-    "mongoose": "^6.7.2",
+    "mongoose": "^6.7.3",
     "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },

@@ -17,6 +17,7 @@ export default function InternshipDetailed() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedInternship } = useLocation().state;
+  console.log(selectedInternship);
 
   return (
     <>
@@ -80,6 +81,15 @@ export default function InternshipDetailed() {
                 href={selectedInternship.url}
               >
                 Apply
+              </Button>
+            </Box>
+            <Box textAlign="center" className={classes.applyButton}>
+              <Button
+                variant="contained"
+                size="medium"
+                // href={selectedInternship.url}
+              >
+                Save Application
               </Button>
             </Box>
           </Container>

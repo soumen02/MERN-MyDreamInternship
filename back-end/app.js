@@ -13,6 +13,7 @@ const internshipController = require("./controllers/internshipController");
 const companyController = require("./controllers/companyController");
 const reviewController = require("./controllers/reviewController");
 const userController = require("./controllers/userController");
+const applicationController = require("./controllers/applicationController");
 const {
   signupUser,
   loginUser,
