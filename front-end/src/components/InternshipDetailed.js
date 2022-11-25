@@ -12,12 +12,42 @@ import {
 import { ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipDetailedStyles";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function InternshipDetailed() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedInternship } = useLocation().state;
-  console.log(selectedInternship);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    const params = {
+        "companyName": selectedInternship.companyName,
+        "internshipID": selectedInternship.id,
+        "positionName": selectedInternship.positionName,
+        "companyLogo": selectedInternship.companyLogo,
+        "locations": selectedInternship.locations,
+        "status": "accepted"
+    }
+    console.log(params);
+
+    axios
+        .post('http://localhost:5002/post_applications', {
+            params
+        },
+        )
+        .then((response) => {
+            let appData = response.data;
+            console.log(appData)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            
+        });
+  };
 
   return (
     <>
@@ -87,7 +117,7 @@ export default function InternshipDetailed() {
               <Button
                 variant="contained"
                 size="medium"
-                // href={selectedInternship.url}
+                onClick={handleClick}
               >
                 Save Application
               </Button>
