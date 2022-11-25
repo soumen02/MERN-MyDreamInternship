@@ -28,7 +28,7 @@ export default function InternshipDetailed() {
         "positionName": selectedInternship.positionName,
         "companyLogo": selectedInternship.companyLogo,
         "locations": selectedInternship.locations,
-        "status": "accepted"
+        "status": "accepted" // dropdown selection to be added  
     }
     console.log(params);
 

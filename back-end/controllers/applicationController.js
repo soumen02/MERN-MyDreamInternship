@@ -7,23 +7,28 @@ async function getApplications() {
 }
 
 // create a new Application
-async function addApplication() {
-    const { id, userID, internshipID, companyName, companyLogo, positionName, locations, status, reviews } =
+async function addApplication(application) {
+    const { internshipID, companyName, companyLogo, positionName, locations, status } =
     application;
     try {
     const newApplication = await Application.create({
-        id,
-        userID,
+        id: "test id",
+        userID: "test user id",
         internshipID,
         companyName,
         companyLogo,
         positionName,
         locations,
         status,
-        reviews,
+        reviews: "test review",
     });
     } catch (error) {
     console.log("Error creating new Application position", error.message);
     console.log("new Application details: ", application);
     };
 }
+
+module.exports = {
+    getApplications,
+    addApplication,
+};

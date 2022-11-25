@@ -68,21 +68,21 @@ export default function AddApp() {
         }
         // console.log(params);
 
-        axios
-            .post('http://localhost:5002/post_applications', {
-                params
-            },
-            )
-            .then((response) => {
-                let appData = response.data;
-                console.log(appData)
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
+        // axios
+        //     .post('http://localhost:5002/post_applications', {
+        //         params
+        //     },
+        //     )
+        //     .then((response) => {
+        //         let appData = response.data;
+        //         console.log(appData)
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+        //     .finally(() => {
                 
-            });
+        //     });
     };
 
     return (

@@ -335,8 +335,12 @@ app.post("/signup", signupUser);
 const appData = [];
 app.post("/post_applications", jsonParser, async (req, res) => {
   appData.push(req.body);
-  res.send({ appData });
-  console.log({ appData });
+
+  console.log(req.body.params);
+  await applicationController.addApplication(req.body.params);
+
+  // res.send({ appData });
+  // console.log({ appData });
 });
 
 module.exports = app;
