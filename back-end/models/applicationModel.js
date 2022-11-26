@@ -8,7 +8,7 @@ const applicationSchema = new Schema(
       type: String,
       required: false,
     },
-    userID: {
+    user: {
         type: String,
         required: true,
     },

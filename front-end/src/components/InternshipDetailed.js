@@ -13,22 +13,26 @@ import { ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipDetailedStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function InternshipDetailed() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedInternship } = useLocation().state;
+  const { user } = useAuthContext();
+
 
   const handleClick = (event) => {
     event.preventDefault();
 
     const params = {
-        "companyName": selectedInternship.companyName,
-        "internshipID": selectedInternship.id,
-        "positionName": selectedInternship.positionName,
-        "companyLogo": selectedInternship.companyLogo,
-        "locations": selectedInternship.locations,
-        "status": "accepted" // dropdown selection to be added  
+      "user": user.email,
+      "companyName": selectedInternship.companyName,
+      "internshipID": selectedInternship.id,
+      "positionName": selectedInternship.positionName,
+      "companyLogo": selectedInternship.companyLogo,
+      "locations": selectedInternship.locations,
+      "status": "accepted" // dropdown selection to be added  
     }
     console.log(params);
 
