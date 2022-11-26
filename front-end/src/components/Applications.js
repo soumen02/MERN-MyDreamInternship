@@ -22,7 +22,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Applications() {
     const { user } = useAuthContext();
-    console.log(user.email);
+    // console.log(user.email);
   return (
 
     <div className = "container">

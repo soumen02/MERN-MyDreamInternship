@@ -14,26 +14,32 @@ import {
   CardActionArea,
 } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@material-ui/icons";
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Footer from "./Footer";
+import SearchBar from "material-ui-search-bar";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-export default function Saved() {
+export default function AllApps() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
-  const [internships, setInternships] = useState([]);
+  const [applications, setApplications] = useState([]);
+  const { user } = useAuthContext();
 
-  const fetchInternships = () => {
-    // setMessages([])
-    // setLoaded(false)
+  const fetchApplications = () => {
+    let applications = [];
     axios
-      .get("https://my.api.mockaroo.com/internships?key=59e053a0")
+      .get("http://localhost:5002/get_applications")
       .then((response) => {
         // axios bundles up all response data in response.data property
-        const internships = response.data;
-        setInternships(internships);
+        const allApplications = response.data;
+        allApplications.forEach(async (application) => {
+          if (application.status == "saved") {
+            applications.push(application);
+          };
+        });
+        setApplications(applications);
       })
       .catch((err) => {
         // catching error
@@ -44,12 +50,13 @@ export default function Saved() {
       });
   };
 
+
   // set up loading data from api when the component first loads
   useEffect(() => {
     // fetch messages this once
-    fetchInternships();
+    fetchApplications();
   }, []);
-  console.log(internships[0]);
+
 
   return (
     <>
@@ -62,54 +69,52 @@ export default function Saved() {
             </IconButton>
           </Link>
           <Typography variant="h4">Saved</Typography>
-          <Grid container justifyContent="flex-end">
-          <Link to="/add-app">
-            <IconButton>
-              <AddIcon />
-            </IconButton>
-          </Link>
-          <Link to="/">
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          </Link>
-          </Grid>
         </Toolbar>
       </AppBar>
+
       <main>
         <div>
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
-            {internships.map((internship) => (
-              <InternshipCell internship={internship} key={internship.id} />
+            {applications.map((application) => (
+              <ApplicationCell application={application} key={application.internshipID} />
             ))}
           </Container>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
 
-function InternshipCell({ internship }) {
+function ApplicationCell({ application }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
       <CardActionArea disableRipple>
         <CardHeader
-          avatar={<Avatar src={internship.logo} />}
+          avatar={
+            <Avatar
+              src={
+                application.companyLogo !== ""
+                  ? application.companyLogo
+                  : "https://source.unsplash.com/random/"
+              }
+            />
+          }
           action={
             <Link
-              to={internship.id.toString()}
-              state={{ selectedInternship: internship }}
+              to={application.internshipID.toString()}
+              state={{ selectedApplication: application }}
             >
               <IconButton>
                 <ArrowForward />
               </IconButton>
             </Link>
           }
-          title={internship.positionTitle}
-          subheader={internship.companyName}
+          title={application.positionName}
+          subheader={application.companyName}
         />
       </CardActionArea>
     </Card>

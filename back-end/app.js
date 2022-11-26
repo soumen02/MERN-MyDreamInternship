@@ -343,4 +343,9 @@ app.post("/post_applications", jsonParser, async (req, res) => {
   // console.log({ appData });
 });
 
+app.get("/get_applications", jsonParser, async (req, res) => {
+  const applications = await applicationController.getApplications();
+  res.status(200).send(applications);
+});
+
 module.exports = app;
