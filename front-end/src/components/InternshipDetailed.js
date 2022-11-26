@@ -14,13 +14,23 @@ import useStyles from "./InternshipDetailedStyles";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 
 export default function InternshipDetailed() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { selectedInternship } = useLocation().state;
   const { user } = useAuthContext();
+  const [status, setStatus] = React.useState('');
 
+  const handleChange = (event) => {
+    setStatus(event.target.value);
+    // console.log(status)
+  };
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -32,7 +42,7 @@ export default function InternshipDetailed() {
       "positionName": selectedInternship.positionName,
       "companyLogo": selectedInternship.companyLogo,
       "locations": selectedInternship.locations,
-      "status": "accepted" // dropdown selection to be added  
+      "status": status // from dropdown 
     }
     console.log(params);
 
@@ -117,14 +127,36 @@ export default function InternshipDetailed() {
                 Apply
               </Button>
             </Box>
+            <Box sx={{ minWidth: 60 }}>
+
+            </Box> 
             <Box textAlign="center" className={classes.applyButton}>
-              <Button
-                variant="contained"
-                size="medium"
-                onClick={handleClick}
-              >
-                Save Application
-              </Button>
+              <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="status">Status</InputLabel>
+                    <Select
+                    labelId="select-label"
+                    id="status"
+                    required
+                    value={status}
+                    label="Status"
+                    onChange={handleChange}
+                    // defaultValue={"saved"}
+                    >
+                    <MenuItem value={"saved"}>Saved</MenuItem>
+                    <MenuItem value={"in-progress"}>In-Progress</MenuItem>
+                    <MenuItem value={"completed"}>Completed</MenuItem>
+                    <MenuItem value={"sent"}>Sent</MenuItem>
+                    <MenuItem value={"accepted"}>Accepted</MenuItem>
+                    </Select>
+                </FormControl>
+                <Button
+                  variant="contained"
+                  size="medium"
+                  onClick={handleClick}
+                  sx={{ minWidth: 200 }}
+                >
+                  Save Application
+                </Button>
             </Box>
           </Container>
         </div>
