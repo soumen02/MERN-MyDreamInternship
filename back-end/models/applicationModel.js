@@ -4,10 +4,6 @@ const Schema = mongoose.Schema;
 
 const applicationSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: false,
-    },
     user: {
         type: String,
         required: true,

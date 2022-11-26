@@ -12,7 +12,6 @@ async function addApplication(application) {
     application;
     try {
     const newApplication = await Application.create({
-        id: "test id",
         user,
         internshipID,
         companyName,
