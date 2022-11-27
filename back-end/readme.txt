@@ -1,3 +1,4 @@
-The back-end of your project will live in this directory.
+To run the project, use the following commands:
 
-You will most likely initiate the back-end Node.js/Express.js server by running the "npm init" command from within this directory.
+1. Use <npm install> OR <npm install --legacy-peer-deps> if the former returns an error, to install project dependencies.
+2. Use <npm start> to run the project.
