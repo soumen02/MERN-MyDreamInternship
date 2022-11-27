@@ -1,8 +1,8 @@
 const Application = require("../models/applicationModel");
 
 // get all Applications
-async function getApplications() {
-    const applications = await Application.find({}).sort({ createdAt: -1 });
+async function getApplications(email) {
+    const applications = await Application.find({user:email}).sort({ createdAt: -1 });
     return applications;
 }
 

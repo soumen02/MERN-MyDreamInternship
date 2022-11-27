@@ -22,81 +22,54 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Applications() {
     const { user } = useAuthContext();
-    // console.log(user.email);
-  return (
+    console.log(user.email);
+    return (
 
-    <div className = "container">
-        <AppBar position="relative">
-            <Toolbar >
-            <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
-                    <IconButton >
-                        <Home />
-                    </IconButton>
-            </Link>
-            <Typography variant="h6" color="inherit" paddingLeft={1}>
-                MyDreamInternship
-            </Typography>
-            <Grid container justifyContent="flex-end"></Grid>
-            </Toolbar>
-        </AppBar>
+        <div className = "container">
+            <AppBar position="relative">
+                <Toolbar >
+                <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
+                        <IconButton >
+                            <Home />
+                        </IconButton>
+                </Link>
+                <Typography variant="h6" color="inherit" paddingLeft={1}>
+                    MyDreamInternship
+                </Typography>
+                <Grid container justifyContent="flex-end"></Grid>
+                </Toolbar>
+            </AppBar>
 
-            <Typography variant= "h3" align="center" color="textPrimary" gutterBottom paddingTop="20px" paddingBottom="20px">
-                        Applications
-                    </Typography>
-        <div className = "cards">
-            <Link to="/all" style={{textDecoration: 'none'}}>
-                <Card raised = {true} className = "tabs">
-                    <AppsIcon fontSize = "medium"/>
-                    <p>All</p>
-                </Card>
-            </Link>
-            
-            <Link to="/saved" style={{textDecoration: 'none'}}>
-                <Card raised = {true} className = "tabs">
-                    <BookmarkIcon fontSize = "medium"/>
-                    <p>Saved</p>
-                </Card>
-            </Link>
+                <Typography variant= "h3" align="center" color="textPrimary" gutterBottom paddingTop="20px" paddingBottom="20px">
+                            Applications
+                        </Typography>
+            <div className = "cards">
+                
+                <Link to="/saved" style={{textDecoration: 'none'}}>
+                    <Card raised = {true} className = "tabs">
+                        <BookmarkIcon fontSize = "medium"/>
+                        <p>Saved</p>
+                    </Card>
+                </Link>
 
-            <Link to="/in-progress" style={{textDecoration: 'none'}}>       
-                <Card raised = {true} className = "tabs">
-                    <RotateRightIcon fontSize = "medium"/>
-                    <p>In Progress</p>
-                </Card>
-            </Link>
+                <Link to="/in-progress" style={{textDecoration: 'none'}}>       
+                    <Card raised = {true} className = "tabs">
+                        <RotateRightIcon fontSize = "medium"/>
+                        <p>In Progress</p>
+                    </Card>
+                </Link>
 
-            <Link to="/completed" style={{textDecoration: 'none'}}>       
-                <Card raised = {true} className = "tabs">
-                    <PlaylistAddCheckIcon fontSize = "medium"/>
-                    <p>Completed</p>
-                </Card>
-            </Link>
+                <Link to="/accepted" style={{textDecoration: 'none'}}>       
+                    <Card raised = {true} className = "tabs">
+                    <DoneAllIcon fontSize = "medium"/>
+                        <p>Accepted</p>
+                    </Card>
+                </Link>
+            </div>
 
-            <Link to="/sent" style={{textDecoration: 'none'}}>       
-                <Card raised = {true} className = "tabs">
-                <SendIcon fontSize = "medium"/>
-                    <p>Sent</p>
-                </Card>
-            </Link>
+            <Footer />
 
-            <Link to="/accepted" style={{textDecoration: 'none'}}>       
-                <Card raised = {true} className = "tabs">
-                <DoneAllIcon fontSize = "medium"/>
-                    <p>Accepted</p>
-                </Card>
-            </Link>
-
-            <Link to="/deadlines" style={{textDecoration: 'none'}}>       
-                <Card raised = {true} className = "tabs">
-                <AccessTimeFilledIcon fontSize = "medium"/>
-                    <p>Deadlines</p>
-                </Card>
-            </Link>
         </div>
-
-        <Footer />
-
-    </div>
-);
+    );
 }
 
