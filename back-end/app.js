@@ -343,8 +343,8 @@ app.post("/post_applications", jsonParser, async (req, res) => {
   // console.log({ appData });
 });
 
-app.get("/get_applications", jsonParser, async (req, res) => {
-  const applications = await applicationController.getApplications();
+app.post("/get_applications", jsonParser, async (req, res) => {
+  const applications = await applicationController.getApplications(req.body.user);
   res.status(200).send(applications);
 });
 

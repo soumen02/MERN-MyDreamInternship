@@ -7,15 +7,12 @@ import Internships from "./components/Internships";
 import Companies from "./components/Companies";
 import CompaniesDetailed from "./components/CompaniesDetailed";
 import Settings from "./components/Settings";
-import AllApps from "./components/AllApps";
+
 import Saved from "./components/Saved";
 import InProgress from "./components/InProgress";
-import Completed from "./components/Completed";
-import Sent from "./components/Sent";
 import Accepted from "./components/Accepted";
-import Deadlines from "./components/Deadlines";
 import Applications from "./components/Applications";
-import AddApp from "./components/AddApp";
+
 import Profile from "./components/Profile";
 import Edit from "./components/Edit";
 import SignUp from "./components/SignUp";
@@ -59,32 +56,17 @@ export default function App() {
         <Route index element={<Profile />} />
       </Route>
 
-      <Route path="/all">
-        <Route index element={<AllApps />} />
-      </Route>
       <Route path="/saved">
         <Route index element={<Saved />} />
       </Route>
       <Route path="/in-progress">
         <Route index element={<InProgress />} />
       </Route>
-      <Route path="/completed">
-        <Route index element={<Completed />} />
-      </Route>
-      <Route path="/sent">
-        <Route index element={<Sent />} />
-      </Route>
       <Route path="/accepted">
         <Route index element={<Accepted />} />
       </Route>
-      <Route path="/deadlines">
-        <Route index element={<Deadlines />} />
-      </Route>
       <Route path="/applications">
         <Route index element={<Applications />} />
-      </Route>
-      <Route path="/add-app">
-        <Route index element={<AddApp />} />
       </Route>
       <Route path="/ReviewPage">
         <Route index element={<ReviewPage />} />

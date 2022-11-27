@@ -30,7 +30,7 @@ export default function AllApps() {
   const fetchApplications = () => {
     let applications = [];
     axios
-      .get("http://localhost:5002/get_applications")
+      .post("http://localhost:5002/get_applications", { user: user.email })
       .then((response) => {
         // axios bundles up all response data in response.data property
         const allApplications = response.data;
