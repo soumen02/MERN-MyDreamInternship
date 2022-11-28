@@ -4,6 +4,7 @@ import axios from "axios";
 import { Container, Stack } from "@mui/system";
 import { Link } from "react-router-dom";
 import SearchBar from "material-ui-search-bar";
+import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import {
   Avatar,
   CardActionArea,
@@ -29,7 +30,7 @@ import useStyles from "./CompaniesStyles";
 import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
 import ReadMore from "./ReadMore";
-import { useAuthContext } from "../hooks/useAuthContext";
+// import { useAuthContext } from "../hooks/useAuthContext";
 
 const lorum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id ";
@@ -43,7 +44,7 @@ export default function Companies() {
   const [loaded, setLoaded] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [noResults, setNoResults] = useState(false);
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
 
   const fetchCompanies = () => {
     // setMessages([])
@@ -102,7 +103,7 @@ export default function Companies() {
   useEffect(() => {
     // fetch messages this once
     fetchCompanies();
-    console.log(user.email);
+    // console.log(user.email);
   }, []);
 
   return (
@@ -171,50 +172,50 @@ export default function Companies() {
     const classes = useStyles();
     return (
       <Grid item xs={12} xm={6} xl={4}>
-        <Card className={classes.card}>
+        <Card>
           <CardActionArea disableRipple>
-            <Grid container spacing={2}>
-              <Grid item xs={3} paddingLeft="10px">
-                <CardHeader avatar={<Avatar src={company.logo} />} />
+            <Grid container spacing={0} paddingTop="30px" >
+              <Grid item xs={3} >
+                <CardHeader  avatar={<Avatar src={company.logo} />} />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={6} paddingTop="20px" >
+                <Typography
+                  variant="h5"
+                  align="left"
+                  verticalAlign="center"
+                  gutterBottom
+                  
+                >
+                  <b>{company.companyName}</b>
+                </Typography>
+                  
+                </Grid>
+                <Grid item xs={3} paddingTop="20px">
+
                 <Link
                   to={company.companyName.toString()}
                   state={{ selectedCompany: company }}
-                  style={{ textDecoration: "none" }}
-                // to="/companiesdetailed"
-                >
-                  <Typography
-                    variant="h5"
-                    align="left"
-                    gutterBottom
-                    paddingTop="10px"
                   >
-                    <b>{company.companyName}</b>
-                  </Typography>
+                    <IconButton>
+                      <ArrowForward />
+                    </IconButton>
                 </Link>
-              </Grid>
-              <Grid item xs={4} marginTop="25px" paddingRight="15px">
-                <ToggleButton value="bold" aria-label="bold">
-                  <Typography align="justify" variant="caption">
-                    <b>Follow ✓</b>
-                  </Typography>
-                </ToggleButton>
-              </Grid>
-            </Grid>
-            <CardContent className={classes.cardContent}>
-              <Typography
-                variant="body2"
-                align="Left"
-                color="text.Secondary"
-                Wrap
-              >
-                {company.description}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
+                    </Grid>
+
+          </Grid>
+          <CardContent className={classes.cardContent}>
+            <Typography
+              variant="body2"
+              align="Left"
+              color="text.Secondary"
+              Wrap
+            >
+              {company.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      </Grid >
     );
 
   }

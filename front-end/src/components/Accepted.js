@@ -18,7 +18,6 @@ import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
-import SearchBar from "material-ui-search-bar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function AllApps() {
@@ -35,7 +34,7 @@ export default function AllApps() {
         // axios bundles up all response data in response.data property
         const allApplications = response.data;
         allApplications.forEach(async (application) => {
-          if (application.status == "accepted") {
+          if (application.status === "accepted") {
             applications.push(application);
           };
         });
