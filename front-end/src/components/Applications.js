@@ -9,13 +9,9 @@ import {
 } from "@mui/material";
 // import useStyles from "./CompaniesStyles";
 import { Home } from "@material-ui/icons";
-import AppsIcon from '@mui/icons-material/Apps';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import RotateRightIcon from '@mui/icons-material/RotateRight';
-import SendIcon from '@mui/icons-material/Send';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { Link } from "react-router-dom";
 import Footer from "./Footer"
 import { useAuthContext } from "../hooks/useAuthContext";

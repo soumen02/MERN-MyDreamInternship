@@ -18,7 +18,6 @@ import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
-import SearchBar from "material-ui-search-bar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function AllApps() {
@@ -27,34 +26,32 @@ export default function AllApps() {
   const [applications, setApplications] = useState([]);
   const { user } = useAuthContext();
 
-  const fetchApplications = () => {
-    let applications = [];
-    axios
-      .post("http://localhost:5002/get_applications", { user: user.email })
-      .then((response) => {
-        // axios bundles up all response data in response.data property
-        const allApplications = response.data;
-        allApplications.forEach(async (application) => {
-          if (application.status == "saved") {
-            applications.push(application);
-          };
-        });
-        setApplications(applications);
-      })
-      .catch((err) => {
-        // catching error
-      })
-      .finally(() => {
-        // the response has been received, so remove the loading icon
-        setLoaded(true);
-      });
-  };
-
 
   // set up loading data from api when the component first loads
   useEffect(() => {
-    // fetch messages this once
-    fetchApplications();
+    const fetchApplications = () => {
+      let applications = [];
+      axios
+        .post("http://localhost:5002/get_applications", { user: user.email })
+        .then((response) => {
+          // axios bundles up all response data in response.data property
+          const allApplications = response.data;
+          allApplications.forEach(async (application) => {
+            if (application.status === "saved") {
+              applications.push(application);
+            };
+          });
+          setApplications(applications);
+        })
+        .catch((err) => {
+          // catching error
+        })
+        .finally(() => {
+          // the response has been received, so remove the loading icon
+          setLoaded(true);
+        });
+    };
+  fetchApplications();
   }, []);
 
 
@@ -137,3 +134,4 @@ function CenteredLoader() {
     </Grid>
   );
 }
+

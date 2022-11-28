@@ -144,8 +144,6 @@ export default function InternshipDetailed() {
                     >
                     <MenuItem value={"saved"}>Saved</MenuItem>
                     <MenuItem value={"in-progress"}>In-Progress</MenuItem>
-                    <MenuItem value={"completed"}>Completed</MenuItem>
-                    <MenuItem value={"sent"}>Sent</MenuItem>
                     <MenuItem value={"accepted"}>Accepted</MenuItem>
                     </Select>
                 </FormControl>
