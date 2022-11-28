@@ -173,6 +173,7 @@ app.post("/get_company_internships", jsonParser, async (req, res) => {
     const internship = await internshipController.getCompanyInternship(ids[i]);
     internships.push(internship);
   }
+  // console.log(internships);
   res.send(internships);
 });
 
@@ -229,30 +230,6 @@ app.post("/search_companies", jsonParser, async (req, res) => {
 });
 
 
-// let Reviews = [
-//   {
-//     user: "Majid",
-//     review: "Good experience",
-//     rating: "4",
-//     date: "1/1/2001",
-//     position: "SWE",
-//   },
-//   {
-//     user: "Zaeem",
-//     review: "bad.",
-//     rating: "1",
-//     date: "2/2/2002",
-//     position: "Data Analyst",
-//   },
-//   {
-//     user: "Soumen",
-//     review: "mid",
-//     rating: "3",
-//     date: "3/3/2003",
-//     position: "Janitor",
-//   },
-// ];
-
 app.post("/post_expArr", jsonParser, async (req, res) => {
   let exp3 = [await expController.expList(req.body.email), await expController.projList(req.body.email)];
   res.send(exp3);
@@ -290,23 +267,14 @@ app.post("/post_review", async (req, res) => {
   const Reviewdata = [];
   Reviewdata.push(req.body);
   res.send({ Reviewdata });
-  console.log({ Reviewdata });
+  // console.log({ Reviewdata });
 });
 
-
-// app.post("/post_review", jsonParser, async (req, res) => {
-//   let review = req.body;
-//   console.log(review);
-//   const newreview = await reviewController.addReview(review);
-//   await companyController.updateCompanyReviews(review.company, newreview._id);
-//   //updae the review array
-//   res.send(review);
-// });
 
 app.post("/get_reviews", jsonParser, async (req, res) => {
   const reviews = [];
   const Reviewids = req.body.reviewids;
-  console.log(Reviewids);
+  // console.log(Reviewids);
 
 for(let i=0;i<Reviewids.length;i++){
       const review = await reviewController.getReview(Reviewids[i]);
@@ -323,7 +291,7 @@ for(let i=0;i<Reviewids.length;i++){
       reviews.push(reviewObj);
     }
 
-  console.log(reviews);
+  // console.log(reviews);
   res.send(reviews);
 });
 

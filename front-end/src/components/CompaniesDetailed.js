@@ -70,7 +70,6 @@ export default function CompaniesDetailed() {
       .then((response) => {
         const r = response.data;
         setInternships(r);
-        console.log(response.data);
       })
       .catch((err) => {
         // catching error
@@ -271,14 +270,15 @@ export default function CompaniesDetailed() {
 
   function InternshipCell(internship) {
     const classes = useStyles();
+    let path = "/internships/" + internship.internship.id.toString();
     return (
       <Card className={classes.card}>
         <CardActionArea disableRipple>
           <CardHeader
             avatar={<Avatar src={internship.internship.companyLogo} />}
             action={
-              <Link href={internship.internship.url}>
-                <IconButton href={internship.internship.url} target="_blank">
+              <Link to = {path} state={{ selectedInternship: internship.internship }}>
+                <IconButton to={path} state={{ selectedInternship: internship.internship }}>
                   <ArrowForward />
                 </IconButton>
               </Link>
