@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container } from "@mui/system";
+import { Container, Stack } from "@mui/system";
 import {
   Avatar,
   Card,
@@ -19,6 +19,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
+import ArticleIcon from "@mui/icons-material/Article";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 export default function AllApps() {
   const classes = useStyles();
@@ -36,7 +39,7 @@ export default function AllApps() {
         allApplications.forEach(async (application) => {
           if (application.status === "in-progress") {
             applications.push(application);
-          };
+          }
         });
         setApplications(applications);
       })
@@ -49,13 +52,11 @@ export default function AllApps() {
       });
   };
 
-
   // set up loading data from api when the component first loads
   useEffect(() => {
     // fetch messages this once
     fetchApplications();
   }, []);
-
 
   return (
     <>
@@ -76,7 +77,10 @@ export default function AllApps() {
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {applications.map((application) => (
-              <ApplicationCell application={application} key={application.internshipID} />
+              <ApplicationCell
+                application={application}
+                key={application.internshipID}
+              />
             ))}
           </Container>
         </div>
@@ -88,7 +92,7 @@ export default function AllApps() {
 
 function ApplicationCell({ application }) {
   const classes = useStyles();
-
+  let path = "/ReviewPage";
   return (
     <Card className={classes.card}>
       <CardActionArea disableRipple>
@@ -115,6 +119,33 @@ function ApplicationCell({ application }) {
           title={application.positionName}
           subheader={application.companyName}
         />
+        <Stack direction="row" alignItems="center">
+          <Link
+            style={{ textDecoration: "none" }}
+            to={path}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Add Note</Typography>
+
+                <AddCircleIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={path}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Move to Accepted</Typography>
+                <ArrowCircleRightIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+        </Stack>
       </CardActionArea>
     </Card>
   );

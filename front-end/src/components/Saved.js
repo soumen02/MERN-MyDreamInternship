@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container } from "@mui/system";
+import { Container, Stack } from "@mui/system";
 import {
   Avatar,
   Card,
@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function AllApps() {
   const classes = useStyles();
@@ -113,6 +115,30 @@ function ApplicationCell({ application }) {
           title={application.positionName}
           subheader={application.companyName}
         />
+      <Stack direction="row">
+        <Link
+            style={{ textDecoration: "none" }}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Add to In Progress</Typography>
+                <AddCircleIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+          <Link
+            style={{ textDecoration: "none" }}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Remove from Saved</Typography>
+                <DeleteIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+        </Stack>
       </CardActionArea>
     </Card>
   );
