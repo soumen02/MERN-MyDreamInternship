@@ -109,7 +109,7 @@ function ApplicationCell({ application }) {
           action={
             <Link
               to={application.internshipID.toString()}
-              state={{ selectedApplication: application }}
+              state={{ selectedApplication: application}}
             >
               <IconButton>
                 <ArrowForward />
@@ -122,7 +122,7 @@ function ApplicationCell({ application }) {
         <Stack direction="row" alignItems="center">
           <Link
             style={{ textDecoration: "none" }}
-            to={path}
+            to={path + "/" + application.internshipID}
             state={{ selectedApplication: application }}
           >
             <Stack direction="row" paddingLeft="20px">
