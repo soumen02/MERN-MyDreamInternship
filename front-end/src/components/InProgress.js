@@ -20,8 +20,7 @@ import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
 import ArticleIcon from "@mui/icons-material/Article";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function AllApps() {
   const classes = useStyles();
@@ -120,32 +119,33 @@ function ApplicationCell({ application }) {
           subheader={application.companyName}
         />
         <Stack direction="row" alignItems="center">
-          <Link
-            style={{ textDecoration: "none" }}
-            to={path}
-            state={{ selectedApplication: application }}
-          >
-            <Stack direction="row" paddingLeft="20px">
-              <IconButton>
-                <Typography paddingRight="5px">Add Note</Typography>
+        <Link
+          style={{textDecoration: 'none'}}
+          to={path}
+          state={{ selectedApplication: application }}
+        >
+        
+          <Stack direction="row" paddingLeft="20px">
+            <IconButton>
+              <Typography paddingRight="5px">Add to Accepted</Typography>
+              <AddCircleIcon />
+            </IconButton>
+          </Stack>
+        </Link>
+        <Link
+          style={{textDecoration: 'none'}}
+          to={path}
+          state={{ selectedApplication: application }}
+        >
+          <Stack direction="row" paddingLeft="20px">
+            <IconButton>
+              <Typography paddingRight="5px">Add Note</Typography>
 
-                <AddCircleIcon />
-              </IconButton>
-            </Stack>
-          </Link>
-          <Link
-            style={{ textDecoration: "none" }}
-            to={path}
-            state={{ selectedApplication: application }}
-          >
-            <Stack direction="row" paddingLeft="20px">
-              <IconButton>
-                <Typography paddingRight="5px">Move to Accepted</Typography>
-                <ArrowCircleRightIcon />
-              </IconButton>
-            </Stack>
-          </Link>
-        </Stack>
+              <ArticleIcon />
+            </IconButton>
+          </Stack>
+        </Link>
+      </Stack>
       </CardActionArea>
     </Card>
   );

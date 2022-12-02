@@ -38,7 +38,7 @@ export default function InternshipDetailed() {
     const params = {
       "user": user.email,
       "companyName": selectedInternship.companyName,
-      "internshipID": selectedInternship.id,
+      "internshipID": selectedInternship._id,
       "positionName": selectedInternship.positionName,
       "companyLogo": selectedInternship.companyLogo,
       "locations": selectedInternship.locations,

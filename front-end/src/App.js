@@ -68,7 +68,7 @@ export default function App() {
       <Route path="/applications">
         <Route index element={<Applications />} />
       </Route>
-      <Route path="/ReviewPage">
+      <Route path="/ReviewPage/:id">
         <Route index element={<ReviewPage />} />
       </Route>
       <Route path="/settings">
