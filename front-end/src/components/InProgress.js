@@ -22,6 +22,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import ArticleIcon from "@mui/icons-material/Article";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import "./InProgress.css";
+import SeeAll from './SeeAll';
 
 export default function AllApps() {
   const classes = useStyles();
@@ -77,10 +79,12 @@ export default function AllApps() {
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {applications.map((application) => (
-              <ApplicationCell
-                application={application}
-                key={application.internshipID}
-              />
+              <>
+                <ApplicationCell
+                  application={application}
+                  key={application.internshipID}
+                />
+              </>
             ))}
           </Container>
         </div>
@@ -93,6 +97,28 @@ export default function AllApps() {
 function ApplicationCell({ application }) {
   const classes = useStyles();
   let path = "/ReviewPage";
+
+  const noteArr = [
+    {
+      title: "Resume1",
+      date: "2021-09-01",
+      text: "Lorem Ipsum"
+    },
+    {
+      title: "Resume2",
+      date: "2021-09-01",
+      text: "Lorem Ipsum"
+    },{
+      title: "Resume3",
+      date: "2021-09-01",
+      text: "Lorem Ipsum"
+    },{
+      title: "Resume4",
+      date: "2021-09-01",
+      text: "Lorem Ipsum"
+    }
+  ]
+
   return (
     <Card className={classes.card}>
       <CardActionArea disableRipple>
@@ -146,6 +172,11 @@ function ApplicationCell({ application }) {
             </Stack>
           </Link>
         </Stack>
+        
+        <div className = "contNotes">
+          <SeeAll items={noteArr} state = {true} edit={true} arr = "Notes"/>
+        </div>
+
       </CardActionArea>
     </Card>
   );
