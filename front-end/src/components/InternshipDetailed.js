@@ -44,7 +44,7 @@ export default function InternshipDetailed() {
       "locations": selectedInternship.locations,
       "status": status // from dropdown 
     }
-    console.log(params);
+    // console.log(params);
 
     axios
         .post('http://localhost:5002/post_applications', {
@@ -53,7 +53,7 @@ export default function InternshipDetailed() {
         )
         .then((response) => {
             let appData = response.data;
-            console.log(appData)
+            // console.log(appData)
         })
         .catch((err) => {
             console.log(err);
@@ -133,8 +133,12 @@ export default function InternshipDetailed() {
             <Box textAlign="center" className={classes.applyButton}>
               <FormControl sx={{ minWidth: 200 }}>
                     <InputLabel id="status">Status</InputLabel>
+                    {/* make the width of the select same as the submit  */}
+
+
                     <Select
-                    labelId="select-label"
+                    size = "small"
+                    labelId="select-label"  
                     id="status"
                     required
                     value={status}
