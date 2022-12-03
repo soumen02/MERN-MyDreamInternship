@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "@mui/system";
+import Home from "@mui/icons-material/Home";
 import {
   Avatar,
   Card,
@@ -84,17 +85,29 @@ export default function Internships() {
 
   return (
     <>
-      <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          <Link to="/dash">
+          <Link to="/dash" style={{ flexDirection: "row-reverse" }}>
             <IconButton>
-              <ArrowBack />
+              <Home />
             </IconButton>
           </Link>
-          <Typography variant="h4">Internships</Typography>
+          <Typography variant="h6" color="inherit" noWrap>
+            MyDreamInternship
+          </Typography>
         </Toolbar>
       </AppBar>
+
+      <Typography
+              variant="h2"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+              paddingTop="20px"
+              paddingBottom="20px"
+            >
+              Internships
+            </Typography>
 
       <SearchBar
         placeholder="Search Position"
