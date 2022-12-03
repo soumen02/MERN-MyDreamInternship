@@ -1,10 +1,7 @@
 import React from 'react';
 import "./SeeAll.css";
-// import ReadMoreText from './ReadMore'; 
-// import TextField from '@mui/material/TextField';
-// import EditIcon from '@mui/icons-material/Edit';
-// import DoneIcon from '@mui/icons-material/Done';
 import EditBox from './EditBox';
+import NoteBox from './NoteBox';
 
 export default function SeeAll({items, state, edit, arr}) {
     const [divAll, setDivAll] = React.useState(false);
@@ -14,9 +11,16 @@ export default function SeeAll({items, state, edit, arr}) {
 
     let itemObjs = [];
 
-    itemObjs = items.map(item => ( 
-        <EditBox edit = {edit} item = {item} arr = {arr}/>
-    ));
+    if (arr === "Work" || arr === "Proj") {
+        itemObjs = items.map(item => ( 
+            <EditBox edit = {edit} item = {item} arr = {arr}/>
+        ));
+    }
+    else{
+        itemObjs = items.map(item => ( 
+            <NoteBox item = {item} />
+        ));
+    }
     
 
     if (state === false && divAll === false) {
