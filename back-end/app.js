@@ -304,7 +304,7 @@ const appData = [];
 app.post("/post_applications", jsonParser, async (req, res) => {
   appData.push(req.body);
 
-  console.log(req.body.params);
+  // console.log(req.body.params);
   await applicationController.addApplication(req.body.params);
 
   // res.send({ appData });
