@@ -39,8 +39,8 @@ export default function AllApps() {
           // axios bundles up all response data in response.data property
           const allApplications = response.data;
           allApplications.forEach(async (application) => {
-            if (application.status === "saved") {
-              applications.push(application);
+            if (application.status === "saved") { // add the application to the list only if it has a saved status
+              applications.push(application); 
             };
           });
           setApplications(applications);
@@ -161,3 +161,4 @@ function CenteredLoader() {
   );
 }
 
+// random comment
