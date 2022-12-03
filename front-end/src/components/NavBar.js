@@ -9,8 +9,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Link } from "react-router-dom";
+import { ArrowBack } from "@material-ui/icons";
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ pageTitle }) {
   const navigate = useNavigate();
   const { logout } = useLogout();
   const { user } = useAuthContext();
@@ -24,17 +26,13 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Link to="/dash">
+            <IconButton>
+              <ArrowBack />
+            </IconButton>
+          </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MyDreamInternships
+            {pageTitle}
           </Typography>
           {user && (
             <>
