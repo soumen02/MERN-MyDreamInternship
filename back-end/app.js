@@ -235,6 +235,19 @@ app.post("/post_expArr", jsonParser, async (req, res) => {
   res.send(exp3);
 });
 
+app.post("/post_notes", jsonParser, async (req, res) => {
+  let exp = await applicationController.notesList(req.body.email, req.body.id);
+  res.send(exp);
+});
+
+app.post("/post_newNote", jsonParser, async (req, res) => {
+  res.send(await applicationController.addNote(req.body.entry[0], req.body.entry[1], req.body.entry[2]));
+});
+
+app.post("/post_editNote", jsonParser, async (req, res) => {
+  await applicationController.editNote(req.body.entry[0], req.body.entry[1], req.body.entry[2]);
+});
+
 app.post("/get_work", jsonParser, async (req, res) => {
   // req.body.entry.id = String(new Date());
   res.send(await expController.addExp(req.body.entry));
