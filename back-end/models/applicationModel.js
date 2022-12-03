@@ -35,6 +35,10 @@ const applicationSchema = new Schema(
     reviews: {
         type: String,
         required: false,
+    },
+    notes: {
+        type: Array,
+        required: false
     }
   },
   { timestamps: true }
