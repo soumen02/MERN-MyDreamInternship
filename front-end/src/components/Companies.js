@@ -109,16 +109,17 @@ export default function Companies() {
   return (
     <>
       <AppBar position="relative">
-        <Toolbar>
-          <Link to="/dash" style={{ flexDirection: "row-reverse" }}>
-            <IconButton>
-              <Home />
-            </IconButton>
-          </Link>
-          <Typography variant="h6" color="inherit" noWrap>
-            MyDreamInternship
-          </Typography>
-        </Toolbar>
+                <Toolbar >
+                <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
+                        <IconButton >
+                            <Home />
+                        </IconButton>
+                </Link>
+                <Typography variant="h6" color="inherit" paddingLeft={1}>
+                    MyDreamInternship
+                </Typography>
+                <Grid container justifyContent="flex-end"></Grid>
+                </Toolbar>
       </AppBar>
 
 
