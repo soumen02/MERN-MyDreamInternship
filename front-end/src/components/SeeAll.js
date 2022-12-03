@@ -3,7 +3,7 @@ import "./SeeAll.css";
 import EditBox from './EditBox';
 import NoteBox from './NoteBox';
 
-export default function SeeAll({items, state, edit, arr}) {
+export default function SeeAll({items, state, edit, arr, internshipID}) {
     const [divAll, setDivAll] = React.useState(false);
     const handleClick = () => {
         setDivAll(!divAll);
@@ -18,7 +18,7 @@ export default function SeeAll({items, state, edit, arr}) {
     }
     else{
         itemObjs = items.map(item => ( 
-            <NoteBox item = {item} />
+            <NoteBox item = {item} id = {internshipID}/>
         ));
     }
     
