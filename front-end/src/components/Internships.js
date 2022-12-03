@@ -4,11 +4,7 @@ import {
   Avatar,
   Card,
   CardHeader,
-  Typography,
   IconButton,
-  CssBaseline,
-  AppBar,
-  Toolbar,
   CircularProgress,
   Grid,
   CardActionArea,
@@ -18,6 +14,7 @@ import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
+import NavBar from "./NavBar";
 
 export default function Internships() {
   const classes = useStyles();
@@ -51,17 +48,7 @@ export default function Internships() {
 
   return (
     <>
-      <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Link to="/dash">
-            <IconButton>
-              <ArrowBack />
-            </IconButton>
-          </Link>
-          <Typography variant="h4">Internships</Typography>
-        </Toolbar>
-      </AppBar>
+      <NavBar pageTitle="Internships" />
       <main>
         <div>
           {!loaded && <CenteredLoader />}
