@@ -96,18 +96,6 @@ export default function Profile() {
                         <div className = "title" id = "name">{userData.firstName + " " + userData.lastName}</div>
                         <div className = "edit">Edit</div>
                     </div>
-                    <div className = "box">Pronouns:<br></br>He/Him</div>
-                    <div className = "box">Race/Ethnicity:<br></br>South Asian</div>
-                    <h4 id = "tex">Junior, Computer Science</h4>
-                    <h4 id = "grey">New York University</h4>
-                </Card>
-
-                <Card raised= {true} className = "contBox">
-
-                    <div className = "titleEdit">
-                        <div className = "title">Education</div>
-                        <div className = "edit">Edit</div>
-                    </div>
 
                     <div id = "edu">
                         <div id = "uni"><img src="NYU-Logo.png" alt="pfp" width = "80"/></div>
@@ -128,7 +116,6 @@ export default function Profile() {
                         <div>School</div>
                         <div>NYU Abu Dhabi</div>
                     </div>
-
                 </Card>
 
                 <Card raised= {true} className = "contBox">
