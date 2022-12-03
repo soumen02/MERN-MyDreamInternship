@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useParams} from "react-router-dom";
 import { Stack } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -17,7 +18,7 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Copyright(props) {
   return (
@@ -40,6 +41,53 @@ function Copyright(props) {
 export default function ReviewPage() {
   const theme = createTheme();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
+  const [userData, setuserData] = useState({});
+  const [internshipData, setinternshipData] = useState({});
+  const [companyData, setcompanyData] = useState({});
+  const params = useParams();
+
+  axios
+    .post("http://localhost:5002/post_userEmail", {
+      email: user.email,
+    })
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      setuserData(response.data);
+      console.log(userData);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+    });
+
+  axios
+    .post("http://localhost:5002/get_internshipbyid", {
+      id: params.id,
+    })
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      console.log(response.data);
+      setinternshipData(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+    axios
+    .post("http://localhost:5002/get_companybyinternshipname", {
+      companyName: internshipData.companyName,
+    })
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      setcompanyData(response.data);
+      console.log(companyData);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
   const [formData1, setformData1] = useState("");
   const [formData2, setformData2] = useState("");
 
@@ -49,20 +97,20 @@ export default function ReviewPage() {
     event.preventDefault();
     axios
       .post("http://localhost:5002/post_review", {
-        user: "63787047427beb384c348b28",
+        user: userData._id,
+        company: companyData.companyName,
         review: formData1,
         rating: formData2,
+        position: internshipData.positionName,
         date: d,
-        position: "Intern",
-        company: "637c3ea4e3cb2c93a96e7a26",
+        
       })
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
-      }
-      );
+      });
   }
 
   const handleChange1 = (event) => {
@@ -104,21 +152,21 @@ export default function ReviewPage() {
               component="div"
               sx={{ flexDirection: "row" }}
             >
-              Name: Zaeem
+              Name: {userData.firstName} {userData.lastName}
             </Typography>
             <Typography
               variant="h5"
               component="div"
               sx={{ flexDirection: "row" }}
             >
-              Company: Amazon
+              Company: {internshipData.companyName}
             </Typography>
             <Typography
               variant="h5"
               component="div"
               sx={{ flexDirection: "row" }}
             >
-              Position: SWE
+              Position: {internshipData.positionName}
             </Typography>
 
             <form id="form">

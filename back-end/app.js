@@ -208,6 +208,10 @@ app.get("/get_internships", async (req, res) => {
   await internshipController.addInternships(newInternships);
 });
 
+app.post("/get_internshipbyid", jsonParser, async (req, res) => {
+  const internship = await internshipController.getCompanyInternship(req.body.id);
+  res.send(internship);
+});
 
 app.post("/search_internships", jsonParser, async (req, res) => {
   // console.log(`searching ${req.body.params.searchTerm}`);
@@ -276,11 +280,24 @@ app.post("/post_userEmail", jsonParser, async (req, res) => {
   res.send(await userController.getUserByEmail(req.body.email));
 });
 
-app.post("/post_review", async (req, res) => {
-  const Reviewdata = [];
-  Reviewdata.push(req.body);
-  res.send({ Reviewdata });
-  // console.log({ Reviewdata });
+
+app.post("/get_companybyinternshipname", jsonParser, async (req, res) => {
+  const company = await companyController.getCompanyByinternshipname(
+    req.body.companyName
+  );
+  res.send(company);
+});
+
+
+app.post("/post_review", jsonParser, async (req, res) => {
+  let review = req.body;
+  console.log(review);
+  await reviewController.addReview(review);
+  const newreview = await reviewController.addReview(review);
+  await companyController.updateCompanyReviews(review.company,newreview._id);
+  //updae the review array
+
+  res.send(review);
 });
 
 

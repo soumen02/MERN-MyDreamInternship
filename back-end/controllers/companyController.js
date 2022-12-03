@@ -34,12 +34,17 @@ async function addCompanies(companies) {
 }
 
 //update company reviews
-async function updateCompanyReviews(companyid,reviewid) {
-    const company = await Company.findOneAndUpdate({companyid},{$push:{reviewids: reviewid}});
+async function updateCompanyReviews(name,reviewid) {
+    const company = await Company.findOneAndUpdate({companyName: name},{$push:{reviewids: reviewid}});
     console.log(reviewid);
     console.log(company);
 }
 
+//get company by name
+async function getCompanyByinternshipname(name) {
+    const company = await Company.findOne({companyName: name});
+    return company;
+}
 async function searchCompanies(searchTerm) {
     // partial search for company name in the database
     const regex = new RegExp(searchTerm, "i");
@@ -55,5 +60,6 @@ module.exports = {
     checkIfExists,
     addCompanies,
     updateCompanyReviews,
-    searchCompanies
+    searchCompanies,
+    getCompanyByinternshipname
 };
