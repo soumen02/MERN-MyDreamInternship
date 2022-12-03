@@ -87,7 +87,6 @@ export default function AllApps() {
   );
 }
 
-
 function CenteredLoader() {
   return (
     <Grid
