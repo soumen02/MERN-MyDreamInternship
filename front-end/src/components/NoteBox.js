@@ -6,20 +6,22 @@ import DoneIcon from '@mui/icons-material/Done';
 import axios from 'axios';
 import {Card} from "@mui/material";
 import "./NoteBox.css";
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
-export default function NoteBox({item}) {
+export default function NoteBox({item, id}) {
     const [ed, setEdit] = React.useState(false);
 
     const [titleInput, setTitleInput] = React.useState(item.title);
     const [dateInput, setDateInput] = React.useState(item.date);
     const [textInput, setTextInput] = React.useState(item.text);
+    const {user} = useAuthContext();
 
     const handleEdit = () => {
         setEdit(!ed);
-        // if (ed === true) {
-        //     postEdit();
-        // }
+        if (ed === true) {
+            postEdit();
+        }
     };
 
     const handleChange = (e) => {
@@ -32,25 +34,24 @@ export default function NoteBox({item}) {
         }
     };
 
-    // function postEdit() {
-    //     let entry = {user: item.user, type: item.type, id: item.id, title: titleInput, date: dateInput, text: textInput};
-    //     let path = "http://localhost:5002/post_edit";
+    function postEdit() {
+        let path = "http://localhost:5002/post_editNote";
+        let entry = [user.email, id, { id: item.id, title: titleInput, date: dateInput, text: textInput }];
+        axios
+            .post(path, {
+                entry
+            },
+            )
+            .then((response) => {
 
-    //     axios
-    //         .post(path, {
-    //             entry
-    //         },
-    //         )
-    //         .then((response) => {
-
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         })
-    //         .finally(() => {
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
                 
-    //         });
-    // }
+            });
+    }
 
     let itemObj;
     
