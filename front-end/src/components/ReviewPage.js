@@ -54,7 +54,7 @@ export default function ReviewPage() {
     .then((response) => {
       // axios bundles up all response data in response.data property
       setuserData(response.data);
-      console.log(userData);
+      // console.log(userData);
     })
     .catch((err) => {
       console.log(err);
@@ -68,7 +68,7 @@ export default function ReviewPage() {
     })
     .then((response) => {
       // axios bundles up all response data in response.data property
-      console.log(response.data);
+      // console.log(response.data);
       setinternshipData(response.data);
     })
     .catch((err) => {
@@ -82,7 +82,7 @@ export default function ReviewPage() {
     .then((response) => {
       // axios bundles up all response data in response.data property
       setcompanyData(response.data);
-      console.log(companyData);
+      // console.log(companyData);
     })
     .catch((err) => {
       console.log(err);
@@ -106,7 +106,7 @@ export default function ReviewPage() {
         
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.log(err);

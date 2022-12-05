@@ -64,13 +64,14 @@ export default function App() {
       </Route>
       <Route path="/accepted">
         <Route index element={<Accepted />} />
+        <Route path=":id" element={<ReviewPage />} />
       </Route>
       <Route path="/applications">
         <Route index element={<Applications />} />
       </Route>
-      <Route path="/ReviewPage/:id">
+      {/* <Route path="/ReviewPage/:id">
         <Route index element={<ReviewPage />} />
-      </Route>
+      </Route> */}
       <Route path="/settings">
         <Route index element={<Settings />} />
       </Route>
