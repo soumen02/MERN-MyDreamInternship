@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "@mui/system";
+import SearchBar from "material-ui-search-bar";
 import {
   Avatar,
   Card,
@@ -40,6 +41,38 @@ export default function Internships() {
       });
   };
 
+
+  const searchInternships = (searchTerm) => {
+    setLoaded(false);
+    if (searchTerm === "") {
+      fetchInternships();
+    }
+
+    axios
+      .post("http://localhost:5002/search_internships", {
+        params: {
+          searchTerm: searchTerm,
+        },
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const companies = response.data;
+        if (companies.length > 0) {
+          setInternships(companies);
+        }
+        else {
+          setInternships([]);
+        }
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
+
   // set up loading data from api when the component first loads
   useEffect(() => {
     // fetch messages this once
@@ -49,8 +82,12 @@ export default function Internships() {
   return (
     <>
       <NavBar pageTitle="Internships" />
+
       <main>
         <div>
+
+          <SearchBarFunction />
+
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {internships.map((internship) => (
@@ -62,11 +99,41 @@ export default function Internships() {
       <Footer />
     </>
   );
+
+  function SearchBarFunction() {
+    return (
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center">
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+          <SearchBar
+
+            placeholder="Search Positions"
+            justify="center"
+            onRequestSearch={(e) => {
+              setLoaded(false);
+              searchInternships(e);
+            }}
+            onCancelSearch={() => fetchInternships()}
+
+            style={{
+              margin: "20px",
+              maxWidth: 800,
+              justifyContent: "center",
+            }}
+          />
+        </Grid>
+      </Grid>
+
+    )
+  };
 }
+
 
 function InternshipCell({ internship }) {
   const classes = useStyles();
-
   return (
     <Card className={classes.card}>
       <CardActionArea disableRipple>

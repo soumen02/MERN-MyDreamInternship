@@ -30,6 +30,7 @@ import useStyles from "./CompaniesStyles";
 import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
 import ReadMore from "./ReadMore";
+import NavBar from "./NavBar";
 // import { useAuthContext } from "../hooks/useAuthContext";
 
 const lorum =
@@ -108,38 +109,20 @@ export default function Companies() {
 
   return (
     <>
-      <AppBar position="relative">
-                <Toolbar >
-                <Link to="/dash" style={{ flexDirection: 'row-reverse' }}>
-                        <IconButton >
-                            <Home />
-                        </IconButton>
-                </Link>
-                <Typography variant="h6" color="inherit" paddingLeft={1}>
-                    MyDreamInternship
-                </Typography>
-                <Grid container justifyContent="flex-end"></Grid>
-                </Toolbar>
-      </AppBar>
+      <NavBar pageTitle="Companies" />
 
 
-
-      <main>
-        <div>
-          <Container>
-            <Typography
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-              paddingTop="20px"
-              paddingBottom="20px"
-            >
-              Companies
-            </Typography>
-
-            <SearchBar
-              placeholder="Search Position"
+      <Grid
+        container
+        direction="row" 
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+      <SearchBar
+              
+              placeholder="Search Companies"
+              justify="center"
               // onChange={() => setCompanies(allcompanies)}
               onRequestSearch={(e) => {
                 setLoaded(false);
@@ -149,9 +132,15 @@ export default function Companies() {
 
               style={{
                 margin: "20px",
-                maxWidth: 800
+                maxWidth: 800,
+                justifyContent: "center",
               }}
             />
+            </Grid>
+            </Grid>
+      <main>
+        <div>
+          <Container>
             <Grid container columnSpacing={12} rowSpacing={2} justify="center">
               {!loaded && <CenteredLoader />}
               {!noResults && loaded && companies.length === 0 && <NoResults />}
