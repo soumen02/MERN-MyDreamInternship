@@ -4,7 +4,9 @@ const app = express(); // instantiate an Express object
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const axios = require("axios");
+const multer = require('multer');
 const { v4: uuidv4 } = require("uuid");
+const path = require("path");
 // var cors = require('cors');
 const mystery = "https://github.com/pittcsc/Summer2023-Internships";
 const bodyParser = require("body-parser");
@@ -115,6 +117,35 @@ async function fetchDescriptionAndLogo(companyName) {
 
   return res;
 }
+
+
+
+
+// enable file uploads saved to disk in a directory named 'public/uploads'
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images")
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      uuidv4() + "-" + Date.now() + path.extname(file.originalname)
+    )
+  },
+})
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/jpg") {
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+}
+
+const upload = multer({ storage, fileFilter })
+
+
+
 
 // app.use(cors())
 app.use((req, res, next) => {
@@ -253,33 +284,25 @@ app.post("/post_editNote", jsonParser, async (req, res) => {
 });
 
 app.post("/get_work", jsonParser, async (req, res) => {
-  // req.body.entry.id = String(new Date());
   res.send(await expController.addExp(req.body.entry));
-  // workExp.push(req.body.entry);
-  // res.send(req.body.entry); //DIFENRECE
 });
 
 app.post("/get_proj", jsonParser, async (req, res) => {
-  // req.body.entry.id = String(new Date());
-  // proj.push(req.body.entry);
   res.send(await expController.addExp(req.body.entry));
-  // res.send(req.body.entry);
 });
 
 app.post("/post_edit", jsonParser, async (req, res) => {
   await expController.editExp(req.body.entry);
-  // for (let i = 0; i < workExp.length; i++) {
-  //   if (workExp[i].id === req.body.entry.id) {
-  //     workExp[i] = req.body.entry;
-  //     break;
-  //   }
-  // }
 });
+
+app.post("/post_editUser", jsonParser, async (req, res) => {
+  await userController.editUser(req.body.entry);
+});
+
 
 app.post("/post_userEmail", jsonParser, async (req, res) => {
   res.send(await userController.getUserByEmail(req.body.email));
 });
-
 
 app.post("/get_companybyinternshipname", jsonParser, async (req, res) => {
   const company = await companyController.getCompanyByinternshipname(
