@@ -12,13 +12,21 @@ import { Home } from "@material-ui/icons";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
 import NavBar from "./NavBar";
+import { useEffect } from "react";
 
 export default function Applications() {
   const { user } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/log-in");
+    }
+  });
 
   return (
     <div className="container">

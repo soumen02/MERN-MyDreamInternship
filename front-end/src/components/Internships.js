@@ -12,21 +12,28 @@ import {
 } from "@mui/material";
 import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Internships() {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
   const [internships, setInternships] = useState([]);
+  const { user } = useAuthContext();
 
   const fetchInternships = () => {
     // setMessages([])
     // setLoaded(false)
     axios
-      .get("http://localhost:5002/get_internships")
+      .get("http://localhost:5002/get_internships", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
         // axios bundles up all response data in response.data property
         const internships = response.data;
@@ -74,9 +81,12 @@ export default function Internships() {
 
   // set up loading data from api when the component first loads
   useEffect(() => {
-    // fetch messages this once
-    fetchInternships();
-  }, []);
+    if (user) {
+      fetchInternships();
+    } else {
+      navigate("/log-in");
+    }
+  }, [user]);
 
   return (
     <>
@@ -89,7 +99,7 @@ export default function Internships() {
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {internships.map((internship) => (
-              <InternshipCell internship={internship} key={internship.id} />
+              <InternshipCell internship={internship} key={internship._id} />
             ))}
           </Container>
         </div>
@@ -111,8 +121,10 @@ export default function Internships() {
             placeholder="Search Positions"
             justify="center"
             onRequestSearch={(e) => {
-              setLoaded(false);
-              searchInternships(e);
+              if (user) {
+                setLoaded(false);
+                searchInternships(e);
+              }
             }}
             onCancelSearch={() => fetchInternships()}
             style={{
