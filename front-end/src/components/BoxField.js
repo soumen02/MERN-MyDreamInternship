@@ -83,7 +83,24 @@ export default function BoxField({email}) {
         fetchUserData();
     }, []);
 
-   
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("photo", photo);
+
+        axios
+        .post("http://localhost:5002/post_photo", formData)
+        .then((response) => {
+            setPhotoName(response.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    };
+
+    const handlePhoto = (e) => {
+        setPhoto(e.target.files[0]);
+    };
 
     let itemObj;
 
@@ -130,6 +147,15 @@ export default function BoxField({email}) {
 
                 <img id = "pfp" src="img_avatar.png" alt="pfp" width = "200"/>
 
+                <form onSubmit = {handleSubmit} enctype="multipart/form-data">
+                    <input 
+                        type="file" 
+                        accept = ".png, .jpg, .jpeg" 
+                        name = "photo"
+                        onChange = {handlePhoto}
+                    />
+                    <input type="submit" value="Submit" />
+                </form>
 
                 <div className = "titleEdit">
                     <div>
