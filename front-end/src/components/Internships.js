@@ -41,8 +41,8 @@ export default function Internships() {
       });
   };
 
-
   const searchInternships = (searchTerm) => {
+    setInternships([]);
     setLoaded(false);
     if (searchTerm === "") {
       fetchInternships();
@@ -56,11 +56,10 @@ export default function Internships() {
       })
       .then((response) => {
         // axios bundles up all response data in response.data property
-        const companies = response.data;
-        if (companies.length > 0) {
-          setInternships(companies);
-        }
-        else {
+        const searchedInternships = response.data;
+        if (searchedInternships.length > 0) {
+          setInternships(searchedInternships);
+        } else {
           setInternships([]);
         }
       })
@@ -85,7 +84,6 @@ export default function Internships() {
 
       <main>
         <div>
-
           <SearchBarFunction />
 
           {!loaded && <CenteredLoader />}
@@ -106,10 +104,10 @@ export default function Internships() {
         container
         direction="row"
         justifyContent="center"
-        alignItems="center">
+        alignItems="center"
+      >
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <SearchBar
-
             placeholder="Search Positions"
             justify="center"
             onRequestSearch={(e) => {
@@ -117,7 +115,6 @@ export default function Internships() {
               searchInternships(e);
             }}
             onCancelSearch={() => fetchInternships()}
-
             style={{
               margin: "20px",
               maxWidth: 800,
@@ -126,11 +123,9 @@ export default function Internships() {
           />
         </Grid>
       </Grid>
-
-    )
-  };
+    );
+  }
 }
-
 
 function InternshipCell({ internship }) {
   const classes = useStyles();
