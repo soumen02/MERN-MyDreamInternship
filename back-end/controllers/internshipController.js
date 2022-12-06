@@ -1,7 +1,18 @@
 const Internship = require("../models/internshipModel");
 
 // get all Internship positions
+async function deleteNonsense() {
+  const internships = await Internship.find({}).sort({ createdAt: -1 });
+  for (let i = 0; i < internships.length; i++) {
+    if (internships[i].positionName.startsWith(" ")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+  }
+}
+
 async function getInternships() {
+  await deleteNonsense();
   const internships = await Internship.find({}).sort({ createdAt: -1 });
   return internships;
 }
@@ -51,25 +62,25 @@ async function getInternshipIds(companyName) {
   internships.forEach((internship) => {
     data.push(internship._id);
   });
-  
+
   return data;
 }
 
-
 async function searchInternships(searchTerm) {
-
   try {
-  const regex = new RegExp(searchTerm, "i");
-  const internships = await Internship.find({
-    positionName: regex,
-  }).sort({ createdAt: -1 });
-
-    return internships;
+    // const regex = new RegExp(searchTerm, "i");
+    const allInternships = await Internship.find({}).sort({
+      createdAt: -1,
+    });
+    const searchedInternships = allInternships.filter((internship) => {
+      return internship.positionName.includes(searchTerm);
+    });
+    return searchedInternships;
   } catch (err) {
     console.log(err);
     return await searchInternships("");
   }
-  }
+}
 
 module.exports = {
   getInternships,
