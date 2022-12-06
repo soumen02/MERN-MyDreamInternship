@@ -299,6 +299,9 @@ app.post("/post_editUser", jsonParser, async (req, res) => {
   await userController.editUser(req.body.entry);
 });
 
+app.post("/post_photo", upload.single("photo"), (req, res) => {
+  res.send(req.file.filename);
+});
 
 app.post("/post_userEmail", jsonParser, async (req, res) => {
   res.send(await userController.getUserByEmail(req.body.email));
