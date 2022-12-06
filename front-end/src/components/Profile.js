@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import {
   Card,
@@ -21,11 +21,23 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import NavBar from "./NavBar";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [workExp, setWorkExp] = useState([]);
   const [proj, setProj] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { user } = useAuthContext();
   const [userData, setuserData] = useState({});
+
+  // set up loading data from api when the component first loads
+  useEffect(() => {
+    if (!user) {
+      navigate("/log-in");
+    } else {
+      // fetch messages this once
+      fetchUserData();
+      fetchArrs();
+    }
+  }, []);
 
   const fetchArrs = () => {
     axios
@@ -68,13 +80,6 @@ export default function Profile() {
       });
   };
 
-  // set up loading data from api when the component first loads
-  useEffect(() => {
-    // fetch messages this once
-    fetchUserData();
-    fetchArrs();
-  }, []);
-
   return (
     <div id="content">
       <NavBar pageTitle="Profile" />
@@ -100,7 +105,7 @@ export default function Profile() {
                     <BoxField userData = {userData} />
 
                 </Card> */}
-        <BoxField email={user.email} />
+        <BoxField email={user ? user.email : "Error"} />
 
         <Card raised={true} className="contBox">
           <div className="titleEdit">

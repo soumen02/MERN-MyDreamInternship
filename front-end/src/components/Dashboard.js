@@ -10,10 +10,19 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
-  console.log(user.email);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/log-in");
+    }
+  });
+
   return (
     <div className="container">
       <NavBar />
