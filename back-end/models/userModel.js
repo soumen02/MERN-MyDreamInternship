@@ -22,6 +22,22 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  gradDate: {
+    type: String,
+    required: false,
+  },
+  gpa: {
+    type: String,
+    required: false,
+  },
+  uni: {
+    type: String,
+    required: false,
+  },
+  photo: {
+    type: String,
+    required: false,
+  },
 });
 
 // User static signup method
@@ -56,6 +72,10 @@ userSchema.statics.signup = async function (
     password: hash,
     firstName,
     lastName,
+    gradDate: "",
+    gpa: "",
+    uni: "",
+    photo: "",
   });
 
   return user;

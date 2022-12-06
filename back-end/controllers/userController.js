@@ -10,7 +10,27 @@ async function getUserByEmail(email) {
     return user;
 }
 
+async function editUser(entry) {
+    try {
+        const newUser = await User.replaceOne({email: entry.email}, {
+            email: entry.email,
+            password: entry.password,
+            firstName: entry.firstName,
+            lastName: entry.lastName,
+            gradDate: entry.gradDate,
+            gpa: entry.gpa,
+            uni: entry.uni,
+            photo: entry.photo
+        });
+    }
+    catch (error) {
+        console.log("Error updating user", error.message);
+        console.log("updated user details: ", entry);
+    }
+}
+
 module.exports = {
     getUser,
-    getUserByEmail
+    getUserByEmail,
+    editUser
 };
