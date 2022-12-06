@@ -21,6 +21,8 @@ const {
   loginUser,
 } = require("./controllers/authenticationControler");
 const expController = require("./controllers/expController");
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
 
 const jsonParser = bodyParser.json();
 //var reviews = require('./reviews.json')
@@ -156,8 +158,22 @@ app.post("/post_editUser", jsonParser, async (req, res) => {
   await userController.editUser(req.body.entry);
 });
 
+
+require("dotenv").config();
+const imgpath = process.env.IMAGES_PATH; 
+
+app.post("/post_pathToImg", async (req, res) => {
+  let name = req.body.img;
+  if (name === "") {
+    res.send("https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png");
+  }
+  else{
+    res.send(imgpath + name);
+  }
+});
+
 app.post("/post_photo", upload.single("photo"), (req, res) => {
-  res.send(req.file.filename);
+  res.send([imgpath, req.file.filename]);
 });
 
 app.post("/post_userEmail", jsonParser, async (req, res) => {

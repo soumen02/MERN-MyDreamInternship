@@ -14,6 +14,7 @@ export default function BoxField({email}) {
     const [userData, setuserData] = useState({});
     const [photo, setPhoto] = useState("");
     const [photoName, setPhotoName] = useState("");
+    const [imgPath, setImgPath] = useState("");
 
     const [ed, setEdit] = React.useState(false);
 
@@ -70,17 +71,34 @@ export default function BoxField({email}) {
             setGPA(response.data.gpa);
             setUni(response.data.uni);
             setPhotoName(response.data.photo);
+            setPathtoImg(response.data.photo);
         })
         .catch((err) => {
             // catching error
         })
         .finally(() => {
+
         });
     };
+
+    const setPathtoImg = (image) => {
+        axios
+        .post("http://localhost:5002/post_pathToImg", {
+            img: image
+        })
+        .then((response) => {
+            // axios bundles up all response data in response.data property
+            setImgPath(response.data);
+        })
+        .catch((err) => {
+            // catching error
+        })
+    }
 
     useEffect(() => {
         // fetch messages this once
         fetchUserData();
+        setPathtoImg();
     }, []);
 
     const handleSubmit = (e) => {
@@ -91,7 +109,8 @@ export default function BoxField({email}) {
         axios
         .post("http://localhost:5002/post_photo", formData)
         .then((response) => {
-            setPhotoName(response.data);
+            setPhotoName(response.data[1]);
+            setImgPath(response.data[0] + response.data[1]);
         })
         .catch((err) => {
             console.log(err);
@@ -108,7 +127,7 @@ export default function BoxField({email}) {
         itemObj =  (
             <Card raised = {true} className = "contBox">
 
-                <img id = "pfp" src="img_avatar.png" alt="pfp" width = "200"/>
+                <img id = "pfp" src={imgPath} alt="pfp" width = "200"/>
 
                 <div className = "titleEdit">
                     <div>
@@ -145,7 +164,7 @@ export default function BoxField({email}) {
         itemObj = (
             <Card raised = {true} className = "contBox">
 
-                <img id = "pfp" src="img_avatar.png" alt="pfp" width = "200"/>
+                <img id = "pfp" src={imgPath} alt="pfp" width = "200"/>
 
                 <form onSubmit = {handleSubmit} enctype="multipart/form-data">
                     <input 
