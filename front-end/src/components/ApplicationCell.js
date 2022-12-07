@@ -103,7 +103,7 @@ export default function ApplicationCell({ application }) {
 
           <Link
             style={{ textDecoration: "none" }}
-            to={path}
+            onClick={() => movetoaccepted(application)}
             state={{ selectedApplication: application }}
           >
             <Stack direction="row" paddingLeft="20px">
@@ -123,3 +123,20 @@ export default function ApplicationCell({ application }) {
     </Card>
   );
 }
+
+function movetoaccepted(application) {
+  axios
+    .post("http://localhost:5002/movetoaccepted", {
+      application}
+    )
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      //refresh page
+      window.location.reload();
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }

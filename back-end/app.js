@@ -163,6 +163,26 @@ app.post("/get_companybyinternshipname", jsonParser, async (req, res) => {
   res.send(company);
 });
 
+app.post("/movetoinprogress", jsonParser, async (req, res) => {
+  const entry = req.body.application;
+  entry.status = "in-progress";
+  const app = await applicationController.updateapplication(entry);
+
+  res.send(app);
+});
+
+app.post("/movetoaccepted", jsonParser, async (req, res) => {
+  const entry = req.body.application;
+  entry.status = "accepted";
+  const app = await applicationController.updateapplication(entry);
+  res.send(app);
+});
+
+app.post("/deleteapplication", jsonParser, async (req, res) => {
+  const id = req.body.id;
+  const app = await applicationController.deleteapplication(id);
+  res.send(app);
+});
 app.post("/post_review", jsonParser, async (req, res) => {
   let review = req.body;
   console.log(review);

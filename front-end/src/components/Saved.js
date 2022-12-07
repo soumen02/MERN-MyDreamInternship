@@ -20,7 +20,7 @@ import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function AllApps() {
   const classes = useStyles();
@@ -28,34 +28,66 @@ export default function AllApps() {
   const [applications, setApplications] = useState([]);
   const { user } = useAuthContext();
 
+  const deletefromsaved = (id) => {
+    axios
+      .post("http://localhost:5002/deleteapplication", { id })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const newapp = response.data;
+        console.log(newapp);
+        //refresh page
+        fetchApplications();
+      })
+      .catch((err) => {
+        // catching error
+      });
+  };
+
+  const movetoinprogress = (application) => {
+    axios
+      .post("http://localhost:5002/movetoinprogress", {
+        application,
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const newapp = response.data;
+        console.log(newapp);
+        //refresh page
+        fetchApplications();
+      })
+      .catch((err) => {
+        // catching error
+      });
+  };
+
+  const fetchApplications = () => {
+    let applications = [];
+    axios
+      .post("http://localhost:5002/get_applications", { user: user.email })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const allApplications = response.data;
+        allApplications.forEach(async (application) => {
+          if (application.status === "saved") {
+            // add the application to the list only if it has a saved status
+            applications.push(application);
+          }
+        });
+        setApplications(applications);
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
 
   // set up loading data from api when the component first loads
   useEffect(() => {
-    const fetchApplications = () => {
-      let applications = [];
-      axios
-        .post("http://localhost:5002/get_applications", { user: user.email })
-        .then((response) => {
-          // axios bundles up all response data in response.data property
-          const allApplications = response.data;
-          allApplications.forEach(async (application) => {
-            if (application.status === "saved") { // add the application to the list only if it has a saved status
-              applications.push(application); 
-            };
-          });
-          setApplications(applications);
-        })
-        .catch((err) => {
-          // catching error
-        })
-        .finally(() => {
-          // the response has been received, so remove the loading icon
-          setLoaded(true);
-        });
-    };
-  fetchApplications();
+    fetchApplications();
   }, []);
-
 
   return (
     <>
@@ -76,7 +108,12 @@ export default function AllApps() {
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {applications.map((application) => (
-              <ApplicationCell application={application} key={application.internshipID} />
+              <ApplicationCell
+                application={application}
+                key={application.internshipID}
+                movetoinprogress={movetoinprogress}
+                deletefromsaved={deletefromsaved}
+              />
             ))}
           </Container>
         </div>
@@ -86,7 +123,7 @@ export default function AllApps() {
   );
 }
 
-function ApplicationCell({ application }) {
+function ApplicationCell({ application, movetoinprogress, deletefromsaved }) {
   const classes = useStyles();
 
   return (
@@ -115,8 +152,9 @@ function ApplicationCell({ application }) {
           title={application.positionName}
           subheader={application.companyName}
         />
-      <Stack direction="row">
-        <Link
+        <Stack direction="row">
+          <Link
+            onClick={() => movetoinprogress(application)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
@@ -128,6 +166,7 @@ function ApplicationCell({ application }) {
             </Stack>
           </Link>
           <Link
+            onClick={() => deletefromsaved(application._id)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >

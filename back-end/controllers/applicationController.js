@@ -34,6 +34,20 @@ async function addApplication(application) {
     };
 }
 
+async function updateapplication(entry) {
+    //find application using _id and update it
+    console.log(entry);
+    const app =  await Application.updateOne({ "_id": entry._id }, {$set: entry});
+    console.log(app);
+    return app;
+}
+
+//delete application
+async function deleteapplication(id) {
+    const app = await Application.findByIdAndDelete(id);
+    return app;
+}
+
 //helper function for addNote
 async function notesList(email, id) {
     const notes = await Application.find({ user: email, internshipID: id});
@@ -99,5 +113,7 @@ module.exports = {
     addApplication,
     notesList,
     addNote,
-    editNote
+    editNote,
+    updateapplication,
+    deleteapplication
 };
