@@ -122,6 +122,10 @@ app.post("/get_proj", jsonParser, async (req, res) => {
   res.send(await expController.addExp(req.body.entry));
 });
 
+app.post("/post_remExp", jsonParser, async (req, res) => {
+  await expController.removeExp(req.body.id);
+});
+
 app.post("/post_edit", jsonParser, async (req, res) => {
   await expController.editExp(req.body.entry);
 });
