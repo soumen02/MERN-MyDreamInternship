@@ -20,10 +20,7 @@ import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DeleteIcon from '@mui/icons-material/Delete';
-
-
-
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function AllApps() {
   const classes = useStyles();
@@ -31,7 +28,37 @@ export default function AllApps() {
   const [applications, setApplications] = useState([]);
   const { user } = useAuthContext();
 
-  
+  const deletefromsaved = (id) => {
+    axios
+      .post("http://localhost:5002/deleteapplication", { id })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const newapp = response.data;
+        console.log(newapp);
+        //refresh page
+        fetchApplications();
+      })
+      .catch((err) => {
+        // catching error
+      });
+  };
+
+  const movetoinprogress = (application) => {
+    axios
+      .post("http://localhost:5002/movetoinprogress", {
+        application,
+      })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const newapp = response.data;
+        console.log(newapp);
+        //refresh page
+        fetchApplications();
+      })
+      .catch((err) => {
+        // catching error
+      });
+  };
 
   const fetchApplications = () => {
     let applications = [];
@@ -41,9 +68,10 @@ export default function AllApps() {
         // axios bundles up all response data in response.data property
         const allApplications = response.data;
         allApplications.forEach(async (application) => {
-          if (application.status === "saved") { // add the application to the list only if it has a saved status
-            applications.push(application); 
-          };
+          if (application.status === "saved") {
+            // add the application to the list only if it has a saved status
+            applications.push(application);
+          }
         });
         setApplications(applications);
       })
@@ -57,9 +85,9 @@ export default function AllApps() {
   };
 
   // set up loading data from api when the component first loads
-  useEffect(() => {fetchApplications();
-}, []);
-
+  useEffect(() => {
+    fetchApplications();
+  }, []);
 
   return (
     <>
@@ -80,7 +108,12 @@ export default function AllApps() {
           {!loaded && <CenteredLoader />}
           <Container maxWidth="md" className={classes.cardGrid}>
             {applications.map((application) => (
-              <ApplicationCell application={application} key={application.internshipID} />
+              <ApplicationCell
+                application={application}
+                key={application.internshipID}
+                movetoinprogress={movetoinprogress}
+                deletefromsaved={deletefromsaved}
+              />
             ))}
           </Container>
         </div>
@@ -89,38 +122,8 @@ export default function AllApps() {
     </>
   );
 }
-function deletefromsaved(id) {
-  axios
-    .post("http://localhost:5002/deleteapplication", {id})
-    .then((response) => {
-      // axios bundles up all response data in response.data property
-      const newapp = response.data;
-      console.log(newapp);
-      //refresh page
-    })
-    .catch((err) => {
-      // catching error
-    })
-  }
-function movetoinprogress(application) {
-  axios
-    .post("http://localhost:5002/movetoinprogress", {
-      application}
-    )
-    .then((response) => {
-      // axios bundles up all response data in response.data property
-      const newapp = response.data;
-      console.log(newapp);
-      fetchApplications()
-      //refresh page
 
-    })
-    .catch((err) => {
-      // catching error
-    })
-  }
-
-function ApplicationCell({ application }) {
+function ApplicationCell({ application, movetoinprogress, deletefromsaved }) {
   const classes = useStyles();
 
   return (
@@ -149,9 +152,9 @@ function ApplicationCell({ application }) {
           title={application.positionName}
           subheader={application.companyName}
         />
-      <Stack direction="row">
-        <Link
-            onClick={() => movetoinprogress(application) }
+        <Stack direction="row">
+          <Link
+            onClick={() => movetoinprogress(application)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
@@ -163,7 +166,7 @@ function ApplicationCell({ application }) {
             </Stack>
           </Link>
           <Link
-          onClick={() => deletefromsaved(application._id)}
+            onClick={() => deletefromsaved(application._id)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
