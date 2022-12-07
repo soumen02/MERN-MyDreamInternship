@@ -17,6 +17,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import "./InProgress.css";
 import SeeAll from './SeeAll';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 export default function ApplicationCell({ application }) {
@@ -113,7 +114,20 @@ export default function ApplicationCell({ application }) {
               </IconButton>
             </Stack>
           </Link>
+          <Link
+            onClick={() => deletefrominprogress(application._id)}
+            style={{ textDecoration: "none" }}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Remove from In Progress</Typography>
+                <DeleteIcon />
+              </IconButton>
+            </Stack>
+          </Link>
         </Stack>
+        
         
         <div className = "contNotes">
           <SeeAll items={notes} state = {true} edit={true} arr = "Notes" internshipID = {application.internshipID}/>
@@ -123,7 +137,20 @@ export default function ApplicationCell({ application }) {
     </Card>
   );
 }
-
+function deletefrominprogress(id) {
+  axios
+    .post("http://localhost:5002/deleteapplication", {id})
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      window.location.reload();
+      //refresh page
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }
 function movetoaccepted(application) {
   axios
     .post("http://localhost:5002/movetoaccepted", {
