@@ -6,10 +6,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import axios from 'axios';
 import {Card} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export default function EditBox({edit, item, arr}) {
     const [ed, setEdit] = React.useState(false);
+    const [del, setDel] = React.useState(false);
 
     const [titleInput, setTitleInput] = React.useState(item.title);
     const [orgInput, setOrgInput] = React.useState(item.org);
@@ -55,6 +57,25 @@ export default function EditBox({edit, item, arr}) {
             });
     }
 
+    function handleRemove() {
+        setDel(true);
+        let path = "http://localhost:5002/post_remExp";
+
+        axios
+            .post(path, {
+                id: item.id
+            },
+            )
+            .then((response) => {
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                
+            });
+    }
+
     let itemObj;
     
     if (edit === true) {
@@ -65,13 +86,19 @@ export default function EditBox({edit, item, arr}) {
                         <div>
                             <h3>Section</h3>
                         </div>
-                        <div className = "ic" onClick = {handleEdit}>
-                            { ed ?
-                            <DoneIcon fontSize = "medium"/>
-                            :
-                            <EditIcon fontSize = "medium"/>
-                            }   
+                        <div className = "iconsNew">
+                            <div className = "ic" onClick = {handleEdit}>
+                                { ed ?
+                                <DoneIcon fontSize = "medium"/>
+                                :
+                                <EditIcon fontSize = "medium"/>
+                                }   
+                            </div>
+                            <div className = "del" onClick = {handleRemove}>
+                                <DeleteIcon fontSize = "medium"/>
+                            </div>
                         </div>
+                        
                     </div>
                     <div className = "oneBoxEdit">
                         <div className = "info"><h4>{titleInput}</h4>{orgInput}<br></br>{dateInput}</div>
@@ -91,12 +118,17 @@ export default function EditBox({edit, item, arr}) {
                         <div>
                             <h3>Section</h3>
                         </div>
-                        <div className = "ic" onClick = {handleEdit}>
-                            { ed ?
-                            <DoneIcon fontSize = "medium"/>
-                            :
-                            <EditIcon fontSize = "medium"/>
-                            }   
+                        <div className = "iconsNew">
+                            <div className = "ic" onClick = {handleEdit}>
+                                { ed ?
+                                <DoneIcon fontSize = "medium"/>
+                                :
+                                <EditIcon fontSize = "medium"/>
+                                }   
+                            </div>
+                            <div className = "del" onClick = {handleRemove}>
+                                <DeleteIcon fontSize = "medium"/>
+                            </div>
                         </div>
                     </div>
                     <div className = "oneBoxEdit">
@@ -128,7 +160,14 @@ export default function EditBox({edit, item, arr}) {
         );
     }
 
-    return (
-        <div>{itemObj}</div>
-    );
+    if (del === true) {
+        return (
+            <div></div>
+        );
+    }
+    else {
+        return (
+            <div>{itemObj}</div>
+        );
+    }
 }

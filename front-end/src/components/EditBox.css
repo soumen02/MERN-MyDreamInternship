@@ -39,8 +39,18 @@
     margin-top: 6%;
 }
 
+.iconsNew{
+    color: #1976d2;
+    display: flex;
+}
+
 .ic{
     color: #1976d2;
+}
+
+.del {
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .textField{
