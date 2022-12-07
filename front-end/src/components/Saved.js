@@ -84,6 +84,7 @@ export default function AllApps() {
       });
   };
 
+
   // set up loading data from api when the component first loads
   useEffect(() => {
     fetchApplications();
@@ -144,9 +145,9 @@ function ApplicationCell({ application, movetoinprogress, deletefromsaved }) {
               to={application.internshipID.toString()}
               state={{ selectedApplication: application }}
             >
-              {/* <IconButton>
+              <IconButton>
                 <ArrowForward />
-              </IconButton> */}
+              </IconButton>
             </Link>
           }
           title={application.positionName}

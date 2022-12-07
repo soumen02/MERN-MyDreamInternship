@@ -8,11 +8,32 @@ async function deleteNonsense() {
       console.log(internships[i].positionName);
       await Internship.deleteOne({ id: internships[i].id });
     }
+    if (internships[i].positionName.startsWith(", ")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+    if (internships[i].positionName.startsWith(" ,")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+    if (internships[i].positionName.startsWith(" (")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+    if (internships[i].positionName.startsWith(" or")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+    if (internships[i].positionName.startsWith(" program")) {
+      console.log(internships[i].positionName);
+      await Internship.deleteOne({ id: internships[i].id });
+    }
+
   }
 }
 
 async function getInternships() {
-  await deleteNonsense();
+  // await deleteNonsense();
   const internships = await Internship.find({}).sort({ createdAt: -1 });
   return internships;
 }
@@ -21,6 +42,7 @@ async function getCompanyInternship(id) {
   const internship = await Internship.findById(id);
   return internship;
 }
+
 // check if Internship exists
 async function checkIfExists(internship) {
   const { id, companyName, companyLogo, positionName, url, locations } =

@@ -40,6 +40,7 @@ export default function InternshipDetailed() {
       "user": user.email,
       "companyName": selectedInternship.companyName,
       "internshipID": selectedInternship._id,
+      "internshipURL": selectedInternship.id,
       "positionName": selectedInternship.positionName,
       "companyLogo": selectedInternship.companyLogo,
       "locations": selectedInternship.locations,
