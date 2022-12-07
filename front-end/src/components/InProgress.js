@@ -87,6 +87,23 @@ export default function AllApps() {
   );
 }
 
+function movetoinprogress(application) {
+  axios
+    .post("http://localhost:5002/movetoinprogress", {
+      application}
+    )
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      //refresh page
+      window.location.reload();
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }
+
 function CenteredLoader() {
   return (
     <Grid

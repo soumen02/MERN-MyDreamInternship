@@ -33,34 +33,32 @@ export default function AllApps() {
 
   
 
-
+  const fetchApplications = () => {
+    let applications = [];
+    axios
+      .post("http://localhost:5002/get_applications", { user: user.email })
+      .then((response) => {
+        // axios bundles up all response data in response.data property
+        const allApplications = response.data;
+        allApplications.forEach(async (application) => {
+          if (application.status === "saved") { // add the application to the list only if it has a saved status
+            applications.push(application); 
+          };
+        });
+        setApplications(applications);
+      })
+      .catch((err) => {
+        // catching error
+      })
+      .finally(() => {
+        // the response has been received, so remove the loading icon
+        setLoaded(true);
+      });
+  };
 
   // set up loading data from api when the component first loads
-  useEffect(() => {
-    const fetchApplications = () => {
-      let applications = [];
-      axios
-        .post("http://localhost:5002/get_applications", { user: user.email })
-        .then((response) => {
-          // axios bundles up all response data in response.data property
-          const allApplications = response.data;
-          allApplications.forEach(async (application) => {
-            if (application.status === "saved") { // add the application to the list only if it has a saved status
-              applications.push(application); 
-            };
-          });
-          setApplications(applications);
-        })
-        .catch((err) => {
-          // catching error
-        })
-        .finally(() => {
-          // the response has been received, so remove the loading icon
-          setLoaded(true);
-        });
-    };
-  fetchApplications();
-  }, []);
+  useEffect(() => {fetchApplications();
+}, []);
 
 
   return (
@@ -91,7 +89,19 @@ export default function AllApps() {
     </>
   );
 }
-
+function deletefromsaved(id) {
+  axios
+    .post("http://localhost:5002/deleteapplication", {id})
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      //refresh page
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }
 function movetoinprogress(application) {
   axios
     .post("http://localhost:5002/movetoinprogress", {
@@ -101,8 +111,9 @@ function movetoinprogress(application) {
       // axios bundles up all response data in response.data property
       const newapp = response.data;
       console.log(newapp);
+      fetchApplications()
       //refresh page
-      window.location.reload();
+
     })
     .catch((err) => {
       // catching error
@@ -140,7 +151,7 @@ function ApplicationCell({ application }) {
         />
       <Stack direction="row">
         <Link
-            onClick={() => movetoinprogress(application)}
+            onClick={() => movetoinprogress(application) }
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
@@ -152,6 +163,7 @@ function ApplicationCell({ application }) {
             </Stack>
           </Link>
           <Link
+          onClick={() => deletefromsaved(application._id)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >

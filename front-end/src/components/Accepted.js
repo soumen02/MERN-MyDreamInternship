@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container } from "@mui/system";
+import { Container, Stack } from "@mui/system";
 import {
   Avatar,
   Card,
@@ -19,6 +19,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import { useAuthContext } from "../hooks/useAuthContext";
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function AllApps() {
   const classes = useStyles();
@@ -86,6 +88,20 @@ export default function AllApps() {
   );
 }
 
+function deletefromaccepted(id) {
+  axios
+    .post("http://localhost:5002/deleteapplication", {id})
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      //refresh page
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }
+
 function ApplicationCell({ application }) {
   const classes = useStyles();
 
@@ -104,7 +120,7 @@ function ApplicationCell({ application }) {
           }
           action={
             <Link
-              to={application.internshipID.toString()}
+              
               state={{ selectedApplication: application }}
             >
               <IconButton>
@@ -115,6 +131,32 @@ function ApplicationCell({ application }) {
           title={application.positionName}
           subheader={application.companyName}
         />
+        <Stack direction="row">
+        <Link
+            to={application.internshipID.toString()}
+            style={{ textDecoration: "none" }}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Leave a Review</Typography>
+                <RateReviewIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+          <Link
+          onClick={() => deletefromaccepted(application._id)}
+            style={{ textDecoration: "none" }}
+            state={{ selectedApplication: application }}
+          >
+            <Stack direction="row" paddingLeft="20px">
+              <IconButton>
+                <Typography paddingRight="5px">Delete Application</Typography>
+                <DeleteIcon />
+              </IconButton>
+            </Stack>
+          </Link>
+        </Stack>
       </CardActionArea>
     </Card>
   );
