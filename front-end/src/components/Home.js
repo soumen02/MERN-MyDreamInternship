@@ -6,9 +6,19 @@ import Paper from "@mui/material/Paper";
 import "./Home.css";
 import NavBar from "./NavBar";
 import Stack from "@mui/material/Stack";
+import { useEffect } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function Home() {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
+  console.log("The user is: ", user);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dash");
+    }
+  }, [user]);
 
   return (
     <>
