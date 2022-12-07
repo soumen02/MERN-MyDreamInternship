@@ -34,6 +34,15 @@ async function addApplication(application) {
     };
 }
 
+async function movetoinprogress(entry) {
+    //find application using _id and update it
+    console.log(entry);
+    const app =  await Application.updateOne({ "_id": entry._id }, {$set: entry});
+    console.log(app);
+    return app;
+}
+
+
 //helper function for addNote
 async function notesList(email, id) {
     const notes = await Application.find({ user: email, internshipID: id});
@@ -99,5 +108,6 @@ module.exports = {
     addApplication,
     notesList,
     addNote,
-    editNote
+    editNote,
+    movetoinprogress
 };

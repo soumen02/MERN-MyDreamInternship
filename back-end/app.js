@@ -314,6 +314,13 @@ app.post("/get_companybyinternshipname", jsonParser, async (req, res) => {
   res.send(company);
 });
 
+app.post("/movetoinprogress", jsonParser, async (req, res) => {
+  const entry = req.body.application;
+  entry.status = "in-progress";
+  const app = await applicationController.movetoinprogress(entry);
+
+  res.send(app);
+});
 
 app.post("/post_review", jsonParser, async (req, res) => {
   let review = req.body;

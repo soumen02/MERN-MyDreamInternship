@@ -22,11 +22,17 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
+
+
 export default function AllApps() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
   const [applications, setApplications] = useState([]);
   const { user } = useAuthContext();
+
+  
+
 
 
   // set up loading data from api when the component first loads
@@ -86,6 +92,23 @@ export default function AllApps() {
   );
 }
 
+function movetoinprogress(application) {
+  axios
+    .post("http://localhost:5002/movetoinprogress", {
+      application}
+    )
+    .then((response) => {
+      // axios bundles up all response data in response.data property
+      const newapp = response.data;
+      console.log(newapp);
+      //refresh page
+      window.location.reload();
+    })
+    .catch((err) => {
+      // catching error
+    })
+  }
+
 function ApplicationCell({ application }) {
   const classes = useStyles();
 
@@ -117,6 +140,7 @@ function ApplicationCell({ application }) {
         />
       <Stack direction="row">
         <Link
+            onClick={() => movetoinprogress(application)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
