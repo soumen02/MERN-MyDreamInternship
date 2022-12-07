@@ -14,12 +14,13 @@ async function getSpecApplication(email, id) {
 
 // create a new Application
 async function addApplication(application) {
-    const { user, internshipID, companyName, companyLogo, positionName, locations, status } =
+    const { user, internshipID, internshipURL, companyName, companyLogo, positionName, locations, status } =
     application;
     try {
     const newApplication = await Application.create({
         user,
         internshipID,
+        internshipURL,
         companyName,
         companyLogo,
         positionName,
@@ -61,6 +62,7 @@ async function addNote(email, id, entry) {
         const updatedApp = await Application.replaceOne({user: email, internshipID: id}, {
             user: app.user,
             internshipID: app.internshipID,
+            internshipURL: app.internshipURL,
             companyName: app.companyName,
             companyLogo: app.companyLogo,
             positionName: app.positionName,
@@ -79,7 +81,6 @@ async function addNote(email, id, entry) {
 
 async function editNote(email, id, entry) {
     const notes = await notesList(email, id);
-    
     const newNotesList = notes.map(note => {
         if (note.id == entry.id) {
             return entry;
@@ -93,6 +94,7 @@ async function editNote(email, id, entry) {
         const updatedApp = await Application.replaceOne({user: email, internshipID: id}, {
             user: app.user,
             internshipID: app.internshipID,
+            internshipURL: app.internshipURL,
             companyName: app.companyName,
             companyLogo: app.companyLogo,
             positionName: app.positionName,

@@ -183,6 +183,7 @@ app.post("/deleteapplication", jsonParser, async (req, res) => {
   const app = await applicationController.deleteapplication(id);
   res.send(app);
 });
+
 app.post("/post_review", jsonParser, async (req, res) => {
   let review = req.body;
   console.log(review);

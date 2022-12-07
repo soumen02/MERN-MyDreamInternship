@@ -123,9 +123,9 @@ function ApplicationCell({ application }) {
               
               state={{ selectedApplication: application }}
             >
-              <IconButton>
+              {/* <IconButton>
                 <ArrowForward />
-              </IconButton>
+              </IconButton> */}
             </Link>
           }
           title={application.positionName}

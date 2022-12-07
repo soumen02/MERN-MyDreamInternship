@@ -12,6 +12,10 @@ const applicationSchema = new Schema(
         type: String,
         required: true,
     },
+    internshipURL: {
+        type: String,
+        required: true,
+    },
     companyName: {
       type: String,
       required: true,
