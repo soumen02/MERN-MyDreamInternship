@@ -14,8 +14,10 @@ export const authReducer = (state, action) => {
 };
 
 export const AuthContextProvider = ({ children }) => {
+  console.log("called here, ");
+  let u = JSON.parse(localStorage.getItem("user"));
   const [state, dispatch] = useReducer(authReducer, {
-    user: null,
+    user: u,
   });
 
   useEffect(() => {
