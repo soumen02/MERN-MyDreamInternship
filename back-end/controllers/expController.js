@@ -48,9 +48,21 @@ async function editExp(exp) {
     }
 }
 
+async function removeExp(id) {
+    try {
+        const deletedExp = await Exp.deleteOne({id: id});
+    }
+    catch (error) {
+        console.log("Error deleting experience", error.message);
+        console.log("deleted experience id: ", id);
+    }
+}
+
+
 module.exports = {
     projList,
     expList,
     addExp,
     editExp,
+    removeExp,
 };

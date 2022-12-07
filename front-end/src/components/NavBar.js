@@ -22,18 +22,31 @@ export default function ButtonAppBar({ pageTitle }) {
     navigate("/");
   };
 
+  const handleBackClick = () => {
+    navigate("/dash");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Link to="/dash">
-            <IconButton>
-              <ArrowBack />
-            </IconButton>
-          </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {pageTitle}
-          </Typography>
+          {pageTitle ? (
+            <>
+              <IconButton onClick={handleBackClick}>
+                <ArrowBack />
+              </IconButton>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {pageTitle}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {pageTitle}
+              </Typography>
+            </>
+          )}
+
           {user && (
             <>
               <Typography>{user.email}</Typography>
