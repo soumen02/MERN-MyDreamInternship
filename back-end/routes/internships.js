@@ -5,7 +5,7 @@ const internshipController = require("../controllers/internshipController");
 const router = express.Router();
 
 // require auth for all workout routes
-router.use(requireAuth);
+// router.use(requireAuth);
 
 router.get("/get_internships", async (req, res) => {
   const internships = await internshipController.getInternships();
@@ -31,6 +31,7 @@ router.post("/get_company_internships", async (req, res) => {
   const ids = req.body.companyPositions;
   for (i = 0; i < ids.length; i++) {
     const internship = await internshipController.getCompanyInternship(ids[i]);
+
     internships.push(internship);
   }
   res.send(internships);
