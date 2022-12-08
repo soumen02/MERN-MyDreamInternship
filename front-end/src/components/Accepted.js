@@ -95,6 +95,7 @@ function deletefromaccepted(id) {
       // axios bundles up all response data in response.data property
       const newapp = response.data;
       console.log(newapp);
+      window.location.reload();
       //refresh page
     })
     .catch((err) => {
