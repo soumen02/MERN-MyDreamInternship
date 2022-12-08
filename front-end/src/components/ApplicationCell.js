@@ -114,21 +114,23 @@ export default function ApplicationCell({ application }) {
               </IconButton>
             </Stack>
           </Link>
-          <Link
+          
+        </Stack>
+        <Stack paddingLeft="20px">
+        <Link
+        
             onClick={() => deletefrominprogress(application._id)}
             style={{ textDecoration: "none" }}
             state={{ selectedApplication: application }}
           >
-            <Stack direction="row" paddingLeft="20px">
+
               <IconButton>
                 <Typography paddingRight="5px">Remove from In Progress</Typography>
                 <DeleteIcon />
               </IconButton>
-            </Stack>
+              
           </Link>
-        </Stack>
-        
-        
+          </Stack>
         <div className = "contNotes">
           <SeeAll items={notes} state = {true} edit={true} arr = "Notes" internshipID = {application.internshipID}/>
         </div>
