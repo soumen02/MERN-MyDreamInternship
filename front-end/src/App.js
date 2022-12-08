@@ -6,8 +6,6 @@ import InternshipDetailed from "./components/InternshipDetailed";
 import Internships from "./components/Internships";
 import Companies from "./components/Companies";
 import CompaniesDetailed from "./components/CompaniesDetailed";
-import Settings from "./components/Settings";
-
 import Saved from "./components/Saved";
 import InProgress from "./components/InProgress";
 import Accepted from "./components/Accepted";
@@ -46,7 +44,6 @@ export default function App() {
         <Route index element={<Companies />} />
         <Route path=":id" element={<CompaniesDetailed />} />
       </Route>
-
       <Route path="/profile">
         <Route index element={<Profile />} />
       </Route>

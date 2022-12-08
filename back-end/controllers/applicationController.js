@@ -110,6 +110,39 @@ async function editNote(email, id, entry) {
     }    
 }
 
+async function delNote(email, id, entry) {
+    
+    let notes = await notesList(email, id); 
+
+    for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id == entry.id) {
+            notes.splice(i, 1);
+        }
+    }
+
+    const app = (await getSpecApplication(email, id))[0];
+
+    try {
+        const updatedApp = await Application.replaceOne({user: email, internshipID: id}, {
+            user: app.user,
+            internshipID: app.internshipID,
+            internshipURL: app.internshipURL,
+            companyName: app.companyName,
+            companyLogo: app.companyLogo,
+            positionName: app.positionName,
+            locations: app.locations,
+            status: app.status,
+            reviews: app.reviews,
+            notes: notes
+        });
+    }
+    catch (error) {
+        console.log("Error updating experience", error.message);
+        console.log("updated experience details: ", exp);
+    }    
+}
+
+
 module.exports = {
     getApplications,
     addApplication,
@@ -117,5 +150,6 @@ module.exports = {
     addNote,
     editNote,
     updateapplication,
-    deleteapplication
+    deleteapplication,
+    delNote,
 };

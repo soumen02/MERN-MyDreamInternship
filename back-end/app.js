@@ -106,6 +106,14 @@ app.post("/post_newNote", jsonParser, async (req, res) => {
   );
 });
 
+app.post("/post_delNote", jsonParser, async (req, res) => {
+  await applicationController.delNote(
+    req.body.entry[0],
+    req.body.entry[1],
+    req.body.entry[2]
+  );
+});
+
 app.post("/post_editNote", jsonParser, async (req, res) => {
   await applicationController.editNote(
     req.body.entry[0],

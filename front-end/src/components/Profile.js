@@ -3,16 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Profile.css";
 import {
   Card,
-  Typography,
-  IconButton,
-  CssBaseline,
-  AppBar,
-  Toolbar,
 } from "@mui/material";
-import { ArrowBack } from "@material-ui/icons";
 import EditIcon from "@mui/icons-material/Edit";
 import Footer from "./Footer";
-import SettingsIcon from "@mui/icons-material/Settings";
 import SeeAll from "./SeeAll";
 import BoxField from "./BoxField";
 import { useState, useEffect } from "react";
@@ -33,7 +26,6 @@ export default function Profile() {
     if (!user) {
       navigate("/log-in");
     } else {
-      // fetch messages this once
       fetchUserData();
       fetchArrs();
     }
@@ -84,27 +76,7 @@ export default function Profile() {
     <div id="content">
       <NavBar pageTitle="Profile" />
       <div id="container">
-        {/* <Card raised = {true} className = "contBox">
-                    <img id = "pfp" src="img_avatar.png" alt="pfp" width = "200"/>
-                    <form action="/upload-example" method="POST" enctype="multipart/form-data">
-                    <input name="my_files" type="file" multiple />
-                    <input type="submit" value="Submit!!!" />
-                    </form>
-
-
-                    <div className = "titleEdit">
-                        <div className = "title" id = "name">{userData.firstName + " " + userData.lastName}</div>
-                        <div className = "edit">Edit</div>
-                    </div>
-
-                    <div id = "edu">
-                        <div id = "uni"><img src="NYU-Logo.png" alt="pfp" width = "80"/></div>
-                        <div className = "info"><h4>New York University</h4>Bachelors<br></br>Computer Science</div>
-                    </div>
-
-                    <BoxField userData = {userData} />
-
-                </Card> */}
+        
         <BoxField email={user ? user.email : "Error"} />
 
         <Card raised={true} className="contBox">
@@ -126,7 +98,7 @@ export default function Profile() {
           </div>
           <SeeAll items={proj} state={true} edit={false} arr="Proj" />
         </Card>
-        
+
         <div id="endpage"></div>
       </div>
       <Footer />
