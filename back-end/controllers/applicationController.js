@@ -111,12 +111,14 @@ async function editNote(email, id, entry) {
 }
 
 async function delNote(email, id, entry) {
-    const notes = await notesList(email, id);
-    const newNotesList = notes.map(note => {
-        if (note.id != entry.id) {
-            return note;
+    
+    let notes = await notesList(email, id); 
+
+    for (var i = 0; i < notes.length; i++) {
+        if (notes[i].id == entry.id) {
+            notes.splice(i, 1);
         }
-    });
+    }
 
     const app = (await getSpecApplication(email, id))[0];
 
@@ -131,7 +133,7 @@ async function delNote(email, id, entry) {
             locations: app.locations,
             status: app.status,
             reviews: app.reviews,
-            notes: newNotesList
+            notes: notes
         });
     }
     catch (error) {
@@ -148,5 +150,6 @@ module.exports = {
     addNote,
     editNote,
     updateapplication,
-    deleteapplication
+    deleteapplication,
+    delNote,
 };
