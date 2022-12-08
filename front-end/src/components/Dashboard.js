@@ -65,13 +65,7 @@ export default function Dashboard() {
             <p>Profile</p>
           </Card>
         </Link>
-
-        <Link to="/settings" style={{ textDecoration: "none" }}>
-          <Card raised={true} className="tabs">
-            <SettingsIcon fontSize="medium" />
-            <p>Account Settings</p>
-          </Card>
-        </Link>
+        
       </div>
     </div>
   );

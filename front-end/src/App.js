@@ -46,11 +46,6 @@ export default function App() {
         <Route index element={<Companies />} />
         <Route path=":id" element={<CompaniesDetailed />} />
       </Route>
-      {/* 
-      <Route path="/companiesdetailed">
-        <Route index element={<CompaniesDetailed />} />
-        { <Route path=':id' element={<CompaniesDetailed/>} /> }
-      </Route> */}
 
       <Route path="/profile">
         <Route index element={<Profile />} />
@@ -69,13 +64,6 @@ export default function App() {
       <Route path="/applications">
         <Route index element={<Applications />} />
       </Route>
-      {/* <Route path="/ReviewPage/:id">
-        <Route index element={<ReviewPage />} />
-      </Route> */}
-      <Route path="/settings">
-        <Route index element={<Settings />} />
-      </Route>
-
       <Route path="/edit">
         {/* TESTING */}
         <Route path="work" element={<Edit view={true} />} />
