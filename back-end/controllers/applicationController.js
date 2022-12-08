@@ -110,6 +110,37 @@ async function editNote(email, id, entry) {
     }    
 }
 
+async function delNote(email, id, entry) {
+    const notes = await notesList(email, id);
+    const newNotesList = notes.map(note => {
+        if (note.id != entry.id) {
+            return note;
+        }
+    });
+
+    const app = (await getSpecApplication(email, id))[0];
+
+    try {
+        const updatedApp = await Application.replaceOne({user: email, internshipID: id}, {
+            user: app.user,
+            internshipID: app.internshipID,
+            internshipURL: app.internshipURL,
+            companyName: app.companyName,
+            companyLogo: app.companyLogo,
+            positionName: app.positionName,
+            locations: app.locations,
+            status: app.status,
+            reviews: app.reviews,
+            notes: newNotesList
+        });
+    }
+    catch (error) {
+        console.log("Error updating experience", error.message);
+        console.log("updated experience details: ", exp);
+    }    
+}
+
+
 module.exports = {
     getApplications,
     addApplication,
