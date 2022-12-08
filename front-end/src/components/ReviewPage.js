@@ -106,7 +106,8 @@ export default function ReviewPage() {
         
       })
       .then((res) => {
-        // console.log(res);
+
+        navigate("/applications");
       })
       .catch((err) => {
         console.log(err);
