@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function NoteBox({item, id}) {
     const [ed, setEdit] = React.useState(false);
+    const [del, setDel] = React.useState(false);
 
     const [titleInput, setTitleInput] = React.useState(item.title);
     const [dateInput, setDateInput] = React.useState(item.date);
@@ -56,6 +57,7 @@ export default function NoteBox({item, id}) {
     }
 
     function handleRemove() {
+        setDel(true);
         let path = "http://localhost:5002/post_delNote";
         let entry = [user.email, id, { id: item.id, title: titleInput, date: dateInput, text: textInput }];
         axios
@@ -145,7 +147,14 @@ export default function NoteBox({item, id}) {
         )
     }
 
-    return (
-        <div>{itemObj}</div>
-    );
+    if (del === true) {
+        window.location.reload();
+    }
+    else {
+        return (
+            <div>
+                {itemObj}
+            </div>
+        );
+    }
 }
