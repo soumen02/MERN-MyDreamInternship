@@ -9,7 +9,12 @@ import {
   CircularProgress,
   Grid,
   CardActionArea,
+  Paper,
+  InputBase,
+  Divider,
+  Stack,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -109,32 +114,46 @@ export default function Internships() {
   );
 
   function SearchBarFunction() {
+    const [searchValue, setSearchValue] = useState("");
+    const onSubmit = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (user) {
+          setLoaded(false);
+        }
+        searchInternships(searchValue);
+      }
+    };
     return (
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <SearchBar
-            placeholder="Search Positions"
-            justify="center"
-            onRequestSearch={(e) => {
-              if (user) {
-                setLoaded(false);
-                searchInternships(e);
-              }
-            }}
-            onCancelSearch={() => fetchInternships()}
-            style={{
-              margin: "20px",
-              maxWidth: 800,
-              justifyContent: "center",
-            }}
+      <Stack direction="row" justifyContent="center">
+        <Paper
+          component="form"
+          sx={{
+            mt: 4,
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            width: 500,
+          }}
+          onKeyPress={onSubmit}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search by position"
+            inputProps={{ "aria-label": "search google maps" }}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
-        </Grid>
-      </Grid>
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={onSubmit}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </Stack>
     );
   }
 }
