@@ -126,18 +126,7 @@ export default function Profile() {
           </div>
           <SeeAll items={proj} state={true} edit={false} arr="Proj" />
         </Card>
-
-        <Card raised={true} className="contBox" id="accSet">
-          <div className="titleEdit">
-            <div className="title" id="acc">
-              Account Settings
-            </div>
-            <Link to="/settings" className="icon" id="settIcon">
-              <SettingsIcon fontSize="large" />
-            </Link>
-          </div>
-        </Card>
-
+        
         <div id="endpage"></div>
       </div>
       <Footer />
