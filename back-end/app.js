@@ -198,20 +198,21 @@ app.post("/post_review", jsonParser, async (req, res) => {
 app.post("/get_reviews", jsonParser, async (req, res) => {
   const reviews = [];
   const Reviewids = req.body.reviewids;
-  // console.log(Reviewids);
 
   for (let i = 0; i < Reviewids.length; i++) {
     const review = await reviewController.getReview(Reviewids[i]);
     const user = await userController.getUser(review.user);
-    let reviewObj = {
-      name: user.firstName,
-      review: review.review,
-      rating: review.rating,
-      date: review.date,
-      position: review.position,
-      company: review.company,
-    };
-    reviews.push(reviewObj);
+    if (user) {
+      let reviewObj = {
+        name: user.firstName,
+        review: review.review,
+        rating: review.rating,
+        date: review.date,
+        position: review.position,
+        company: review.company,
+      };
+      reviews.push(reviewObj);
+    }
   }
 
   // console.log(reviews);
