@@ -5,7 +5,6 @@ async function getReview(id) {
   return review;
 }
 
-
 async function addReview(Data) {
   const { user, company, review, rating, position, date } = Data;
   try {
@@ -24,8 +23,6 @@ async function addReview(Data) {
     console.log("new review details: ", review);
   }
 }
-
-
 
 module.exports = {
   getReview,
