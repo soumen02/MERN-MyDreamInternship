@@ -8,7 +8,6 @@ import {
   IconButton,
   CardActionArea,
 } from "@mui/material";
-import { ArrowForward, ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -45,7 +44,6 @@ export default function ApplicationCell({ application }) {
   }, []);
 
   const handleNote = () => {
-    // setWorkExp(workExp.push({ title: 'Title', org: 'Organization/Project', date:'Date', text: "Description" }));
     let entry = [user.email, application.internshipID, { title: "Title", date: "Date", text: "Description" }];
     axios
         .post('http://localhost:5002/post_newNote', {
