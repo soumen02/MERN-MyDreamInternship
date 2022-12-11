@@ -12,16 +12,11 @@ import { CssBaseline, Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import useStyles from "./HomeStyles";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 export default function Home() {
+  const classes = useStyles();
   const navigate = useNavigate();
   const { user } = useAuthContext();
   console.log("The user is: ", user);
@@ -39,13 +34,12 @@ export default function Home() {
       <NavBar />
 
       <main>
-        <div>
-
+        <div className={classes.container}>
           <Container maxWidth="sm">
             <Typography variant="h3" align="center" color="textPrimary" gutterBottom>
               My Dream Internship
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography variant="h6" align="center" color="textSecondary" paragraph>
               Work towards your goals today
             </Typography>
 
@@ -54,10 +48,10 @@ export default function Home() {
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} justifyContent="center">
                   <Grid item >
-                    <Button variant="contained" color="primary">Join Us</Button>
+                    <Button variant="contained" color="primary" onClick={() => navigate("/sign-up")}>Join Us</Button>
                   </Grid>
                   <Grid item >
-                    <Button variant="outlined" color="primary">Sign In</Button>
+                    <Button variant="outlined" color="primary" onClick={() => navigate("/log-in")}>Sign In</Button>
                   </Grid>
                 </Grid>
               </Box>
