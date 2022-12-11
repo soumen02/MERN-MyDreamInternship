@@ -40,11 +40,10 @@ export default function Home() {
               My Dream Internship
             </Typography>
             <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              Work towards your goals today
+              Work towards your goals today.
             </Typography>
 
-            <div>
-
+            <div className={classes.buttonBox}>
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} justifyContent="center">
                   <Grid item >
