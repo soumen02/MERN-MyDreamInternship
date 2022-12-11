@@ -31,16 +31,8 @@ export default function Home() {
         }}
       >
         <Stack spacing={3} justifyContent="center" alignItems="center">
-        <Typography
-            variant="h3"
-            align="center"
-            color="text.primary"
-            paragraph
-          >
-            My Dream Internship
-          </Typography>
           <Typography
-            // component="h5"
+            component="h5"
             variant="h6"
             align="center"
             color="text.secondary"
@@ -49,7 +41,14 @@ export default function Home() {
           >
             Work towards your goals today
           </Typography>
-
+          <Typography
+            variant="h3"
+            align="center"
+            color="text.primary"
+            paragraph
+          >
+            Score your dream Internship
+          </Typography>
           <Stack direction="row" spacing={5}>
             <Button 
               variant="contained" 
