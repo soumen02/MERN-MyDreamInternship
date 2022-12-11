@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Stack } from "@mui/system";
 import { Link, useNavigate } from "react-router-dom";
-import SearchBar from "material-ui-search-bar";
-import { ArrowForward, ArrowBack } from "@material-ui/icons";
+import { ArrowForward } from "@material-ui/icons";
 import {
   Avatar,
   CardActionArea,
@@ -19,13 +18,8 @@ import {
   CardHeader,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-// import { ArrowBack } from "@material-ui/icons";
-//import useStyles from "./CompaniesDetailedStyles";
-// import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./CompaniesStyles";
-import { Home } from "@material-ui/icons";
 import Footer from "./Footer";
-import ReadMore from "./ReadMore";
 import NavBar from "./NavBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -103,7 +97,6 @@ export default function Companies() {
   useEffect(() => {
     // fetch messages this once
     fetchCompanies();
-    // console.log(user.email);
   }, []);
 
   return (
