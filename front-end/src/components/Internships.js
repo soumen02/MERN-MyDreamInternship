@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Container } from "@mui/system";
-import SearchBar from "material-ui-search-bar";
 import {
   Avatar,
   Card,
@@ -11,13 +10,12 @@ import {
   CardActionArea,
   Paper,
   InputBase,
-  Divider,
   Stack,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { ArrowForward, ArrowBack } from "@material-ui/icons";
+import { ArrowForward } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
@@ -31,8 +29,6 @@ export default function Internships() {
   const { user } = useAuthContext();
 
   const fetchInternships = () => {
-    // setMessages([])
-    // setLoaded(false)
     axios
       .get("http://localhost:5002/get_internships", {
         headers: {

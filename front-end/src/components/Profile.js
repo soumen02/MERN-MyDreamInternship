@@ -17,9 +17,9 @@ export default function Profile() {
   const navigate = useNavigate();
   const [workExp, setWorkExp] = useState([]);
   const [proj, setProj] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  const [setLoaded] = useState(false);
   const { user } = useAuthContext();
-  const [userData, setuserData] = useState({});
+  const [setuserData] = useState({});
 
   // set up loading data from api when the component first loads
   useEffect(() => {
