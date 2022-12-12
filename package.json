@@ -1,8 +1,8 @@
 {
   "scripts": {
     "frondend" : "cd front-end && npm start",
-    "backend" : "cd back-end && nodemon start",
-    "start": "concurrently \"npm run frondend\" \"npm run backend\""
+    "backend" : "cd back-end && npm start",
+    "start": "concurrently -n 'client,server' -c 'green,red' \"npm run frondend\" \"npm run backend\""
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
