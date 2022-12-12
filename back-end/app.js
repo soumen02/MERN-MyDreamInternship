@@ -68,6 +68,28 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage, fileFilter });
 
+
+
+
+// where ever the built package is
+const buildFolder = '../front-end/build';
+// load the value in the server
+const API_URL  = process.env.API_URL;
+// treat the index.html as a template and substitute the value
+// at runtime
+app.set('views', path.join(__dirname, buildFolder));
+app.engine('html', require('ejs').renderFile);
+app.use(
+  '/static',
+  express.static(path.join(__dirname, `${buildFolder}/static`)),
+);
+app.get('/', function(req, res) {
+  res.render('index.html', { API_URL });
+});
+
+
+
+
 app.get("/get_companies", async (req, res) => {
   const companies = await companyController.getCompanies();
   res.status(200).send(companies);
