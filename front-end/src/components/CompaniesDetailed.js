@@ -3,20 +3,14 @@ import { Container, Stack } from "@mui/system";
 import { Link } from "react-router-dom";
 import {
   Avatar,
-  Box,
   Typography,
   IconButton,
-  CssBaseline,
   AppBar,
   Toolbar,
-  Button,
   Card,
   CardActionArea,
   CardHeader,
-  CardMedia,
-  CardContent,
   Grid,
-  ToggleButton,
 } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@material-ui/icons";
 import useStyles from "./CompaniesDetailedStyles";
@@ -24,13 +18,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from "./Footer";
-// import SettingsIcon from '@mui/icons-material/Settings';
 import { useTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import ReadMore from "./ReadMore";
 
-const lorum =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id";
 
 export default function CompaniesDetailed() {
   const theme = useTheme();
@@ -42,8 +33,6 @@ export default function CompaniesDetailed() {
   const [internships, setInternships] = useState([]);
 
   const fetchReviews = () => {
-    // setMessages([])
-    // setLoaded(false)
     axios
       .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.reviewids})
       .then((response) => {

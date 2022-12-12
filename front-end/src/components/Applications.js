@@ -1,14 +1,7 @@
 import * as React from "react";
 import {
   Card,
-  Typography,
-  IconButton,
-  AppBar,
-  Toolbar,
-  Grid,
 } from "@mui/material";
-// import useStyles from "./CompaniesStyles";
-import { Home } from "@material-ui/icons";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import RotateRightIcon from "@mui/icons-material/RotateRight";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
