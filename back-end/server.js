@@ -18,10 +18,3 @@ mongoose
     console.log(error);
   });
 
-// a function to stop listening to the port
-// const close = () => {
-//   listener.close();
-// };
-// module.exports = {
-//   close: close,
-// };
