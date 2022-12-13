@@ -7,6 +7,9 @@ import axios from 'axios';
 import {Card} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+const API_URL =
+  process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 
 export default function EditBox({edit, item, arr}) {
     const [ed, setEdit] = React.useState(false);
@@ -38,7 +41,7 @@ export default function EditBox({edit, item, arr}) {
 
     function postEdit() {
         let entry = {user: item.user, type: item.type, id: item.id, title: titleInput, org: orgInput, date: dateInput, text: textInput};
-        let path = "http://localhost:5002/post_edit";
+        let path = `${API_URL}post_edit`;
 
         axios
             .post(path, {
@@ -58,7 +61,7 @@ export default function EditBox({edit, item, arr}) {
 
     function handleRemove() {
         setDel(true);
-        let path = "http://localhost:5002/post_remExp";
+        let path = `${API_URL}post_remExp`;
 
         axios
             .post(path, {

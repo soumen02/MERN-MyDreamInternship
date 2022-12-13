@@ -18,6 +18,7 @@ import "./InProgress.css";
 import SeeAll from './SeeAll';
 import DeleteIcon from "@mui/icons-material/Delete";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
 
 export default function ApplicationCell({ application }) {
   const classes = useStyles();
@@ -28,7 +29,7 @@ export default function ApplicationCell({ application }) {
 
   const fetchArrs = () => {
     axios
-    .post("http://localhost:5002/post_notes", {
+    .post(`${API_URL}post_notes`, {
         email: user.email, id: application.internshipID
     })
     .then((response) => {
@@ -46,7 +47,7 @@ export default function ApplicationCell({ application }) {
   const handleNote = () => {
     let entry = [user.email, application.internshipID, { title: "Title", date: "Date", text: "Description" }];
     axios
-        .post('http://localhost:5002/post_newNote', {
+        .post(`${API_URL}post_newNote`, {
             entry
         },
         )
@@ -139,7 +140,7 @@ export default function ApplicationCell({ application }) {
 }
 function deletefrominprogress(id) {
   axios
-    .post("http://localhost:5002/deleteapplication", {id})
+    .post(`${API_URL}deleteapplication`, {id})
     .then((response) => {
       // axios bundles up all response data in response.data property
       const newapp = response.data;
@@ -153,7 +154,7 @@ function deletefrominprogress(id) {
   }
 function movetoaccepted(application) {
   axios
-    .post("http://localhost:5002/movetoaccepted", {
+    .post(`${API_URL}movetoaccepted`, {
       application}
     )
     .then((response) => {
