@@ -10,11 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import { ArrowBack } from "@material-ui/icons";
 import CssBaseline from "@mui/material/CssBaseline";
 import axios from "axios";
-// import Link from '@mui/material/Link';
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -82,7 +80,6 @@ export default function ReviewPage() {
     .then((response) => {
       // axios bundles up all response data in response.data property
       setcompanyData(response.data);
-      // console.log(companyData);
     })
     .catch((err) => {
       console.log(err);

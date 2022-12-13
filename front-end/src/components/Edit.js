@@ -24,7 +24,7 @@ export default function Edit({view}) {
 
     const [workExp, setWorkExp] = useState([]);
     const [proj, setProj] = useState([]);
-    const [loaded, setLoaded] = useState(false);
+    const [setLoaded] = useState(false);
     const { user } = useAuthContext();
 
     const fetchArrs = () => {

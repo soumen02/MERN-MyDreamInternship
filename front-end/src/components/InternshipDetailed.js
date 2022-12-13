@@ -30,7 +30,6 @@ export default function InternshipDetailed() {
 
   const handleChange = (event) => {
     setStatus(event.target.value);
-    // console.log(status)
   };
 
   const handleClick = (event) => {
@@ -46,7 +45,6 @@ export default function InternshipDetailed() {
       "locations": selectedInternship.locations,
       "status": status // from dropdown 
     }
-    // console.log(params);
 
     axios
         .post('http://localhost:5002/post_applications', {
@@ -55,7 +53,6 @@ export default function InternshipDetailed() {
         )
         .then((response) => {
             let appData = response.data;
-            // console.log(appData)
         })
         .catch((err) => {
             console.log(err);

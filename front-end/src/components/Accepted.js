@@ -13,7 +13,7 @@ import {
   Grid,
   CardActionArea,
 } from "@mui/material";
-import { ArrowForward, ArrowBack } from "@material-ui/icons";
+import { ArrowBack } from "@material-ui/icons";
 import useStyles from "./InternshipsStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -126,9 +126,6 @@ function ApplicationCell({ application }) {
               
               state={{ selectedApplication: application }}
             >
-              {/* <IconButton>
-                <ArrowForward />
-              </IconButton> */}
             </Link>
           }
           title={application.positionName}
