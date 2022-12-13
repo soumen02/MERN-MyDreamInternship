@@ -16,6 +16,10 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 
+const API_URL =
+  process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
+
 export default function Edit({view}) {
 
     const [workExp, setWorkExp] = useState([]);
@@ -25,7 +29,7 @@ export default function Edit({view}) {
 
     const fetchArrs = () => {
         axios
-        .post("http://localhost:5002/post_expArr", {
+        .post(`${API_URL}post_expArr`, {
             email: user.email
         })
         .then((response) => {
@@ -56,7 +60,7 @@ export default function Edit({view}) {
         // setWorkExp(workExp => [...workExp, { title: 'Title', org: 'Organization', date:'Date', text: "Description" }]);
         let entry = { user: user.email, type: 'Work', title: 'Title', org: 'Organization', date:'Date', text: "Description" };
         axios
-            .post('http://localhost:5002/get_work', {
+            .post(`${API_URL}get_work`, {
                 entry
             },
             )
@@ -75,7 +79,7 @@ export default function Edit({view}) {
         // setWorkExp(workExp.push({ title: 'Title', org: 'Organization/Project', date:'Date', text: "Description" }));
         let entry = { user: user.email, type: 'Proj', title: 'Title', org: 'Project', date:'Date', text: "Description" };
         axios
-            .post('http://localhost:5002/get_proj', {
+            .post(`${API_URL}get_proj`, {
                 entry
             },
             )

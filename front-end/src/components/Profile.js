@@ -13,6 +13,9 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import NavBar from "./NavBar";
 
+const API_URL =
+  process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 export default function Profile() {
   const navigate = useNavigate();
   const [workExp, setWorkExp] = useState([]);
@@ -33,7 +36,7 @@ export default function Profile() {
 
   const fetchArrs = () => {
     axios
-      .post("http://localhost:5002/post_expArr", {
+      .post(`${API_URL}post_expArr`, {
         email: user.email,
       })
       .then((response) => {
@@ -56,7 +59,7 @@ export default function Profile() {
 
   const fetchUserData = () => {
     axios
-      .post("http://localhost:5002/post_userEmail", {
+      .post(`${API_URL}post_userEmail`, {
         email: user.email,
       })
       .then((response) => {

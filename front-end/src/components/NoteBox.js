@@ -9,6 +9,8 @@ import "./NoteBox.css";
 import { useAuthContext } from '../hooks/useAuthContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+const API_URL =
+  process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
 
 
 export default function NoteBox({item, id}) {
@@ -38,7 +40,7 @@ export default function NoteBox({item, id}) {
     };
 
     function postEdit() {
-        let path = "http://localhost:5002/post_editNote";
+        let path = `${API_URL}post_editNote`;
         let entry = [user.email, id, { id: item.id, title: titleInput, date: dateInput, text: textInput }];
         axios
             .post(path, {
@@ -58,7 +60,7 @@ export default function NoteBox({item, id}) {
 
     function handleRemove() {
         setDel(true);
-        let path = "http://localhost:5002/post_delNote";
+        let path = `${API_URL}post_delNote`;
         let entry = [user.email, id, { id: item.id, title: titleInput, date: dateInput, text: textInput }];
         axios
             .post(path, {

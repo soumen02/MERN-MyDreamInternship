@@ -7,6 +7,9 @@ import { Card } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 
+const API_URL =
+  process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 export default function BoxField({ email }) {
   const [date, setDate] = useState("");
   const [gpa, setGPA] = useState("");
@@ -46,7 +49,7 @@ export default function BoxField({ email }) {
       uni: uni,
       photo: photoName,
     };
-    let path = "http://localhost:5002/post_editUser";
+    let path = `${API_URL}post_editUser`;
 
     axios
       .post(path, {
@@ -61,7 +64,7 @@ export default function BoxField({ email }) {
 
   const fetchUserData = () => {
     axios
-      .post("http://localhost:5002/post_userEmail", {
+      .post(`${API_URL}post_userEmail`, {
         email: email,
       })
       .then((response) => {
@@ -81,7 +84,7 @@ export default function BoxField({ email }) {
 
   const setPathtoImg = (image) => {
     axios
-      .post("http://localhost:5002/post_pathToImg", {
+      .post(`${API_URL}post_pathToImg`, {
         img: image,
       })
       .then((response) => {
@@ -105,7 +108,7 @@ export default function BoxField({ email }) {
     formData.append("photo", photo);
 
     axios
-      .post("http://localhost:5002/post_photo", formData)
+      .post(`${API_URL}post_photo`, formData)
       .then((response) => {
         setPhotoName(response.data[1]);
         setImgPath(response.data[0] + response.data[1]);
