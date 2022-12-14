@@ -18,6 +18,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
+
 function Copyright(props) {
   return (
     <Typography
@@ -46,7 +49,7 @@ export default function ReviewPage() {
   const params = useParams();
 
   axios
-    .post("http://localhost:5002/post_userEmail", {
+    .post(`${API_URL}post_userEmail`, {
       email: user.email,
     })
     .then((response) => {
@@ -61,7 +64,7 @@ export default function ReviewPage() {
     });
 
   axios
-    .post("http://localhost:5002/get_internshipbyid", {
+    .post(`${API_URL}get_internshipbyid`, {
       id: params.id,
     })
     .then((response) => {
@@ -74,7 +77,7 @@ export default function ReviewPage() {
     })
 
     axios
-    .post("http://localhost:5002/get_companybyinternshipname", {
+    .post(`${API_URL}get_companybyinternshipname`, {
       companyName: internshipData.companyName,
     })
     .then((response) => {
@@ -93,7 +96,7 @@ export default function ReviewPage() {
 
     event.preventDefault();
     axios
-      .post("http://localhost:5002/post_review", {
+      .post(`${API_URL}post_review`, {
         user: userData._id,
         company: companyData.companyName,
         review: formData1,

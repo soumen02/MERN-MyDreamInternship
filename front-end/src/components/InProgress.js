@@ -18,6 +18,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import "./InProgress.css";
 import ApplicationCell from "./ApplicationCell";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 export default function AllApps() {
   const classes = useStyles();
   const [loaded, setLoaded] = useState(false);
@@ -27,7 +29,7 @@ export default function AllApps() {
   const fetchApplications = () => {
     let applications = [];
     axios
-      .post("http://localhost:5002/get_applications", { user: user.email })
+      .post(`${API_URL}get_applications`, { user: user.email })
       .then((response) => {
         // axios bundles up all response data in response.data property
         const allApplications = response.data;
@@ -89,7 +91,7 @@ export default function AllApps() {
 
 function movetoinprogress(application) {
   axios
-    .post("http://localhost:5002/movetoinprogress", {
+    .post(`${API_URL}movetoinprogress`, {
       application}
     )
     .then((response) => {
