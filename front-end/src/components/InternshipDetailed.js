@@ -20,6 +20,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Footer from "./Footer";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
 
 export default function InternshipDetailed() {
   const classes = useStyles();
@@ -47,7 +48,7 @@ export default function InternshipDetailed() {
     }
 
     axios
-        .post('http://localhost:5002/post_applications', {
+        .post(`${API_URL}post_applications`, {
             params
         },
         )
