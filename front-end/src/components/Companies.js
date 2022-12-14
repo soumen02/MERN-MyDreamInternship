@@ -23,6 +23,8 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 const lorum =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donecin felis pellentesque ante condimentum eleifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada leifend vitae laciniaturpis. Mauris imperdiet neque id pellentesque tempor. Uttempor consectetur nibh a malesuada. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in felis pellentesqueante condimentum eleifend vitae lacinia turpis. Maurisimperdiet neque id pellentesque tempor. Ut tempor consecteturnibh a malesuada leifend vitae lacinia turpis. Maurisimperdiet neque id ";
 const card = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -47,7 +49,7 @@ export default function Companies() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .get("http://localhost:5002/get_companies")
+      .get(`${API_URL}get_companies`)
       .then((response) => {
         // axios bundles up all response data in response.data property
         const companies = response.data;
@@ -70,7 +72,7 @@ export default function Companies() {
     }
 
     axios
-      .post("http://localhost:5002/search_companies", {
+      .post(`${API_URL}search_companies`, {
         params: {
           searchTerm: searchTerm,
         },

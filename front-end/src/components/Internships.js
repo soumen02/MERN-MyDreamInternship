@@ -21,6 +21,9 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
+
 export default function Internships() {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -30,7 +33,7 @@ export default function Internships() {
 
   const fetchInternships = () => {
     axios
-      .get("http://localhost:5002/get_internships", {
+      .get(`${API_URL}get_internships`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -57,7 +60,7 @@ export default function Internships() {
     }
 
     axios
-      .post("http://localhost:5002/search_internships", {
+      .post(`${API_URL}search_internships`, {
         params: {
           searchTerm: searchTerm,
         },

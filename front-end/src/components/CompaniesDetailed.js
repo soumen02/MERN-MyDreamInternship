@@ -22,6 +22,7 @@ import { useTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import ReadMore from "./ReadMore";
 
+const API_URL = process.env.NODE_ENV === 'production' ? window.API_URL : process.env.REACT_APP_API_URL;
 
 export default function CompaniesDetailed() {
   const theme = useTheme();
@@ -34,7 +35,7 @@ export default function CompaniesDetailed() {
 
   const fetchReviews = () => {
     axios
-      .post("http://localhost:5002/get_reviews",{reviewids: selectedCompany.reviewids})
+      .post(`${API_URL}get_reviews`,{reviewids: selectedCompany.reviewids})
       .then((response) => {
         // axios bundles up all response data in response.data property
         const r = response.data;
@@ -53,7 +54,7 @@ export default function CompaniesDetailed() {
     // setMessages([])
     // setLoaded(false)
     axios
-      .post("http://localhost:5002/get_company_internships", {
+      .post(`${API_URL}get_company_internships`, {
         companyPositions: selectedCompany.companyPositions,
       })
       .then((response) => {
